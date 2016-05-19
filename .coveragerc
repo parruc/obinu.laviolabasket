@@ -1,6 +1,10 @@
 [report]
 include =
+<<<<<<< HEAD
     src/parruc/*
+=======
+    src/obinu/*
+>>>>>>> d491113c1db79f0d52c6644918cd4a70c9c5889d
 omit =
     */test*
     */upgrades/*
