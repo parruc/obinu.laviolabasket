@@ -1,0 +1,6 @@
+[report]
+include =
+    src/obinu/*
+omit =
+    */test*
+    */upgrades/*
