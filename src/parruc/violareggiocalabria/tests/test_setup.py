@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
-from parruc.violareggiocalabria.testing import PARRUC_VIOLAREGGIOCALABRIA_INTEGRATION_TESTING  # noqa
-from plone import api
-
 import unittest
+
+from parruc.violareggiocalabria.testing import \
+    PARRUC_VIOLAREGGIOCALABRIA_INTEGRATION_TESTING  # noqa
+from plone import api
 
 
 class TestSetup(unittest.TestCase):
@@ -26,7 +27,8 @@ class TestSetup(unittest.TestCase):
         from parruc.violareggiocalabria.interfaces import (
             IParrucViolareggiocalabriaLayer)
         from plone.browserlayer import utils
-        self.assertIn(IParrucViolareggiocalabriaLayer, utils.registered_layers())
+        self.assertIn(IParrucViolareggiocalabriaLayer,
+                      utils.registered_layers())
 
 
 class TestUninstall(unittest.TestCase):
@@ -45,6 +47,8 @@ class TestUninstall(unittest.TestCase):
 
     def test_browserlayer_removed(self):
         """Test that IParrucViolareggiocalabriaLayer is removed."""
-        from parruc.violareggiocalabria.interfaces import IParrucViolareggiocalabriaLayer
+        from parruc.violareggiocalabria.interfaces import \
+            IParrucViolareggiocalabriaLayer
         from plone.browserlayer import utils
-        self.assertNotIn(IParrucViolareggiocalabriaLayer, utils.registered_layers())
+        self.assertNotIn(IParrucViolareggiocalabriaLayer,
+                         utils.registered_layers())
