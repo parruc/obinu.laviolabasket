@@ -5,4 +5,5 @@
   <object name="Squadra" meta_type="Dexterity FTI"/>
   <object name="Partita" meta_type="Dexterity FTI"/>
   <object name="Giocatore" meta_type="Dexterity FTI"/>
+  <object name="Video" meta_type="Dexterity FTI"/>
 </object>

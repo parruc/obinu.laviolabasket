@@ -4,12 +4,11 @@
 from zope import schema
 from zope.interface import Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-from plone.namedfile.field import NamedBlobImage
-from z3c.relationfield.schema import RelationChoice
-from plone.formwidget.contenttree import ObjPathSourceBinder
-
 
 from parruc.violareggiocalabria import _
+from plone.formwidget.contenttree import ObjPathSourceBinder
+from plone.namedfile.field import NamedBlobFile, NamedBlobImage
+from z3c.relationfield.schema import RelationChoice
 
 
 class IParrucViolareggiocalabriaLayer(IDefaultBrowserLayer):
@@ -38,33 +37,34 @@ class ISquadra(Interface):
         required=True,
     )
 
+
 class IPartita(Interface):
 
     home = RelationChoice(
         title=_("Squadra di casa"),
         source=ObjPathSourceBinder(object_provides=ISquadra.__identifier__),
-        required = True,
+        required=True,
     )
 
     away = RelationChoice(
         title=_("Squadra ospite"),
         source=ObjPathSourceBinder(object_provides=ISquadra.__identifier__),
-        required = True,
+        required=True,
     )
 
     score_home = schema.Int(
-        title = _("Punteggio della squadra di casa"),
-        required = False,
+        title=_("Punteggio della squadra di casa"),
+        required=False,
     )
 
     score_away = schema.Int(
-        title = _("Punteggio della squadra in trasferta"),
-        required = False,
+        title=_("Punteggio della squadra in trasferta"),
+        required=False,
     )
 
     start = schema.Datetime(
         title=_("Data ed ora di inizio della partita"),
-        required = True,
+        required=True,
     )
 
     campionato = schema.TextLine(
@@ -72,17 +72,26 @@ class IPartita(Interface):
         default=_("Campionato regolare serie A2"),
     )
 
+
 class IGiocatore(Interface):
 
     nome = schema.TextLine(
         title=_("Nome"),
-        required = True,
+        required=True,
     )
     cognome = schema.TextLine(
         title=_("Cognome"),
-        required = True,
+        required=True,
     )
     foto = NamedBlobImage(
         title=_(u"Foto"),
         required=True,
+    )
+
+
+class IVideo(Interface):
+
+    video = NamedBlobFile(
+        title=_("Video"),
+        required=True
     )

@@ -1,0 +1,17 @@
+<!-- Embedded video -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master">
+
+    <metal:block fill-slot="content-core">
+        aaa
+        <video width="100%" controls>
+            <source src="movie.mp4"
+                    type="video/mp4"
+                    tal:attributes="src string:${context/absolute_url}/@@download/video/${context/video/filename}" />
+        <tal:block i18n:translate="">Il tuo browser non supporta questi video.</tal:block>
+        </video>
+    </metal:block>
+</html>
