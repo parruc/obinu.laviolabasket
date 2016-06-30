@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<object name="Sponsor" meta_type="Dexterity FTI" i18n:domain="parruc.violareggiocalabria"
+<object name="Giocatore" meta_type="Dexterity FTI" i18n:domain="parruc.violareggiocalabria"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-  <property name="title" i18n:translate="">Sponsor</property>
+  <property name="title" i18n:translate="">Giocatore</property>
   <property name="description"
     i18n:translate=""></property>
   <property name="icon_expr"></property>
-  <property name="factory">Sponsor</property>
-  <property name="add_view_expr">string:${folder_url}/++add++Sponsor</property>
+  <property name="factory">Giocatore</property>
+  <property name="add_view_expr">string:${folder_url}/++add++Giocatore</property>
   <property name="link_target"></property>
   <property name="immediate_view">view</property>
   <property name="global_allow">True</property>
@@ -24,9 +24,8 @@
   <property name="behaviors">
     <element value="plone.app.content.interfaces.INameFromTitle"/>
     <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
-    <element value="plone.app.contenttypes.behaviors.leadimage.ILeadImage"/>
   </property>
-  <property name="schema">parruc.violareggiocalabria.interfaces.ISponsor</property>
+  <property name="schema">parruc.violareggiocalabria.interfaces.IGiocatore</property>
   <property name="model_source"></property>
   <property name="model_file"></property>
   <alias from="(Default)" to="(dynamic view)"/>

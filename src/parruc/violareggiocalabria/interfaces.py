@@ -4,6 +4,9 @@
 from zope import schema
 from zope.interface import Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+from plone.namedfile import NamedBlobImage
+from zc3.relationfield import Relation
+from plone.formwidget.contenttree import ObjPathSourceBinder
 
 from parruc.violareggiocalabria import _
 
@@ -14,12 +17,71 @@ class IParrucViolareggiocalabriaLayer(IDefaultBrowserLayer):
 
 class ISponsor(Interface):
 
-    title = schema.TextLine(
-        title=_(u"Title"),
+    pass
+
+
+class ISquadra(Interface):
+
+    image = NamedBlobImage(
+        title=_(u"Logo"),
         required=True,
     )
 
-    description = schema.Text(
-        title=_(u"Description"),
-        required=False,
+    played = schema.Int(
+        title=_(u"Numero di partite giocatte"),
+        required=True,
+    )
+
+    points = schema.Int(
+        title=_(u"Numero di punti"),
+        required=True,
+    )
+
+class IPartita(Interface):
+
+    home = Relation(
+        title=_("Squadra di casa"),
+        source=ObjPathSourceBinder(object_provides=ISquadra.__identifier__),
+        required = True,
+    )
+
+    away = Relation(
+        title=_("Squadra ospite"),
+        source=ObjPathSourceBinder(object_provides=ISquadra.__identifier__),
+        required = True,
+    )
+
+    score_home = schema.Int(
+        title = _("Punteggio della squadra di casa"),
+        required = False,
+    )
+
+    score_away = schema.Int(
+        title = _("Punteggio della squadra in trasferta"),
+        required = False,
+    )
+
+    start = schema.Datetime(
+        title=_("Data ed ora di inizio della partita"),
+        required = True,
+    )
+
+    campionato = schema.TextLine(
+        title=_("Campionato"),
+        default=_("Campionato regolare serie A2"),
+    )
+
+class IGiocatore(Interface):
+
+    nome = chema.TextLine(
+        title=_("Nome"),
+        required = True,
+    )
+    cognome = chema.TextLine(
+        title=_("Cognome"),
+        required = True,
+    )
+    foto = NamedBlobImage(
+        title=_(u"Foto"),
+        required=True,
     )

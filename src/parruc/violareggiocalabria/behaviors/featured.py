@@ -13,7 +13,7 @@ from plone.supermodel import model
 class IFeatured(model.Schema):
 
     featured = schema.Bool(
-        title=_(u'Featured'),
+        title=_(u'Mostra in Homepage'),
         description=u"",
         required=False,
     )
