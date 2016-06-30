@@ -4,9 +4,10 @@
 from zope import schema
 from zope.interface import Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-from plone.namedfile import NamedBlobImage
-from zc3.relationfield import Relation
+from plone.namedfile.field import NamedBlobImage
+from z3c.relationfield.schema import RelationChoice
 from plone.formwidget.contenttree import ObjPathSourceBinder
+
 
 from parruc.violareggiocalabria import _
 
@@ -39,13 +40,13 @@ class ISquadra(Interface):
 
 class IPartita(Interface):
 
-    home = Relation(
+    home = RelationChoice(
         title=_("Squadra di casa"),
         source=ObjPathSourceBinder(object_provides=ISquadra.__identifier__),
         required = True,
     )
 
-    away = Relation(
+    away = RelationChoice(
         title=_("Squadra ospite"),
         source=ObjPathSourceBinder(object_provides=ISquadra.__identifier__),
         required = True,
@@ -73,11 +74,11 @@ class IPartita(Interface):
 
 class IGiocatore(Interface):
 
-    nome = chema.TextLine(
+    nome = schema.TextLine(
         title=_("Nome"),
         required = True,
     )
-    cognome = chema.TextLine(
+    cognome = schema.TextLine(
         title=_("Cognome"),
         required = True,
     )
