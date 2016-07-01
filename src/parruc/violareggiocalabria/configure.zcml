@@ -10,6 +10,7 @@
 
   <include package=".browser" />
   <include package=".behaviors" />
+  <include file="permissions.zcml" />
 
 
   <genericsetup:registerProfile
@@ -32,6 +33,8 @@
 
   <utility
       factory=".setuphandlers.HiddenProfiles"
-      name="parruc.violareggiocalabria-hiddenprofiles" />
+      name="parruc.violareggiocalabria-hiddenprofiles"
+      />
+
 
 </configure>

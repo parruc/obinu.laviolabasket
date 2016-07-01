@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<rolemap>
+    <permissions>
+        <permission name="parruc.violareggiocalabria: Add Giocatore" acquire="False">
+          <role name="Manager"/>
+        </permission>
+        <permission name="parruc.violareggiocalabria: Add News Item" acquire="False">
+          <role name="Manager"/>
+        </permission>
+        <permission name="parruc.violareggiocalabria: Add Partita" acquire="False">
+          <role name="Manager"/>
+        </permission>
+        <permission name="parruc.violareggiocalabria: Add Sponsor" acquire="False">
+          <role name="Manager"/>
+        </permission>
+        <permission name="parruc.violareggiocalabria: Add Squadra" acquire="False">
+          <role name="Manager"/>
+        </permission>
+        <permission name="parruc.violareggiocalabria: Add Video" acquire="False">
+          <role name="Manager"/>
+        </permission>
+  </permissions>
+</rolemap>

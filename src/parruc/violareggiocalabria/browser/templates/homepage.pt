@@ -1,0 +1,22 @@
+<!-- Homepage -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="parruc.violareggiocalabria"
+      metal:use-macro="context/main_template/macros/master">
+
+    <metal:block fill-slot="content-core">
+        <h2 i18n:translate="">Partite</h2>
+        <div tal:define="last_played_match view/last_played_match">
+            <h3>
+                <tal:block tal:replace="last_played_match/home/to_object/title" />:
+                <tal:block tal:replace="last_played_match/score_home" />
+            </h3>
+            <h3>
+                <tal:block tal:replace="last_played_match/away/to_object/title" />:
+                <tal:block tal:replace="last_played_match/score_away" />
+            </h3>
+        </div>
+    </metal:block>
+</html>

@@ -3,4 +3,9 @@
     <index name="start" meta_type="DateIndex">
         <indexed_attr value="start"/>
     </index>
+
+    <column value="home"/>
+    <column value="away"/>
+    <column value="score_home"/>
+    <column value="score_away"/>
 </object>

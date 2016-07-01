@@ -2,6 +2,7 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="parruc.violareggiocalabria">
 
     <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
@@ -23,6 +24,15 @@
         name="view"
         class=".video.VideoView"
         template="templates/video.pt"
+        permission="zope2.View"
+        layer="..interfaces.IParrucViolareggiocalabriaLayer"
+    />
+
+    <browser:page
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        name="hp_view"
+        class=".homepage.HomepageView"
+        template="templates/homepage.pt"
         permission="zope2.View"
         layer="..interfaces.IParrucViolareggiocalabriaLayer"
     />

@@ -6,6 +6,7 @@ from zope.component import getUtility
 from zope.interface import implementer
 from zope.intid.interfaces import IIntIds
 
+import transaction
 from parruc.violareggiocalabria import _
 from plone import api
 from Products.CMFPlone.interfaces import INonInstallable
@@ -26,15 +27,19 @@ def post_install(context):
     """Post install script"""
     # Do something at the end of the installation of this package.
     _create_content()
+    transaction.commit()
 
 
 def uninstall(context):
     """Uninstall script"""
     # Do something at the end of the uninstallation of this package.
-
-folders = [_("Squadre"), _("Video"),
-           _("Partite"), _("Notizie"),
-           _("Giocatori"), _("Sponsor")]
+base_perm = "parruc.violareggiocalabria: Add "
+folders = [{"title": _("Giocatori"), "permission": base_perm + "Giocatore"},
+           {"title": _("Notizie"), "permission": base_perm + "News Item"},
+           {"title": _("Partite"), "permission": base_perm + "Partita"},
+           {"title": _("Sponsor"), "permission": base_perm + "Sponsor"},
+           {"title": _("Squadre"), "permission": base_perm + "Squadra"},
+           {"title": _("Video"), "permission": base_perm + "Video"}, ]
 
 
 def load_image(path):
@@ -72,8 +77,11 @@ def _create_content():
     logo_path = os.path.join(os.path.dirname(__file__), 'browser', 'static',
                              'violareggiocalabria-logo.png')
     for folder in folders:
-        obj = api.content.create(container=portal, type="Folder", title=folder)
+        obj = api.content.create(container=portal, type="Folder",
+                                 title=folder["title"])
+        obj.manage_permission(folder["permission"], roles=['Editor'], acquire=True)
         api.content.transition(obj=obj, transition='publish')
+
     folder = portal.get("squadre")
     teams = []
     for squadra in squadre:
@@ -86,6 +94,5 @@ def _create_content():
     for partita in partite:
         partita['home'] = teams[partita["home_index"]]
         partita['away'] = teams[partita["away_index"]]
-        import ipdb; ipdb.set_trace()
         obj = api.content.create(container=folder, type="Partita", **partita)
         api.content.transition(obj=obj, transition='publish')
