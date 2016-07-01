@@ -6,7 +6,6 @@
       metal:use-macro="context/main_template/macros/master">
 
     <metal:block fill-slot="content-core">
-        aaa
         <video width="100%" controls>
             <source src="movie.mp4"
                     type="video/mp4"

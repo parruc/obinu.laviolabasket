@@ -6,8 +6,9 @@ from zope.interface import Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 from parruc.violareggiocalabria import _
-from plone.formwidget.contenttree import ObjPathSourceBinder
+from plone.app.vocabularies.catalog import CatalogSource
 from plone.namedfile.field import NamedBlobFile, NamedBlobImage
+from plone.supermodel import model
 from z3c.relationfield.schema import RelationChoice
 
 
@@ -15,14 +16,18 @@ class IParrucViolareggiocalabriaLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
 
 
-class ISponsor(Interface):
+class ISponsor(model.Schema):
 
     pass
 
 
-class ISquadra(Interface):
+squadre = CatalogSource(path={'query': "/violareggiocalabria/", 'depth': -1},
+                        portal_type=("Squadra"))
 
-    image = NamedBlobImage(
+
+class ISquadra(model.Schema):
+
+    logo = NamedBlobImage(
         title=_(u"Logo"),
         required=True,
     )
@@ -38,23 +43,23 @@ class ISquadra(Interface):
     )
 
 
-class IPartita(Interface):
+class IPartita(model.Schema):
 
     home = RelationChoice(
         title=_("Squadra di casa"),
-        source=ObjPathSourceBinder(object_provides=ISquadra.__identifier__),
-        required=True,
-    )
-
-    away = RelationChoice(
-        title=_("Squadra ospite"),
-        source=ObjPathSourceBinder(object_provides=ISquadra.__identifier__),
+        source=squadre,
         required=True,
     )
 
     score_home = schema.Int(
         title=_("Punteggio della squadra di casa"),
         required=False,
+    )
+
+    away = RelationChoice(
+        title=_("Squadra ospite"),
+        source=squadre,
+        required=True,
     )
 
     score_away = schema.Int(
@@ -67,29 +72,29 @@ class IPartita(Interface):
         required=True,
     )
 
-    campionato = schema.TextLine(
+    league = schema.TextLine(
         title=_("Campionato"),
         default=_("Campionato regolare serie A2"),
     )
 
 
-class IGiocatore(Interface):
+class IGiocatore(model.Schema):
 
-    nome = schema.TextLine(
+    name = schema.TextLine(
         title=_("Nome"),
         required=True,
     )
-    cognome = schema.TextLine(
+    surname = schema.TextLine(
         title=_("Cognome"),
         required=True,
     )
-    foto = NamedBlobImage(
+    picture = NamedBlobImage(
         title=_(u"Foto"),
         required=True,
     )
 
 
-class IVideo(Interface):
+class IVideo(model.Schema):
 
     video = NamedBlobFile(
         title=_("Video"),
