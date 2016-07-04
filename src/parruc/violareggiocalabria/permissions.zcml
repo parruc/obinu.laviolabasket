@@ -31,4 +31,10 @@
     id="parruc.violareggiocalabria.AddVideo"
     title="parruc.violareggiocalabria: Add Video"
     />
+
+<permission
+    id="parruc.violareggiocalabria.AddSlide"
+    title="parruc.violareggiocalabria: Add Slide"
+    />
+
 </configure>

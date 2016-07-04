@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 <object name="News Item" meta_type="Dexterity FTI" i18n:domain="plone"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="add_permission">parruc.violareggiocalabria.AddNewsItem</property>
  <property name="behaviors" purge="false">
   <element value="parruc.violareggiocalabria.behaviors.featured.IFeatured"/>
+  <element value="plone.app.dexterity.behaviors.id.IShortName"/>
  </property>
 </object>

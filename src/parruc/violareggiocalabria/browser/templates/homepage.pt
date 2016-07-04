@@ -10,7 +10,8 @@
         <h2 i18n:translate="">Partite</h2>
 
         <!-- Ultima partita giocata -->
-        <div tal:define="last_played_match view/last_played_match">
+        <div tal:define="last_played_match view/last_played_match"
+             tal:condition="last_played_match|nothing">
             <h3>
                 <tal:block tal:replace="last_played_match/home/to_object/title" />:
                 <tal:block tal:replace="last_played_match/score_home" />
@@ -22,8 +23,9 @@
         </div>
 
         <!-- Prossime partite -->
-        <div>
-            <div tal:repeat="match view/future_matches">
+        <div tal:define="future_matches view/future_matches"
+             tal:condition="future_matches|nothing">
+            <div tal:repeat="match future_matches">
                 <h4>
                     <tal:block tal:replace="match/home/to_object/title" />
                      -
@@ -33,6 +35,31 @@
         </div>
 
         <!-- Countdown prossima partita -->
-        <div id="countdown" data-deadline="2020/10/10 12:34:56" tal:attributes="data-deadline view/next_match_datetime"></div>
+        <div tal:define="next_match_datetime view/next_match_datetime"
+             tal:condition="next_match_datetime|nothing" id="countdown"
+             data-deadline="2020/10/10 12:34:56" tal:attributes="data-deadline next_match_datetime">
+        </div>
+
+        <!-- Latest Videos -->
+        <div tal:define="videos view/latest_videos" tal:condition="videos">
+            <div tal:repeat="video videos">
+                <video width="100%" controls>
+                    <source src="movie.mp4"
+                            type="video/mp4"
+                            tal:attributes="src string:${video/absolute_url}/@@download/video/${video/video/filename}" />
+                <tal:block i18n:translate="">Il tuo browser non supporta questo video.</tal:block>
+                </video>
+            </div>
+        </div>
+
+        <!-- Players -->
+        <div tal:define="players view/players" tal:condition="players">
+            <div tal:repeat="player players">
+                <span tal:content="player/name" />
+                <span tal:content="player/surname" />
+                <img src="" tal:define="scale player/@@images"
+                     tal:replace="structure python: scale.scale('picture', scale='mini').tag()" />
+            </div>
+        </div>
     </metal:block>
 </html>

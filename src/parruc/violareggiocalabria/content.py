@@ -2,7 +2,8 @@
 from zope.interface import implements
 
 from parruc.violareggiocalabria.interfaces import (IGiocatore, IPartita,
-                                                   ISponsor, ISquadra, IVideo)
+                                                   ISlide, ISponsor, ISquadra,
+                                                   IVideo)
 from plone.dexterity.content import Item
 
 
@@ -16,6 +17,10 @@ class Partita(Item):
 
 class Sponsor(Item):
     implements(ISponsor)
+
+
+class Slide(Item):
+    implements(ISlide)
 
 
 class Squadra(Item):

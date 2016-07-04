@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<object name="Partita" meta_type="Dexterity FTI" i18n:domain="parruc.violareggiocalabria"
+<object name="Slide" meta_type="Dexterity FTI" i18n:domain="parruc.violareggiocalabria"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-  <property name="title" i18n:translate="">Partita</property>
+  <property name="title" i18n:translate="">Slide</property>
   <property name="description"
     i18n:translate=""></property>
   <property name="icon_expr"></property>
-  <property name="factory">Partita</property>
-  <property name="add_view_expr">string:${folder_url}/++add++Partita</property>
+  <property name="factory">Slide</property>
+  <property name="add_view_expr">string:${folder_url}/++add++Slide</property>
   <property name="link_target"></property>
   <property name="immediate_view">view</property>
   <property name="global_allow">True</property>
@@ -19,14 +19,14 @@
     <element value="view"/>
   </property>
   <property name="default_view_fallback">False</property>
-  <property name="add_permission">parruc.violareggiocalabria.AddPartita</property>
-  <property name="klass">parruc.violareggiocalabria.content.Partita</property>
+  <property name="add_permission">parruc.violareggiocalabria.AddSlide</property>
+  <property name="klass">parruc.violareggiocalabria.content.Slide</property>
   <property name="behaviors">
-    <element value="plone.app.content.interfaces.INameFromTitle"/>
+    <element value="plone.app.dexterity.behaviors.filename.INameFromFileName"/>
     <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
     <element value="plone.app.dexterity.behaviors.id.IShortName"/>
   </property>
-  <property name="schema">parruc.violareggiocalabria.interfaces.IPartita</property>
+  <property name="schema">parruc.violareggiocalabria.interfaces.ISlide</property>
   <property name="model_source"></property>
   <property name="model_file"></property>
   <alias from="(Default)" to="(dynamic view)"/>

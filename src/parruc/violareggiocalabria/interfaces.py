@@ -2,7 +2,6 @@
 """Module where all interfaces, events and exceptions live."""
 
 from zope import schema
-from zope.interface import Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 from parruc.violareggiocalabria import _
@@ -91,6 +90,14 @@ class IGiocatore(model.Schema):
     picture = NamedBlobImage(
         title=_(u"Foto"),
         required=True,
+    )
+
+
+class ISlide(model.Schema):
+
+    video = NamedBlobImage(
+        title=_("Immagine"),
+        required=True
     )
 
 

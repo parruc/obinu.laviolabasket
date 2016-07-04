@@ -30,7 +30,7 @@
 
     <browser:page
         for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
-        name="hp_view"
+        name="hp"
         class=".homepage.HomepageView"
         template="templates/homepage.pt"
         permission="zope2.View"

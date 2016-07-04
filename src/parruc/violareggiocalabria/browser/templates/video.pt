@@ -10,7 +10,7 @@
             <source src="movie.mp4"
                     type="video/mp4"
                     tal:attributes="src string:${context/absolute_url}/@@download/video/${context/video/filename}" />
-        <tal:block i18n:translate="">Il tuo browser non supporta questi video.</tal:block>
+        <tal:block i18n:translate="">Il tuo browser non supporta questo video.</tal:block>
         </video>
     </metal:block>
 </html>

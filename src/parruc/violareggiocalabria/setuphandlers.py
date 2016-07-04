@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import logging
 import os
 from datetime import datetime
 
@@ -11,6 +12,8 @@ from parruc.violareggiocalabria import _
 from plone import api
 from Products.CMFPlone.interfaces import INonInstallable
 from z3c.relationfield import RelationValue
+
+logger = logging.getLogger('parruc.violareggiocalabria')
 
 
 @implementer(INonInstallable)
@@ -39,7 +42,8 @@ folders = [{"title": _("Giocatori"), "permission": base_perm + "Giocatore"},
            {"title": _("Partite"), "permission": base_perm + "Partita"},
            {"title": _("Sponsor"), "permission": base_perm + "Sponsor"},
            {"title": _("Squadre"), "permission": base_perm + "Squadra"},
-           {"title": _("Video"), "permission": base_perm + "Video"}, ]
+           {"title": _("Video"), "permission": base_perm + "Video"},
+           {"title": _("Slider"), "permission": base_perm + "Slide"}, ]
 
 
 def load_image(path):
@@ -53,23 +57,23 @@ def load_image(path):
 
 squadre = [{"title": "Viola Reggiocalabria",
             "played": 10, "points": 15},
-            {"title": "Chicago Bulls",
+           {"title": "Chicago Bulls",
             "played": 10, "points": 30},
-            {"title": "Predappio Basket",
+           {"title": "Predappio Basket",
             "played": 10, "points": 0}]
 
 partite = [{"title": "Vittoria al cardiopalma",
-            "home_index":0, "away_index": 1,
+            "home_index": 0, "away_index": 1,
             "score_home": 100, "score_away": 99,
-            "start": datetime(2016, 6, 1, 15, 30, 0),},
-            {"title": "Grande vittoria fuori casa",
-            "home_index":2, "away_index": 0,
-             "score_home": 120, "score_away": 45,
-             "start": datetime(2016, 7, 1, 19, 30, 0),},
-             {"title": "Sconfitta di misura",
-              "home_index":1, "away_index": 0,
-              "score_home": 98, "score_away": 110,
-              "start": datetime(2016, 8, 1, 21, 30, 0),},]
+            "start": datetime(2016, 6, 1, 15, 30, 0), },
+           {"title": "Grande vittoria fuori casa",
+            "home_index": 2, "away_index": 0,
+            "score_home": 120, "score_away": 45,
+            "start": datetime(2016, 7, 1, 19, 30, 0), },
+           {"title": "Sconfitta di misura",
+            "home_index": 1, "away_index": 0,
+            "score_home": 98, "score_away": 110,
+            "start": datetime(2016, 8, 1, 21, 30, 0), }, ]
 
 
 def _create_content():
@@ -77,14 +81,19 @@ def _create_content():
     logo_path = os.path.join(os.path.dirname(__file__), 'browser', 'static',
                              'violareggiocalabria-logo.png')
     for folder in folders:
+        if api.content.find(portal_type='Folder', Title=folder["title"]):
+            continue
         obj = api.content.create(container=portal, type="Folder",
                                  title=folder["title"])
-        obj.manage_permission(folder["permission"], roles=['Editor'], acquire=True)
+        obj.manage_permission(folder["permission"], roles=['Editor'],
+                              acquire=True)
         api.content.transition(obj=obj, transition='publish')
 
     folder = portal.get("squadre")
     teams = []
     for squadra in squadre:
+        if api.content.find(portal_type='Squadra', Title=squadra["title"]):
+            continue
         squadra["logo"] = load_image(unicode(logo_path))
         obj = api.content.create(container=folder, type="Squadra", **squadra)
         obj.logo = load_image(logo_path)
@@ -92,6 +101,8 @@ def _create_content():
         api.content.transition(obj=obj, transition='publish')
     folder = portal.get("partite")
     for partita in partite:
+        if api.content.find(portal_type='Partita', Title=partita["title"]):
+            continue
         partita['home'] = teams[partita["home_index"]]
         partita['away'] = teams[partita["away_index"]]
         obj = api.content.create(container=folder, type="Partita", **partita)
