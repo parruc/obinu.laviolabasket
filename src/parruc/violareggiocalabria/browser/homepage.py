@@ -37,6 +37,5 @@ class HomepageView(BrowserView):
         return self.pc.searchResults(query)[:limit]
 
     def next_match_datetime(self):
-        import ipdb; ipdb.set_trace()
         next_match = self.future_matches(1)[0]
         return next_match["start"].strftime("%Y/%m/%d %H:%M:%S")
