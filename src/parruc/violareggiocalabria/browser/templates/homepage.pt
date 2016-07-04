@@ -8,6 +8,8 @@
 
     <metal:block fill-slot="content-core">
         <h2 i18n:translate="">Partite</h2>
+
+        <!-- Ultima partita giocata -->
         <div tal:define="last_played_match view/last_played_match">
             <h3>
                 <tal:block tal:replace="last_played_match/home/to_object/title" />:
@@ -18,5 +20,19 @@
                 <tal:block tal:replace="last_played_match/score_away" />
             </h3>
         </div>
+
+        <!-- Prossime partite -->
+        <div>
+            <div tal:repeat="match view/future_matches">
+                <h4>
+                    <tal:block tal:replace="match/home/to_object/title" />
+                     -
+                    <tal:block tal:replace="match/away/to_object/title" />
+                </h4>
+            </div>
+        </div>
+
+        <!-- Countdown prossima partita -->
+        <div id="countdown" data-deadline="2020/10/10 12:34:56" tal:attributes="data-deadline view/next_match_datetime"></div>
     </metal:block>
 </html>

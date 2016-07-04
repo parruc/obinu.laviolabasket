@@ -26,3 +26,17 @@ class HomepageView(BrowserView):
         for match in matches:
             if match["score_home"] and match["score_away"]:
                 return match
+
+    def future_matches(self,limit=5):
+        now = datetime.now()
+        query = {"portal_type": "Partita",
+                 "start":{'query':[now],'range':'min'},
+                 "sort_on":"start",
+                 "sort_order":"ascending",
+                 "sort_limit":limit}
+        return self.pc.searchResults(query)[:limit]
+
+    def next_match_datetime(self):
+        import ipdb; ipdb.set_trace()
+        next_match = self.future_matches(1)[0]
+        return next_match["start"].strftime("%Y/%m/%d %H:%M:%S")
