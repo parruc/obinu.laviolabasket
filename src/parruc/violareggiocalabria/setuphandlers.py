@@ -29,6 +29,7 @@ class HiddenProfiles(object):
 def post_install(context):
     """Post install script"""
     # Do something at the end of the installation of this package.
+    _create_structure()
     _create_content()
     transaction.commit()
 
@@ -76,7 +77,7 @@ partite = [{"title": "Vittoria al cardiopalma",
             "start": datetime(2016, 8, 1, 21, 30, 0), }, ]
 
 
-def _create_content():
+def _create_structure():
     portal = api.portal.get()
     logo_path = os.path.join(os.path.dirname(__file__), 'browser', 'static',
                              'violareggiocalabria-logo.png')
@@ -89,6 +90,11 @@ def _create_content():
                               acquire=True)
         api.content.transition(obj=obj, transition='publish')
 
+
+def _create_content():
+    portal = api.portal.get()
+    logo_path = os.path.join(os.path.dirname(__file__), 'browser', 'static',
+                             'violareggiocalabria-logo.png')
     folder = portal.get("squadre")
     teams = []
     for squadra in squadre:
