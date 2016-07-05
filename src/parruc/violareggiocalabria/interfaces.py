@@ -87,7 +87,7 @@ class IGiocatore(model.Schema):
         title=_("Cognome"),
         required=True,
     )
-    picture = NamedBlobImage(
+    image = NamedBlobImage(
         title=_(u"Foto"),
         required=True,
     )
@@ -95,8 +95,8 @@ class IGiocatore(model.Schema):
 
 class ISlide(model.Schema):
 
-    video = NamedBlobImage(
-        title=_("Immagine"),
+    image = NamedBlobImage(
+        title=_("Immagine slide"),
         required=True
     )
 

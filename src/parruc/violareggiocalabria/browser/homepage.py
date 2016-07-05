@@ -39,13 +39,16 @@ class HomepageView(BrowserView):
 
     def latest_videos(self, limit=5):
         query = {"portal_type": "Video",
-                 "sort_on": "effective",
-                 "sort_order": "descending",
+                 "sort_on": "getObjPositionInParent",
                  "sort_limit": limit}
         return [b.getObject() for b in api.content.find(**query)[:limit]]
 
     def players(self):
         query = {"portal_type": "Giocatore",
-                 "sort_on": "sortable_title",
-                 "sort_order": "ascending"}
+                 "sort_on": "getObjPositionInParent", }
+        return [b.getObject() for b in api.content.find(**query)]
+
+    def slides(self):
+        query = {"portal_type": "Slide",
+                 "sort_on": "getObjPositionInParent", }
         return [b.getObject() for b in api.content.find(**query)]

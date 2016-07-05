@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<registry>
+    <!-- SCALES -->
+    <records prefix="plone"
+             interface="Products.CMFPlone.interfaces.controlpanel.IImagingSchema">
+      <value key="allowed_sizes" purge="true">
+        <element>slide 1280:9999</element>
+        <element>large 768:768</element>
+        <element>preview 400:400</element>
+        <element>mini 200:200</element>
+        <element>thumb 128:128</element>
+        <element>tile 64:64</element>
+        <element>icon 32:32</element>
+        <element>listing 16:16</element>
+      </value>
+    </records>
+</registry>
