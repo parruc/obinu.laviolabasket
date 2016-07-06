@@ -8,6 +8,7 @@ from parruc.violareggiocalabria import _
 from plone.app.vocabularies.catalog import CatalogSource
 from plone.namedfile.field import NamedBlobFile, NamedBlobImage
 from plone.supermodel import model
+from plone.supermodel.directives import primary
 from z3c.relationfield.schema import RelationChoice
 
 
@@ -99,6 +100,8 @@ class ISlide(model.Schema):
         title=_("Immagine slide"),
         required=True
     )
+
+    primary("image")
 
 
 class IVideo(model.Schema):

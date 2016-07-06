@@ -6,9 +6,11 @@
         <element value="Giocatore" />
         <element value="News Item" />
         <element value="Partita" />
+        <element value="Slide" />
         <element value="Sponsor" />
         <element value="Squadra" />
         <element value="Video" />
         <element value="Folder" />
+        <element value="Document" />
     </property>
 </object>

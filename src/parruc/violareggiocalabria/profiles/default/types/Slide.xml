@@ -24,7 +24,6 @@
   <property name="behaviors">
     <element value="plone.app.dexterity.behaviors.filename.INameFromFileName"/>
     <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
-    <element value="plone.app.dexterity.behaviors.id.IShortName"/>
   </property>
   <property name="schema">parruc.violareggiocalabria.interfaces.ISlide</property>
   <property name="model_source"></property>

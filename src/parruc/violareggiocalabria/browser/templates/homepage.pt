@@ -1,78 +1,127 @@
 <!-- Homepage -->
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="parruc.violareggiocalabria"
-      metal:use-macro="context/main_template/macros/master">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="parruc.violareggiocalabria"
+  metal:use-macro="context/main_template/macros/master">
 
-    <metal:block fill-slot="content-core">
-        <h2 i18n:translate="">Partite</h2>
+  <metal:block fill-slot="content-core">
+    <h2 i18n:translate="">Partite</h2>
 
-    <div tal:define="slides view/slides" tal:condition="slides" class="slider">
-		<div class="flexslider">
-			<ul class="slides">
-				<li tal:repeat="slide slides">
-					<img src="" alt="" tal:replace="structure slide/@@images/image/mini"/>
-					<div class="caption"><div class="container">
-					<h1 tal:content="slide/title">Titolo</h1>
-					<!--a href="blog-single.html" class="btn btn-bordered">read more</a-->
-					</div></div>
-				</li>
-			</ul>
-		</div>
-	</div>
-
-        <!-- Ultima partita giocata -->
-        <div tal:define="last_played_match view/last_played_match"
-             tal:condition="last_played_match|nothing">
-            <h3>
-                <tal:block tal:replace="last_played_match/home/to_object/title" />:
-                <tal:block tal:replace="last_played_match/score_home" />
-            </h3>
-            <h3>
-                <tal:block tal:replace="last_played_match/away/to_object/title" />:
-                <tal:block tal:replace="last_played_match/score_away" />
-            </h3>
-        </div>
-
-        <!-- Prossime partite -->
-        <div tal:define="future_matches view/future_matches"
-             tal:condition="future_matches|nothing">
-            <div tal:repeat="match future_matches">
-                <h4>
-                    <tal:block tal:replace="match/home/to_object/title" />
-                     -
-                    <tal:block tal:replace="match/away/to_object/title" />
-                </h4>
+    <div id="full-width-slides" tal:define="slides view/slides" tal:condition="slides" class="slider">
+      <div class="flexslider">
+        <ul class="slides">
+          <li tal:repeat="slide slides">
+            <img src="" alt="" tal:replace="structure slide/@@images/image/slide"/>
+            <div class="caption">
+              <div class="container">
+                <h1 tal:content="slide/title">Titolo</h1>
+                <!--a href="blog-single.html" class="btn btn-bordered">read more</a-->
+              </div>
             </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Ultima partita giocata -->
+    <section id="m-a-n">
+      <div class="container">
+        <div class="col-8">
+          <div class="tab" i18n="">Partite</div>
+          <div class="match" tal:define="last_played_match view/last_played_match" tal:condition="last_played_match">
+            <tal:block tal:define="home nocall:last_played_match/home/to_object;
+                                   away nocall:last_played_match/away/to_object;">
+                <div class="col-6">
+                  <div class="m-img"><img src="http://placehold.it/311x148" alt=""/></div>
+                </div>
+                <div class="col-6">
+                  <div class="m-img"><img src="http://placehold.it/311x148" alt=""/></div>
+                </div>
+                <div class="m-result">
+                  <div class="logo-club col-3">
+                      <img src="" tal:replace="structure home/@@images/logo/logo"/>
+                  </div>
+                  <span class="result col-6">
+                    <tal:block tal:replace="last_played_match/score_home">20</tal:block>
+                    <b>:</b>
+                    <tal:block tal:replace="last_played_match/score_away">20</tal:block>
+                  </span>
+                  <div class="logo-club col-3">
+                      <img src="" tal:replace="structure away/@@images/logo/logo"/>
+                  </div>
+                  <div class="club-name col-12">
+                    <span class="col-3" tal:content="home/title">Bayern</span>
+                    <div class="match-name col-6" tal:content="last_played_match/league">Campionato serie A2</div>
+                    <span class="col-3" tal:content="away/title">Arsenal</span>
+                  </div>
+                </div>
+            </tal:block>
+          </div>
+          <!-- Prossime partite -->
+          <div class="a-games" tal:define="future_matches view/future_matches" tal:condition="future_matches|nothing">
+            <ul class="clearfix">
+              <li tal:repeat="match future_matches">
+                <span class="text-right"><tal:block tal:replace="match/home/to_object/title"/></span>
+                <span class="d-g" tal:content="match/start">14 Apr 21:45</span>
+                <span class="text-left"><tal:block tal:replace="match/away/to_object/title"/></span>
+              </li>
+            </ul>
+          </div>
         </div>
+        <div class="col-4">
+          <div class="tab">news</div>
+          <div class="tab-small">
+            <a href="#">see all news</a>
+          </div>
+          <div class="r-box-n">
+            <article>
+              <h3>
+                <a href="blog-single.html">Rangers review presents stark picture</a>
+              </h3>
+              <p>Praesent risus nisi, iaculis nec condimentum vel, rhoncus vel dolor. Aenean nisi lectus, varius nec tempus</p>
+              <span class="date-n">21 Mar</span>
+            </article>
+            <article>
+              <h3>
+                <a href="blog-single.html">Rangers review presents stark picture</a>
+              </h3>
+              <p>Praesent risus nisi, iaculis nec condimentum vel, rhoncus vel dolor. Aenean nisi lectus, varius nec tempus</p>
+              <span class="date-n">21 Mar</span>
+            </article>
+            <article>
+              <h3>
+                <a href="blog-single.html">Rangers review presents stark picture</a>
+              </h3>
+              <p>Praesent risus nisi, iaculis nec condimentum vel, rhoncus vel dolor. Aenean nisi lectus, varius nec tempus</p>
+              <span class="date-n">21 Mar</span>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- Countdown prossima partita -->
-        <div tal:define="next_match_datetime view/next_match_datetime"
-             tal:condition="next_match_datetime|nothing" id="countdown"
-             data-deadline="2020/10/10 12:34:56" tal:attributes="data-deadline next_match_datetime">
-        </div>
+    <!-- Countdown prossima partita -->
+    <div tal:define="next_match_datetime view/next_match_datetime" tal:condition="next_match_datetime|nothing" id="countdown" data-deadline="2020/10/10 12:34:56" tal:attributes="data-deadline next_match_datetime"></div>
 
-        <!-- Latest Videos -->
-        <div tal:define="videos view/latest_videos" tal:condition="videos">
-            <div tal:repeat="video videos">
-                <video width="100%" controls>
-                    <source src="movie.mp4"
-                            type="video/mp4"
-                            tal:attributes="src string:${video/absolute_url}/@@download/video/${video/video/filename}" />
-                <tal:block i18n:translate="">Il tuo browser non supporta questo video.</tal:block>
-                </video>
-            </div>
-        </div>
+    <!-- Latest Videos -->
+    <div tal:define="videos view/latest_videos" tal:condition="videos">
+      <div tal:repeat="video videos">
+        <video width="100%" controls>
+          <source src="movie.mp4" type="video/mp4" tal:attributes="src string:${video/absolute_url}/@@download/video/${video/video/filename}"/>
+          <tal:block i18n:translate="">Il tuo browser non supporta questo video.</tal:block>
+        </video>
+      </div>
+    </div>
 
-        <!-- Players -->
-        <div tal:define="players view/players" tal:condition="players">
-            <div tal:repeat="player players">
-                <span tal:content="player/name" />
-                <span tal:content="player/surname" />
-                <img src="" tal:replace="structure player/@@images/image/mini" />
-            </div>
-        </div>
-    </metal:block>
+    <!-- Players -->
+    <div tal:define="players view/players" tal:condition="players">
+      <div tal:repeat="player players">
+        <span tal:content="player/name"/>
+        <span tal:content="player/surname"/>
+        <img src="" tal:replace="structure player/@@images/image/mini"/>
+      </div>
+    </div>
+  </metal:block>
 </html>

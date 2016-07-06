@@ -4,6 +4,7 @@
         <indexed_attr value="start"/>
     </index>
 
+    <column value="league"/>
     <column value="home"/>
     <column value="away"/>
     <column value="score_home"/>
