@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 from zope.interface import implements
 
-from parruc.violareggiocalabria.interfaces import (IGiocatore, IPartita,
-                                                   ISlide, ISponsor, ISquadra,
-                                                   IVideo)
+from parruc.violareggiocalabria.interfaces import (IGiocatore, IHomepage,
+                                                   IPartita, ISlide, ISponsor,
+                                                   ISquadra, IVideo)
 from plone.dexterity.content import Item
+
+
+class Homepage(Item):
+    implements(IHomepage)
 
 
 class Giocatore(Item):

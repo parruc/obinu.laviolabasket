@@ -3,7 +3,7 @@ import logging
 import os
 from datetime import datetime
 
-from zope.component import getUtility
+from zope.component import getMultiAdapter, getUtility
 from zope.interface import implementer
 from zope.intid.interfaces import IIntIds
 
@@ -44,7 +44,7 @@ folders = [{"title": _("Giocatori"), "permission": base_perm + "Giocatore"},
            {"title": _("Sponsor"), "permission": base_perm + "Sponsor"},
            {"title": _("Squadre"), "permission": base_perm + "Squadra"},
            {"title": _("Video"), "permission": base_perm + "Video"},
-           {"title": _("Slider"), "permission": base_perm + "Slide"}, ]
+           {"title": _("Slides"), "permission": base_perm + "Slide"}, ]
 
 
 def load_image(path):
@@ -79,8 +79,6 @@ partite = [{"title": "Vittoria al cardiopalma",
 
 def _create_structure():
     portal = api.portal.get()
-    logo_path = os.path.join(os.path.dirname(__file__), 'browser', 'static',
-                             'violareggiocalabria-logo.png')
     for folder in folders:
         if api.content.find(portal_type='Folder', Title=folder["title"]):
             continue
@@ -95,6 +93,11 @@ def _create_content():
     portal = api.portal.get()
     logo_path = os.path.join(os.path.dirname(__file__), 'browser', 'static',
                              'violareggiocalabria-logo.png')
+    if not api.content.find(portal_type='Homepage'):
+        hp = api.content.create(container=portal,
+                                title="index",
+                                type="Homepage")
+        portal.setDefaultPage(hp.id)
     folder = portal.get("squadre")
     teams = []
     for squadra in squadre:

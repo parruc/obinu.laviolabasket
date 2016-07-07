@@ -29,7 +29,7 @@
     />
 
     <browser:page
-        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        for="..interfaces.IHomepage"
         name="hp"
         class=".homepage.HomepageView"
         template="templates/homepage.pt"

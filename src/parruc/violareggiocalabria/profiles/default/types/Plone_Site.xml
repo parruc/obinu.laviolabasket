@@ -5,9 +5,6 @@
     <property name="allowed_content_types">
         <element value="Folder" />
         <element value="Document" />
-    </property>
-    <property name="default_view">hp</property>
-    <property name="view_methods">
-      <element value="hp"/>
+        <element value="Homepage" />
     </property>
 </object>

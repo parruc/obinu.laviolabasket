@@ -17,7 +17,7 @@ class IFeatured(model.Schema):
         description=u"",
         required=False,
     )
-    model.primary('featured')
+    #  model.primary('featured')
 
 
 @implementer(IFeatured)

@@ -9,22 +9,6 @@
 
   <metal:block fill-slot="content-core">
     <h2 i18n:translate="">Partite</h2>
-
-    <div id="full-width-slides" tal:define="slides view/slides" tal:condition="slides" class="slider">
-      <div class="flexslider">
-        <ul class="slides">
-          <li tal:repeat="slide slides">
-            <img src="" alt="" tal:replace="structure slide/@@images/image/slide"/>
-            <div class="caption">
-              <div class="container">
-                <h1 tal:content="slide/title">Titolo</h1>
-                <!--a href="blog-single.html" class="btn btn-bordered">read more</a-->
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
     <!-- Ultima partita giocata -->
     <section id="m-a-n">
       <div class="container">

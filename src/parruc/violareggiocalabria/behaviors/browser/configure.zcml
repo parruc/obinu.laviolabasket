@@ -1,0 +1,19 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="parruc.violareggiocalabria">
+
+
+    <browser:viewlet
+        name="parruc.slider"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContent"
+        for="..slider.ISlider"
+        class=".slider.SliderViewlet"
+        template="./templates/slider.pt"
+        permission="zope2.View"
+        layer="...interfaces.IParrucViolareggiocalabriaLayer"
+    />
+
+</configure>

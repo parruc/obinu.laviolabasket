@@ -7,4 +7,5 @@
   <object name="Giocatore" meta_type="Dexterity FTI"/>
   <object name="Video" meta_type="Dexterity FTI"/>
   <object name="Slide" meta_type="Dexterity FTI"/>
+  <object name="Homepage" meta_type="Dexterity FTI"/>
 </object>

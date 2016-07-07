@@ -21,8 +21,13 @@ class ISponsor(model.Schema):
     pass
 
 
-squadre = CatalogSource(path={'query': "/violareggiocalabria/", 'depth': -1},
-                        portal_type=("Squadra"))
+class IHomepage(model.Schema):
+
+    pass
+
+
+teams = CatalogSource(path={'query': "/violareggiocalabria/", 'depth': -1},
+                      portal_type=("Squadra", ))
 
 
 class ISquadra(model.Schema):
@@ -47,7 +52,7 @@ class IPartita(model.Schema):
 
     home = RelationChoice(
         title=_("Squadra di casa"),
-        source=squadre,
+        source=teams,
         required=True,
     )
 
@@ -58,7 +63,7 @@ class IPartita(model.Schema):
 
     away = RelationChoice(
         title=_("Squadra ospite"),
-        source=squadre,
+        source=teams,
         required=True,
     )
 

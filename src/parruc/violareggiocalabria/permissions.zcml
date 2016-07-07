@@ -37,4 +37,8 @@
     title="parruc.violareggiocalabria: Add Slide"
     />
 
+<permission
+    id="parruc.violareggiocalabria.AddHomepage"
+    title="parruc.violareggiocalabria: Add Homepage"
+    />
 </configure>

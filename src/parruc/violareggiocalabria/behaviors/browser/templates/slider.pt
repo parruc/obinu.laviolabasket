@@ -1,0 +1,20 @@
+<!-- Slider -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="parruc.violareggiocalabria">
+  <div id="full-width-slides" tal:define="slides view/slides" tal:condition="slides" class="slider">
+    <div class="flexslider">
+      <ul class="slides">
+        <li tal:repeat="slide_ref slides">
+          <tal:block tal:define="slide nocall:slide_ref/to_object">
+            <img src="" alt="" tal:replace="structure slide/@@images/image/slide"/>
+            <div class="caption">
+              <div class="container">
+                <h1 tal:content="slide/title">Titolo</h1>
+                <!--a href="blog-single.html" class="btn btn-bordered">read more</a-->
+              </div>
+            </div>
+          </tal:block>
+        </li>
+      </ul>
+    </div>
+  </div>
+</html>
