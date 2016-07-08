@@ -7,6 +7,7 @@
         <element>slide 1920:9999</element>
         <element>large 768:768</element>
         <element>preview 400:400</element>
+        <!--element>match 311:148</element-->
         <element>mini 200:200</element>
         <element>logo 131:131</element>
         <element>thumb 128:128</element>

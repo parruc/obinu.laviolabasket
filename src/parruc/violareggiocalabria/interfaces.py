@@ -5,7 +5,7 @@ from zope import schema
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 from parruc.violareggiocalabria import _
-from plone.app.vocabularies.catalog import CatalogSource
+from parruc.violareggiocalabria.vocabularies import launches, teams
 from plone.namedfile.field import NamedBlobFile, NamedBlobImage
 from plone.supermodel import model
 from plone.supermodel.directives import primary
@@ -14,6 +14,7 @@ from z3c.relationfield.schema import RelationChoice
 
 class IParrucViolareggiocalabriaLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
+    pass
 
 
 class ISponsor(model.Schema):
@@ -23,11 +24,17 @@ class ISponsor(model.Schema):
 
 class IHomepage(model.Schema):
 
-    pass
+    launch = RelationChoice(
+        title=_(u"Lancio ad una pagina o notizia"),
+        description=_(u"Sostituisce il risultato dell'ultima partita"),
+        source=launches,
+        required=False,
+    )
 
-
-teams = CatalogSource(path={'query': "/violareggiocalabria/", 'depth': -1},
-                      portal_type=("Squadra", ))
+    launch_image = NamedBlobImage(
+        title=_(u"Immagine per il lancio"),
+        required=True,
+    )
 
 
 class ISquadra(model.Schema):
@@ -51,13 +58,13 @@ class ISquadra(model.Schema):
 class IPartita(model.Schema):
 
     home = RelationChoice(
-        title=_("Squadra di casa"),
+        title=_(u"Squadra di casa"),
         source=teams,
         required=True,
     )
 
     score_home = schema.Int(
-        title=_("Punteggio della squadra di casa"),
+        title=_(u"Punteggio della squadra di casa"),
         required=False,
     )
 

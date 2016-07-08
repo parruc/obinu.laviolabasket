@@ -38,13 +38,13 @@ def uninstall(context):
     """Uninstall script"""
     # Do something at the end of the uninstallation of this package.
 base_perm = "parruc.violareggiocalabria: Add "
-folders = [{"title": _("Giocatori"), "permission": base_perm + "Giocatore"},
-           {"title": _("Notizie"), "permission": base_perm + "News Item"},
-           {"title": _("Partite"), "permission": base_perm + "Partita"},
-           {"title": _("Sponsor"), "permission": base_perm + "Sponsor"},
-           {"title": _("Squadre"), "permission": base_perm + "Squadra"},
-           {"title": _("Video"), "permission": base_perm + "Video"},
-           {"title": _("Slides"), "permission": base_perm + "Slide"}, ]
+folders = [{"title": _("Giocatori"), "permission": base_perm + "Giocatore", "exclude_from_nav": True},
+           {"title": _("Notizie"), "permission": base_perm + "News Item", "exclude_from_nav": False},
+           {"title": _("Partite"), "permission": base_perm + "Partita", "exclude_from_nav": True},
+           {"title": _("Sponsor"), "permission": base_perm + "Sponsor", "exclude_from_nav": True},
+           {"title": _("Squadre"), "permission": base_perm + "Squadra", "exclude_from_nav": True},
+           {"title": _("Video"), "permission": base_perm + "Video", "exclude_from_nav": True},
+           {"title": _("Slides"), "permission": base_perm + "Slide", "exclude_from_nav": True}, ]
 
 
 def load_image(path):
@@ -83,7 +83,8 @@ def _create_structure():
         if api.content.find(portal_type='Folder', Title=folder["title"]):
             continue
         obj = api.content.create(container=portal, type="Folder",
-                                 title=folder["title"])
+                                 title=folder["title"],
+                                 exclude_from_nav=folder["exclude_from_nav"])
         obj.manage_permission(folder["permission"], roles=['Editor'],
                               acquire=True)
         api.content.transition(obj=obj, transition='publish')
@@ -98,6 +99,7 @@ def _create_content():
                                 title="index",
                                 type="Homepage")
         portal.setDefaultPage(hp.id)
+        api.content.transition(obj=hp, transition='publish')
     folder = portal.get("squadre")
     teams = []
     for squadra in squadre:
