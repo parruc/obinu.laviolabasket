@@ -5,11 +5,11 @@
       <ul class="slides">
         <li tal:repeat="slide_ref slides">
           <tal:block tal:define="slide nocall:slide_ref/to_object">
-            <img tal:define="scales slide/@@images" tal:replace="structure python:scales.tag('image', width=1920, height=390, direction='down')"/>
+            <img tal:define="scales slide/@@images" tal:replace="structure python:scales.tag('image', width=1920, height=592, direction='down')"/>
             <div class="caption">
               <div class="container">
                 <h1 tal:content="slide/title">Titolo</h1>
-                <a tal:condition="slide/url" tal:attributes="href slide/url" i18n:translate="" class="btn btn-bordered">Leggi</a>
+                <a tal:condition="slide/url" tal:attributes="href slide/url" i18n:translate="" class="btn btn-bordered read-more">Leggi</a>
               </div>
             </div>
           </tal:block>

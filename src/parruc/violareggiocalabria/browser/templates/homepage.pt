@@ -64,32 +64,18 @@
             </ul>
           </div>
         </div>
-        <div class="col-4">
-          <div class="tab">news</div>
+        <div class="col-4" tal:define="news view/latest_news">
+          <div class="tab">News</div>
           <div class="tab-small">
-            <a href="#">see all news</a>
+            <a href="" tal:attributes="href view/news_link">Vedi tutte</a>
           </div>
           <div class="r-box-n">
-            <article>
+            <article tal:repeat="new news">
               <h3>
-                <a href="blog-single.html">Rangers review presents stark picture</a>
+                <a href="" tal:content="new/title" tal:attributes="href new/absolute_url">La Viola-vola</a>
               </h3>
-              <p>Praesent risus nisi, iaculis nec condimentum vel, rhoncus vel dolor. Aenean nisi lectus, varius nec tempus</p>
-              <span class="date-n">21 Mar</span>
-            </article>
-            <article>
-              <h3>
-                <a href="blog-single.html">Rangers review presents stark picture</a>
-              </h3>
-              <p>Praesent risus nisi, iaculis nec condimentum vel, rhoncus vel dolor. Aenean nisi lectus, varius nec tempus</p>
-              <span class="date-n">21 Mar</span>
-            </article>
-            <article>
-              <h3>
-                <a href="blog-single.html">Rangers review presents stark picture</a>
-              </h3>
-              <p>Praesent risus nisi, iaculis nec condimentum vel, rhoncus vel dolor. Aenean nisi lectus, varius nec tempus</p>
-              <span class="date-n">21 Mar</span>
+              <p tal:content="new/description">Testo di esempio</p>
+              <span class="date-n" tal:content="python: view.format_news_date(new.effective())">21 Mar</span>
             </article>
           </div>
         </div>

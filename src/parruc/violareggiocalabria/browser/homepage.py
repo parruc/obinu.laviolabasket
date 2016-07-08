@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import locale
 from datetime import datetime
 
 from plone import api
@@ -48,7 +49,17 @@ class HomepageView(BrowserView):
                  "sort_on": "getObjPositionInParent", }
         return [b.getObject() for b in api.content.find(**query)]
 
-    def slides(self):
-        query = {"portal_type": "Slide",
-                 "sort_on": "getObjPositionInParent", }
-        return [b.getObject() for b in api.content.find(**query)]
+    def latest_news(self, limit=5):
+        query = {"portal_type": "News Item",
+                 "sort_on": "effective",
+                 "sort_limit": limit,}
+        return [b.getObject() for b in api.content.find(**query)[:limit]]
+
+    def format_news_date(self, zope_date):
+        short_months = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug",
+                        "Ago", "Set", "Ott", "Nov", "Dic"]
+        date = zope_date.asdatetime()
+        return "%d %s" % (date.day, short_months[date.month-1])
+
+    def news_link(self):
+        return api.portal.get().get("notizie").absolute_url()
