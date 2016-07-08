@@ -110,9 +110,13 @@ class ISlide(model.Schema):
 
     image = NamedBlobImage(
         title=_("Immagine slide"),
-        required=True
+        required=True,
     )
 
+    url = schema.URI(
+        title=_("Indirizzo del link 'Leggi' sulla slide"),
+        required=False,
+    )
     primary("image")
 
 
