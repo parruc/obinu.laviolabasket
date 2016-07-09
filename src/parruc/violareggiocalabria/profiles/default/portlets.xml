@@ -1,27 +1,6 @@
 <?xml version="1.0"?>
 <portlets>
-    <assignment
-       manager="plone.leftcolumn"
-       category="context"
-       key="/"
-       type="portlets.Navigation"
-       name="navigation"
-       remove=""
-       />
-   <assignment
-      manager="plone.right"
-      category="context"
-      key="/"
-      type="portlets.News"
-      name="news"
-      remove=""
-      />
-      <assignment
-         manager="plone.right"
-         category="context"
-         key="/"
-         type="portlets.Events"
-         name="events"
-         remove=""
-         />
+  <portlet addview="portlets.News" remove="true" />
+  <portlet addview="portlets.Events" remove="true" />
+  <portlet addview="portlets.Navigation" remove="true" />
 </portlets>
