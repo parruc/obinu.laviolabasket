@@ -13,46 +13,45 @@
     <section id="m-a-n">
       <div class="container">
         <div class="col-8" tal:define="launch nocall:context/launch/to_object|nothing">
-            <tal:block tal:condition="launch">
-                <div class="tab" tal:content="launch/title">Titolo lancio</div>
-                <div class="match">
-                    <img src="" tal:define="scales context/@@images"
-                    tal:replace="structure python:scales.tag('launch_image', width=622, height=150, direction='down')" />
-                    <div class="launch-body" tal:content="structure launch/text/output">Testo del lancio</div>
-                </div>
-            </tal:block>
-            <tal:block tal:condition="not:launch">
-                <div class="tab" i18n="">Partite</div>
-                <div class="match" tal:define="last_played_match view/last_played_match" tal:condition="last_played_match">
-                    <tal:block tal:define="home nocall:last_played_match/home/to_object;
+          <tal:block tal:condition="launch">
+            <div class="tab" tal:content="launch/title">Titolo lancio</div>
+            <div class="match">
+              <img src="" tal:define="scales context/@@images" tal:replace="structure python:scales.tag('launch_image', width=622, height=150, direction='down')"/>
+              <div class="launch-body" tal:content="structure launch/text/output">Testo del lancio</div>
+            </div>
+          </tal:block>
+          <tal:block tal:condition="not:launch">
+            <div class="tab" i18n="">Partite</div>
+            <div class="match" tal:define="last_played_match view/last_played_match" tal:condition="last_played_match">
+              <tal:block tal:define="home nocall:last_played_match/home/to_object;
                                            away nocall:last_played_match/away/to_object;">
-                        <div class="col-6">
-                          <div class="m-img"><img src="http://placehold.it/311x148" alt=""/></div>
-                        </div>
-                        <div class="col-6">
-                          <div class="m-img"><img src="http://placehold.it/311x148" alt=""/></div>
-                        </div>
-                        <div class="m-result">
-                          <div class="logo-club col-3">
-                              <img src="" tal:replace="structure home/@@images/logo/logo"/>
-                          </div>
-                          <span class="result col-6">
-                            <tal:block tal:replace="last_played_match/score_home">20</tal:block>
-                            <b>:</b>
-                            <tal:block tal:replace="last_played_match/score_away">20</tal:block>
-                          </span>
-                          <div class="logo-club col-3">
-                              <img src="" tal:replace="structure away/@@images/logo/logo"/>
-                          </div>
-                          <div class="club-name col-12">
-                            <span class="col-3" tal:content="home/title">Bayern</span>
-                            <div class="match-name col-6" tal:content="last_played_match/league">Campionato serie A2</div>
-                            <span class="col-3" tal:content="away/title">Arsenal</span>
-                          </div>
-                        </div>
-                    </tal:block>
+                <div class="col-6">
+                  <div class="m-img"><img src="http://placehold.it/311x148" alt=""/></div>
                 </div>
-            </tal:block>
+                <div class="col-6">
+                  <div class="m-img"><img src="http://placehold.it/311x148" alt=""/></div>
+                </div>
+                <div class="m-result">
+                  <div class="logo-club col-3">
+                    <img src="" tal:replace="structure home/@@images/logo/logo"/>
+                  </div>
+                  <span class="result col-6">
+                    <tal:block tal:replace="last_played_match/score_home">20</tal:block>
+                    <b>:</b>
+                    <tal:block tal:replace="last_played_match/score_away">20</tal:block>
+                  </span>
+                  <div class="logo-club col-3">
+                    <img src="" tal:replace="structure away/@@images/logo/logo"/>
+                  </div>
+                  <div class="club-name col-12">
+                    <span class="col-3" tal:content="home/title">Bayern</span>
+                    <div class="match-name col-6" tal:content="last_played_match/league">Campionato serie A2</div>
+                    <span class="col-3" tal:content="away/title">Arsenal</span>
+                  </div>
+                </div>
+              </tal:block>
+            </div>
+          </tal:block>
           <!-- Prossime partite -->
           <div class="a-games" tal:define="future_matches view/future_matches" tal:condition="future_matches|nothing">
             <ul class="clearfix">
@@ -64,7 +63,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-4" tal:define="news view/latest_news">
+        <div class="col-4" tal:define="news view/latest_news" tal:condition="news">
           <div class="tab">News</div>
           <div class="tab-small">
             <a href="" tal:attributes="href view/news_link">Vedi tutte</a>
@@ -78,30 +77,61 @@
               <span class="date-n" tal:content="python: view.format_news_date(new.effective())">21 Mar</span>
             </article>
           </div>
+          <!-- Countdown prossima partita -->
+          <div tal:define="match_datetime view/next_match_datetime" tal:condition="next_match_datetime|nothing" class="countdown">
+            <span class="label" i18n="">Prossima<br/>partita</span>
+            <span tal:attributes="data-deadline next_match_datetime" id="countdown" data-deadline="2020/10/10 12:34:56"></span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Countdown prossima partita -->
-    <div tal:define="next_match_datetime view/next_match_datetime" tal:condition="next_match_datetime|nothing" id="countdown" data-deadline="2020/10/10 12:34:56" tal:attributes="data-deadline next_match_datetime"></div>
-
     <!-- Latest Videos -->
-    <div tal:define="videos view/latest_videos" tal:condition="videos">
-      <div tal:repeat="video videos">
-        <video width="100%" controls>
-          <source src="movie.mp4" type="video/mp4" tal:attributes="src string:${video/absolute_url}/@@download/video/${video/video/filename}"/>
-          <tal:block i18n:translate="">Il tuo browser non supporta questo video.</tal:block>
-        </video>
+    <section id="video" tal:define="videos view/latest_videos" tal:condition="videos">
+      <div class="container">
+        <div id="v-tabs">
+          <ul class="clearfix col-4">
+            <li tal:repeat="video videos">
+              <i class="fa fa-play"></i>
+              <a href="section-1" tal:attributes="href string:#section-${repeat/video/number};" tal:content="video/title">
+                The title hunt in Europe's top leagues
+              </a>
+            </li>
+          </ul>
+          <tal:block tal:repeat="video videos">
+            <div class="tab-content col-8" tal:attributes="id string:section-${repeat/video/number}">
+              <iframe width="560" height="329" style="border:0;" src="" tal:attributes="src video/url" allowfullscreen=""></iframe>
+            </div>
+          </tal:block>
+        </div>
       </div>
-    </div>
+    </section>
 
     <!-- Players -->
-    <div tal:define="players view/players" tal:condition="players">
-      <div tal:repeat="player players">
-        <span tal:content="player/name"/>
-        <span tal:content="player/surname"/>
-        <img src="" tal:replace="structure player/@@images/image/mini"/>
+    <section id="players" tal:define="players view/players" tal:condition="players">
+      <div class="players">
+        <div class="col-4">
+          <div class="our">
+            <h3 i18n:translate="">
+              <span i18n:translate="">I nostri</span>
+              Giocatori</h3>
+          </div>
+          <div class="all-team">
+            <a href="" tal:attributes="href view/team_link" i18n:translate="">Vedi la squadra ›</a>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="players-slider">
+            <div tal:repeat="player players" class="slide col-4">
+              <img src="" tal:define="scales player/@@images" tal:replace="structure python:scales.tag('image', width=157, height=177, direction='down')"/>
+              <div class="player-name">
+                <a href="" tal:attributes="href player/absolute_url" tal:content="string: ${player/name} ${player/surname}">Jan Kirchhoff</a>
+                <p tal:content="player/role">Defender</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   </metal:block>
 </html>

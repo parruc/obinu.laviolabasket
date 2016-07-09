@@ -6,11 +6,6 @@
       metal:use-macro="context/main_template/macros/master">
 
     <metal:block fill-slot="content-core">
-        <video width="100%" controls>
-            <source src="movie.mp4"
-                    type="video/mp4"
-                    tal:attributes="src string:${context/absolute_url}/@@download/video/${context/video/filename}" />
-        <tal:block i18n:translate="">Il tuo browser non supporta questo video.</tal:block>
-        </video>
+        <iframe width="560" height="329" style="border:0;" src="" tal:attributes="src context/url" allowfullscreen=""></iframe>
     </metal:block>
 </html>

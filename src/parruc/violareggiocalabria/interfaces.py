@@ -100,6 +100,10 @@ class IGiocatore(model.Schema):
         title=_("Cognome"),
         required=True,
     )
+    role = schema.TextLine(
+        title=_("Ruolo"),
+        required=True,
+    )
     image = NamedBlobImage(
         title=_(u"Foto"),
         required=True,
@@ -122,7 +126,7 @@ class ISlide(model.Schema):
 
 class IVideo(model.Schema):
 
-    video = NamedBlobFile(
-        title=_("Video"),
+    url = schema.URI(
+        title=_("Url del video youtube"),
         required=True
     )

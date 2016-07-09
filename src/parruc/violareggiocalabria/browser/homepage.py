@@ -62,4 +62,9 @@ class HomepageView(BrowserView):
         return "%d %s" % (date.day, short_months[date.month-1])
 
     def news_link(self):
+        """ TODO: get only featured"""
         return api.portal.get().get("notizie").absolute_url()
+
+    def team_link(self):
+        """ TODO: replace con references in hp"""
+        return api.portal.get().get("giocatori").absolute_url()
