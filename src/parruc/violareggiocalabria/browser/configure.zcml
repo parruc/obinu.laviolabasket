@@ -30,6 +30,14 @@
 
     <browser:page
         for="..interfaces.IHomepage"
+        name="twitter"
+        class=".twitter.TimelineJsonView"
+        permission="zope2.View"
+        layer="..interfaces.IParrucViolareggiocalabriaLayer"
+    />
+
+    <browser:page
+        for="..interfaces.IHomepage"
         name="hp"
         class=".homepage.HomepageView"
         template="templates/homepage.pt"

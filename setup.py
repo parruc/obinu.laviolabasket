@@ -41,7 +41,8 @@ setup(
         'setuptools',
         'z3c.jbot',
         'plone.app.dexterity',
-        'plone.formwidget.contenttree',
+        'requests',
+        'requests-oauthlib',
     ],
     extras_require={
         'test': [

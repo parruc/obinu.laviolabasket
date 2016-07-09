@@ -46,13 +46,13 @@ folders = [{"title": _("Giocatori"), "permission": base_perm + "Giocatore", "exc
            {"title": _("Video"), "permission": base_perm + "Video", "exclude_from_nav": True},
            {"title": _("Slides"), "permission": base_perm + "Slide", "exclude_from_nav": True}, ]
 
-
-def load_image(path):
+base_img_path = os.path.join(os.path.dirname(__file__), 'browser', 'static')
+def load_image(path, mime):
     from plone.namedfile import NamedBlobImage
     filename = path.split("/")[-1]
     data = open(path, 'r').read()
     return NamedBlobImage(data=data,
-                          contentType='image/png',
+                          contentType=mime,
                           filename=u''+filename, )
 
 
@@ -76,6 +76,32 @@ partite = [{"title": "Vittoria al cardiopalma",
             "score_home": 98, "score_away": 110,
             "start": datetime(2016, 8, 1, 21, 30, 0), }, ]
 
+slides = [{"title": "La viola mette a segno punti preziosi",
+           "url": "/",
+           "image": "slide1.jpg"},
+          {"title": "Un'altra vittoria per i ragazzi della Viola",
+           "url": "/",
+           "image": "slide2.jpg"}, ]
+
+videos = [{"title": "Coach Frates post Viola Tortona",
+           "url": "https://www.youtube.com/embed/BFTz_-bIVuM"},
+          {"title": "Valerio Costa post Viola Casalpusterlengo",
+          "url": "https://www.youtube.com/embed/18Op_UYJEYw"},
+          {"title": "Coach Bolignano post Viola Trapani",
+           "url": "https://www.youtube.com/embed/YjnDyeSrgYo"},
+          {"title": "Roberto Rullo post Viola Trapani",
+           "url": "https://www.youtube.com/embed/rzlLYloWQpM"}
+          ]
+players = [{"name": "Ion", "surname": "Lupusor", "role": "Ala"},
+           {"name": "Lorenzo", "surname": "Caroti", "role": "Playmaker"},
+           {"name": "Tommaso", "surname": "Guariglia", "role": "Cenntro"},
+           {"name": "Celis", "surname": "Taflaj", "role": "Guardia"},]
+
+news = [{"title": "News diprova 1", "description": "Questa è una news di prova"},
+        {"title": "News diprova 2", "description": "Questa è una news di prova"},
+        {"title": "News diprova 3", "description": "Questa è una news di prova"},
+        {"title": "News diprova 4", "description": "Questa è una news di prova"},
+        {"title": "News diprova 5", "description": "Questa è una news di prova"},]
 
 def _create_structure():
     portal = api.portal.get()
@@ -92,22 +118,14 @@ def _create_structure():
 
 def _create_content():
     portal = api.portal.get()
-    logo_path = os.path.join(os.path.dirname(__file__), 'browser', 'static',
-                             'violareggiocalabria-logo.png')
-    if not api.content.find(portal_type='Homepage'):
-        hp = api.content.create(container=portal,
-                                title="index",
-                                type="Homepage")
-        portal.setDefaultPage(hp.id)
-        api.content.transition(obj=hp, transition='publish')
+    logo_path = os.path.join(base_img_path, 'violareggiocalabria-logo.png')
     folder = portal.get("squadre")
-    teams = []
+    teams = slides = []
     for squadra in squadre:
         if api.content.find(portal_type='Squadra', Title=squadra["title"]):
             continue
-        squadra["logo"] = load_image(unicode(logo_path))
         obj = api.content.create(container=folder, type="Squadra", **squadra)
-        obj.logo = load_image(logo_path)
+        obj.logo = load_image(logo_path, 'image/png')
         teams.append(RelationValue(getUtility(IIntIds).getId(obj)))
         api.content.transition(obj=obj, transition='publish')
     folder = portal.get("partite")
@@ -118,3 +136,38 @@ def _create_content():
         partita['away'] = teams[partita["away_index"]]
         obj = api.content.create(container=folder, type="Partita", **partita)
         api.content.transition(obj=obj, transition='publish')
+    folder = portal.get("slides")
+    for slide in slides:
+        if api.content.find(portal_type='Slide', Title=partita["title"]):
+            continue
+        image_path = os.path.join(base_img_path, slide.pop("image"))
+        obj = api.content.create(container=folder, type="Slide", **slide)
+        obj.image = load_image(image_path, 'image/jpg')
+        slides.append(RelationValue(getUtility(IIntIds).getId(obj)))
+        api.content.transition(obj=obj, transition='publish')
+    folder = portal.get("video")
+    for video in videos:
+        if api.content.find(portal_type='Video', Title=partita["title"]):
+            continue
+        obj = api.content.create(container=folder, type="Video", **video)
+        api.content.transition(obj=obj, transition='publish')
+    folder = portal.get("giocatori")
+    for player in players:
+        player["title"] = player["surname"] + " " + player["name"]
+        image_path = os.path.join(base_img_path, 'player.jpg')
+        if api.content.find(portal_type='Giocatore', Title=player["title"]):
+            continue
+        obj = api.content.create(container=folder, type="Giocatore", **player)
+        obj.image = load_image(image_path, 'image/jpg')
+        api.content.transition(obj=obj, transition='publish')
+    folder = portal.get("notizie")
+    for new in news:
+        if api.content.find(portal_type='News Item', Title=player["title"]):
+            continue
+        obj = api.content.create(container=folder, type="News Item", **new)
+        api.content.transition(obj=obj, transition='publish')
+    if not api.content.find(portal_type='Homepage'):
+        hp = api.content.create(container=portal, title="index",
+                                type="Homepage", slides=slides)
+        portal.setDefaultPage(hp.id)
+        api.content.transition(obj=hp, transition='publish')

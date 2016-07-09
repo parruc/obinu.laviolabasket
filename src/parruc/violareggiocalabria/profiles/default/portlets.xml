@@ -1,6 +1,19 @@
 <?xml version="1.0"?>
-<portlets>
-  <portlet addview="portlets.News" remove="true" />
-  <portlet addview="portlets.Events" remove="true" />
-  <portlet addview="portlets.Navigation" remove="true" />
-</portlets>
+<portlets purge="True">
+ <!--assignment name="news" category="context" key="/"
+    manager="plone.rightcolumn" type="portlets.News" visible="True"
+remove="True">
+  <property name="count">5</property>
+  <property name="state">
+   <element>published</element>
+  </property>
+ </assignment>
+ <assignment name="events" category="context" key="/"
+    manager="plone.rightcolumn" type="portlets.Events" visible="True"
+remove="True">
+  <property name="count">5</property>
+  <property name="state">
+   <element>published</element>
+  </property>
+ </assignment-->
+ </portlets>

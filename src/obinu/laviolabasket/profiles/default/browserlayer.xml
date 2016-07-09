@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<layers>
-  <layer
-      name="obinu.laviolabasket"
-      interface="obinu.laviolabasket.interfaces.IObinuLaviolabasketLayer"
-      />
-</layers>

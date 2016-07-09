@@ -133,5 +133,25 @@
         </div>
       </div>
     </section>
+
+    <!-- Twitter -->
+    <section id="twitter" tal:define="tweets view/tweets" tal:condition="tweets">
+      <div class="col-4">
+        <div class="twiter">
+          <div class="tw-title">
+            <h3>Latest Tweets</h3>
+            <ul class="clearfix t-post">
+                <li tal:repeat="tweet tweets">
+                    <p tal:content="structure tweet/text">Contenuto del tweet</p>
+                    <a tal:attributes="href string: https://twitter.com/${tweet/name}" tal:content="string:@${tweet/name}">@Viola_RC</a>
+                </li>
+            </ul>
+            <tal:block tal:repeat="tweet tweets">
+            </tal:block>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </metal:block>
 </html>
