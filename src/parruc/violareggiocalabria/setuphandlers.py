@@ -175,7 +175,7 @@ def _create_content():
         image_path = os.path.join(base_img_path, sponsor["image"])
         if api.content.find(portal_type='Sponsor', Title=sponsor["title"]):
             continue
-        obj = api.content.create(container=folder, type="Sponsor", **player)
+        obj = api.content.create(container=folder, type="Sponsor", **sponsor)
         obj.image = load_image(image_path, 'image/png')
         api.content.transition(obj=obj, transition='publish')
     if not api.content.find(portal_type='Homepage'):

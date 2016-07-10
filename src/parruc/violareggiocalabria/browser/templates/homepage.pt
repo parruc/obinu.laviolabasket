@@ -157,8 +157,8 @@
     <section id="sponsors" tal:define="sponsors view/sponsors" tal:condition="sponsors">
         <div class="col-4">
             <div class="sponsors">
-                <div class="bl-title">
-                    <h3 i18n:translate="">Sponsors</h3>
+                <div class="sp-title">
+                    <h3 i18n:translate="">Partners</h3>
                 </div>
                 <div class="sp-img" tal:repeat="sponsor sponsors">
                     <img src="" tal:define="scales sponsor/@@images" tal:replace="structure python:scales.tag('image', height=90, direction='down')"/>
@@ -171,7 +171,6 @@
     <!--Classifica -->
     <section id="classifica" tal:define="classifica view/classifica" tal:condition="classifica">
         <div class="col-4">
-            <div class="blog-s">
             <div class="liga-t">
                 <div class="bu-title"><h3 i18n:translate="">Serie A2</h3></div>
                 <table class="table-striped">
