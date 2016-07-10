@@ -92,10 +92,10 @@
         <div id="v-tabs">
           <ul class="clearfix col-4">
             <li tal:repeat="video videos">
-              <i class="fa fa-play"></i>
-              <a href="section-1" tal:attributes="href string:#section-${repeat/video/number};" tal:content="video/Title">
-                The title hunt in Europe's top leagues
-              </a>
+                <a href="#  section-1" tal:attributes="href string:#section-${repeat/video/number};">
+                    <i class="fa fa-play"></i>
+                    <tal:block tal:replace="video/Title">The title hunt in Europe's top leagues</tal:block>
+                </a>
             </li>
           </ul>
           <tal:block tal:repeat="video videos">
@@ -108,7 +108,7 @@
     </section>
 
     <!-- Players -->
-    <section id="players" tal:define="players view/players" tal:condition="players">
+    <section class="container" id="players" tal:define="players view/players" tal:condition="players">
       <div class="players">
         <div class="col-4">
           <div class="our">
@@ -135,55 +135,57 @@
     </section>
 
     <!-- Twitter -->
-    <section id="twitter" tal:define="tweets view/tweets" tal:condition="tweets">
-      <div class="col-4">
-        <div class="twiter">
-          <div class="tw-title">
-            <h3>Latest Tweets</h3>
-            <ul class="clearfix t-post">
-                <li tal:repeat="tweet tweets">
-                    <p tal:content="structure tweet/text">Contenuto del tweet</p>
-                    <a tal:attributes="href string: https://twitter.com/${tweet/name}" tal:content="string:@${tweet/name}">@Viola_RC</a>
-                </li>
-            </ul>
-            <tal:block tal:repeat="tweet tweets">
-            </tal:block>
+    <div class="container">
+        <section id="twitter" tal:define="tweets view/tweets" tal:condition="tweets">
+          <div class="col-xs-12 col-sm-4">
+            <div class="twiter">
+              <div class="tw-title">
+                <h3>Latest Tweets</h3>
+                <ul class="clearfix t-post">
+                    <li tal:repeat="tweet tweets">
+                        <p tal:content="structure tweet/text">Contenuto del tweet</p>
+                        <a tal:attributes="href string: https://twitter.com/${tweet/name}" tal:content="string:@${tweet/name}">@Viola_RC</a>
+                    </li>
+                </ul>
+                <tal:block tal:repeat="tweet tweets">
+                </tal:block>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <!--Sponsors -->
-    <section id="sponsors" tal:define="sponsors view/sponsors" tal:condition="sponsors">
-        <div class="col-4">
-            <div class="sponsors">
-                <div class="sp-title">
-                    <h3 i18n:translate="">Partners</h3>
-                </div>
-                <div class="sp-img" tal:repeat="sponsor sponsors">
-                    <img src="" tal:define="scales sponsor/@@images" tal:replace="structure python:scales.tag('image', height=90, direction='down')"/>
-                    <span tal:content="sponsor/Title">Titolo dello sponsor</span>
+        <!--Sponsors -->
+        <section id="sponsors" tal:define="sponsors view/sponsors" tal:condition="sponsors">
+            <div class="col-xs-12 col-sm-4">
+                <div class="sponsors">
+                    <div class="sp-title">
+                        <h3 i18n:translate="">Partners</h3>
+                    </div>
+                    <div class="sp-img" tal:repeat="sponsor sponsors">
+                        <img src="" tal:define="scales sponsor/@@images" tal:replace="structure python:scales.tag('image', height=90, direction='down')"/>
+                        <span tal:content="sponsor/Title">Titolo dello sponsor</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!--Classifica -->
-    <section id="classifica" tal:define="classifica view/classifica" tal:condition="classifica">
-        <div class="col-4">
-            <div class="liga-t">
-                <div class="bu-title"><h3 i18n:translate="">Serie A2</h3></div>
-                <table class="table-striped">
-                    <tr class="t-h"><th class="t-c">Pos</th><th>Club</th><th>Pld</th><th>Pts</th></tr>
-                    <tr tal:repeat="squadra classifica">
-                        <td class="t-c" tal:content="repeat/squadra/number">1</td>
-                        <td tal:content="squadra/Title">FC Bayern München</td>
-                        <td tal:content="squadra/played">36</td>
-                        <td tal:content="squadra/points">81</td>
-                    </tr>
-                </table>
+        <!--Classifica -->
+        <section id="classifica" tal:define="classifica view/classifica" tal:condition="classifica">
+            <div class="col-xs-12 col-sm-4">
+                <div class="liga-t">
+                    <div class="bu-title"><h3 i18n:translate="">Serie A2</h3></div>
+                    <table class="table-striped">
+                        <tr class="t-h"><th class="t-c">Pos</th><th>Club</th><th>Pld</th><th>Pts</th></tr>
+                        <tr tal:repeat="squadra classifica">
+                            <td class="t-c" tal:content="repeat/squadra/number">1</td>
+                            <td tal:content="squadra/Title">FC Bayern München</td>
+                            <td tal:content="squadra/played">36</td>
+                            <td tal:content="squadra/points">81</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
   </metal:block>
 </html>

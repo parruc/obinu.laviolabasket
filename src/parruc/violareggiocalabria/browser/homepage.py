@@ -41,7 +41,7 @@ class HomepageView(BrowserView):
         if next_match:
             return next_match[0]["start"].strftime("%Y/%m/%d %H:%M:%S")
 
-    def latest_videos(self, limit=5):
+    def latest_videos(self, limit=4):
         query = {"portal_type": "Video",
                  "sort_on": "getObjPositionInParent",
                  "sort_limit": limit}
