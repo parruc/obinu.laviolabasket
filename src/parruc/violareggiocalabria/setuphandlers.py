@@ -103,6 +103,10 @@ news = [{"title": "News diprova 1", "description": "Questa è una news di prova"
         {"title": "News diprova 4", "description": "Questa è una news di prova"},
         {"title": "News diprova 5", "description": "Questa è una news di prova"},]
 
+sponsors = [{"title": "Test Sposor", "image": "violareggiocalabria-logo.png"},
+            {"title": "Sposor prova", "image": "violareggiocalabria-logo.png"},
+            {"title": "Prova Sponsor", "image": "violareggiocalabria-logo.png"}]
+
 def _create_structure():
     portal = api.portal.get()
     for folder in folders:
@@ -165,6 +169,14 @@ def _create_content():
         if api.content.find(portal_type='News Item', Title=player["title"]):
             continue
         obj = api.content.create(container=folder, type="News Item", **new)
+        api.content.transition(obj=obj, transition='publish')
+    folder = portal.get("sponsor")
+    for sponsor in sponsors:
+        image_path = os.path.join(base_img_path, sponsor["image"])
+        if api.content.find(portal_type='Sponsor', Title=sponsor["title"]):
+            continue
+        obj = api.content.create(container=folder, type="Sponsor", **player)
+        obj.image = load_image(image_path, 'image/png')
         api.content.transition(obj=obj, transition='publish')
     if not api.content.find(portal_type='Homepage'):
         hp = api.content.create(container=portal, title="index",

@@ -153,5 +153,38 @@
       </div>
     </section>
 
+    <!--Sponsors -->
+    <section id="sponsors" tal:define="sponsors view/sponsors" tal:condition="sponsors">
+        <div class="col-4">
+            <div class="sponsors">
+                <div class="bl-title">
+                    <h3 i18n:translate="">Sponsors</h3>
+                </div>
+                <div class="sp-img" tal:repeat="sponsor sponsors">
+                    <img src="" tal:define="scales sponsor/@@images" tal:replace="structure python:scales.tag('image', height=90, direction='down')"/>
+                    <span tal:content="sponsor/title">Titolo dello sponsor</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--Classifica -->
+    <section id="classifica" tal:define="classifica view/classifica" tal:condition="classifica">
+        <div class="col-4">
+            <div class="blog-s">
+            <div class="liga-t">
+                <div class="bu-title"><h3 i18n:translate="">Serie A2</h3></div>
+                <table class="table-striped">
+                    <tr class="t-h"><th class="t-c">Pos</th><th>Club</th><th>Pld</th><th>Pts</th></tr>
+                    <tr tal:repeat="squadra classifica">
+                        <td class="t-c" tal:content="repeat/squadra/number">1</td>
+                        <td tal:content="squadra/title">FC Bayern München</td>
+                        <td tal:content="squadra/played">36</td>
+                        <td tal:content="squadra/points">81</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
   </metal:block>
 </html>

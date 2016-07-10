@@ -60,6 +60,18 @@ class HomepageView(BrowserView):
                  "sort_limit": limit,}
         return [b.getObject() for b in api.content.find(**query)[:limit]]
 
+    def sponsors(self, limit = 6):
+        query = {"portal_type": "Sponsor",
+                 "sort_on": "effective",
+                 "sort_limit": limit,}
+        return [b.getObject() for b in api.content.find(**query)[:limit]]
+
+    def classifica(self):
+        query = {"portal_type": "Squadra",
+                 "sort_on": "points",
+                 "sort-order": "descending",}
+        return api.content.find(**query)
+
     def format_news_date(self, zope_date):
         short_months = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug",
                         "Ago", "Set", "Ott", "Nov", "Dic"]

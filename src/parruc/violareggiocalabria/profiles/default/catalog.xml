@@ -3,10 +3,16 @@
     <index name="start" meta_type="DateIndex">
         <indexed_attr value="start"/>
     </index>
+    <index name="points" meta_type="FieldIndex">
+        <indexed_attr value="points"/>
+    </index>
 
     <column value="league"/>
     <column value="home"/>
     <column value="away"/>
+    <column value="played"/>
+    <column value="points"/>
+    <column value="start"/>
     <column value="score_home"/>
     <column value="score_away"/>
 </object>
