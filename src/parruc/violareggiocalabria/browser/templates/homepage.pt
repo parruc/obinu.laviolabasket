@@ -14,7 +14,7 @@
       <div class="container">
         <div class="col-8" tal:define="launch nocall:context/launch/to_object|nothing">
           <tal:block tal:condition="launch">
-            <div class="tab" tal:content="launch/title">Titolo lancio</div>
+            <div class="tab" tal:content="launch/Title">Titolo lancio</div>
             <div class="match">
               <img src="" tal:define="scales context/@@images" tal:replace="structure python:scales.tag('launch_image', width=622, height=150, direction='down')"/>
               <div class="launch-body" tal:content="structure launch/text/output">Testo del lancio</div>
@@ -44,9 +44,9 @@
                     <img src="" tal:replace="structure away/@@images/logo/logo"/>
                   </div>
                   <div class="club-name col-12">
-                    <span class="col-3" tal:content="home/title">Bayern</span>
+                    <span class="col-3" tal:content="home/Title">Bayern</span>
                     <div class="match-name col-6" tal:content="last_played_match/league">Campionato serie A2</div>
-                    <span class="col-3" tal:content="away/title">Arsenal</span>
+                    <span class="col-3" tal:content="away/Title">Arsenal</span>
                   </div>
                 </div>
               </tal:block>
@@ -56,9 +56,9 @@
           <div class="a-games" tal:define="future_matches view/future_matches" tal:condition="future_matches|nothing">
             <ul class="clearfix">
               <li tal:repeat="match future_matches">
-                <span class="text-right"><tal:block tal:replace="match/home/to_object/title"/></span>
+                <span class="text-right"><tal:block tal:replace="match/home/to_object/Title"/></span>
                 <span class="d-g" tal:content="match/start">14 Apr 21:45</span>
-                <span class="text-left"><tal:block tal:replace="match/away/to_object/title"/></span>
+                <span class="text-left"><tal:block tal:replace="match/away/to_object/Title"/></span>
               </li>
             </ul>
           </div>
@@ -71,7 +71,7 @@
           <div class="r-box-n">
             <article tal:repeat="new news">
               <h3>
-                <a href="" tal:content="new/title" tal:attributes="href new/absolute_url">La Viola-vola</a>
+                <a href="" tal:content="new/Title" tal:attributes="href new/absolute_url">La Viola-vola</a>
               </h3>
               <p tal:content="new/description">Testo di esempio</p>
               <span class="date-n" tal:content="python: view.format_news_date(new.effective())">21 Mar</span>
@@ -93,7 +93,7 @@
           <ul class="clearfix col-4">
             <li tal:repeat="video videos">
               <i class="fa fa-play"></i>
-              <a href="section-1" tal:attributes="href string:#section-${repeat/video/number};" tal:content="video/title">
+              <a href="section-1" tal:attributes="href string:#section-${repeat/video/number};" tal:content="video/Title">
                 The title hunt in Europe's top leagues
               </a>
             </li>
@@ -162,7 +162,7 @@
                 </div>
                 <div class="sp-img" tal:repeat="sponsor sponsors">
                     <img src="" tal:define="scales sponsor/@@images" tal:replace="structure python:scales.tag('image', height=90, direction='down')"/>
-                    <span tal:content="sponsor/title">Titolo dello sponsor</span>
+                    <span tal:content="sponsor/Title">Titolo dello sponsor</span>
                 </div>
             </div>
         </div>
@@ -178,7 +178,7 @@
                     <tr class="t-h"><th class="t-c">Pos</th><th>Club</th><th>Pld</th><th>Pts</th></tr>
                     <tr tal:repeat="squadra classifica">
                         <td class="t-c" tal:content="repeat/squadra/number">1</td>
-                        <td tal:content="squadra/title">FC Bayern München</td>
+                        <td tal:content="squadra/Title">FC Bayern München</td>
                         <td tal:content="squadra/played">36</td>
                         <td tal:content="squadra/points">81</td>
                     </tr>
