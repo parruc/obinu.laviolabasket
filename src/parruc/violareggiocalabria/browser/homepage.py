@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import locale
+import logging
 import os
 from datetime import datetime
 
@@ -9,9 +9,8 @@ from plone import api
 from Products.Five.browser import BrowserView
 from requests_oauthlib import OAuth1
 
-
 # from .. import messageFactory as _
-
+logger = logging.getLogger("Plone")
 
 class HomepageView(BrowserView):
 
@@ -57,19 +56,19 @@ class HomepageView(BrowserView):
         """ TODO: get only featured"""
         query = {"portal_type": "News Item",
                  "sort_on": "effective",
-                 "sort_limit": limit,}
+                 "sort_limit": limit, }
         return [b.getObject() for b in api.content.find(**query)[:limit]]
 
-    def sponsors(self, limit = 6):
+    def sponsors(self, limit=6):
         query = {"portal_type": "Sponsor",
                  "sort_on": "effective",
-                 "sort_limit": limit,}
+                 "sort_limit": limit, }
         return [b.getObject() for b in api.content.find(**query)[:limit]]
 
     def classifica(self):
         query = {"portal_type": "Squadra",
                  "sort_on": "points",
-                 "sort-order": "descending",}
+                 "sort-order": "descending", }
         return api.content.find(**query)
 
     def format_news_date(self, zope_date):
@@ -89,6 +88,10 @@ class HomepageView(BrowserView):
         customer_secret = os.getenv("TWITTER_CUSTOMER_SECRET", None)
         access_token = os.getenv("TWITTER_ACCESS_TOKEN", None)
         access_token_secret = os.getenv("TWITTER_ACCESS_TOKEN_SECRET", None)
+        if not(customer_key and customer_secret and
+               access_token and access_token):
+            logger.warning("Missing Twitter global vars")
+            return[]
         url = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
         params = {"user_id": "993217831", "count": "3"}
         auth = OAuth1(customer_key, customer_secret,
