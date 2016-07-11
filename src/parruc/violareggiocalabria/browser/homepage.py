@@ -96,9 +96,9 @@ class HomepageView(BrowserView):
         params = {"user_id": "993217831", "count": "3"}
         auth = OAuth1(customer_key, customer_secret,
                       access_token, access_token_secret)
-        req = requests.get(url, auth=auth, params=params, timeout=1)
         results = []
         try:
+            req = requests.get(url, auth=auth, params=params, timeout=1)
             req.raise_for_status()
             json_data = req.json()
         except Exception as e:
