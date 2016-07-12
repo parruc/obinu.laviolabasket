@@ -8,6 +8,7 @@
         <element value="Partita" />
         <element value="Slide" />
         <element value="Sponsor" />
+        <element value="Partner" />
         <element value="Squadra" />
         <element value="Video" />
         <element value="Folder" />

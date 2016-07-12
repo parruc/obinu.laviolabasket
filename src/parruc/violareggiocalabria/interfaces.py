@@ -6,7 +6,7 @@ from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 from parruc.violareggiocalabria import _
 from parruc.violareggiocalabria.vocabularies import launches, teams
-from plone.namedfile.field import NamedBlobFile, NamedBlobImage
+from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
 from plone.supermodel.directives import primary
 from z3c.relationfield.schema import RelationChoice
@@ -18,6 +18,14 @@ class IParrucViolareggiocalabriaLayer(IDefaultBrowserLayer):
 
 
 class ISponsor(model.Schema):
+
+    link = schema.URI(
+        title=_("Link al sito dello sponsor"),
+        required=True
+    )
+
+
+class IPartner(model.Schema):
 
     pass
 
@@ -39,7 +47,12 @@ class IHomepage(model.Schema):
 
 class ISquadra(model.Schema):
 
-    logo = NamedBlobImage(
+    image_logo = NamedBlobImage(
+        title=_(u"Logo"),
+        required=True,
+    )
+
+    image_teser = NamedBlobImage(
         title=_(u"Logo"),
         required=True,
     )
@@ -117,11 +130,11 @@ class ISlide(model.Schema):
         required=True,
     )
 
-    url = schema.URI(
-        title=_("Indirizzo del link 'Leggi' sulla slide"),
+    link = RelationChoice(
+        title=_(u"Contenuto dal inkare nella slide"),
+        source=launches,
         required=False,
     )
-    primary("image")
 
 
 class IVideo(model.Schema):

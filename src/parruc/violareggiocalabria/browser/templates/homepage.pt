@@ -26,14 +26,18 @@
               <tal:block tal:define="home nocall:last_played_match/home/to_object;
                                            away nocall:last_played_match/away/to_object;">
                 <div class="col-6">
-                  <div class="m-img"><img src="http://placehold.it/311x148" alt=""/></div>
+                  <div class="m-img">
+                      <img src="" tal:define="scales home/@@images" tal:replace="structure python:scales.tag('image_teaser', width=311, height=148, direction='down')"/>
+                  </div>
                 </div>
                 <div class="col-6">
-                  <div class="m-img"><img src="http://placehold.it/311x148" alt=""/></div>
+                  <div class="m-img">
+                      <img src="" tal:define="scales away/@@images" tal:replace="structure python:scales.tag('image_teaser', width=311, height=148, direction='down')"/>
+                  </div>
                 </div>
                 <div class="m-result">
                   <div class="logo-club col-3">
-                    <img src="" tal:replace="structure home/@@images/logo/logo"/>
+                    <img src="" tal:replace="structure home/@@images/image_logo/logo"/>
                   </div>
                   <span class="result col-6">
                     <div class="match-name" tal:content="last_played_match/league">Campionato serie A2</div>
@@ -42,11 +46,11 @@
                     <tal:block tal:replace="last_played_match/score_away">20</tal:block>
                   </span>
                   <div class="logo-club col-3">
-                    <img src="" tal:replace="structure away/@@images/logo/logo"/>
+                    <img src="" tal:replace="structure away/@@images/image_logo/logo"/>
                   </div>
                   <div class="club-name col-12">
-                    <span class="col-6" tal:content="home/Title">Bayern</span>
-                    <span class="col-6" tal:content="away/Title">Arsenal</span>
+                    <span class="col-6 text-left" tal:content="home/Title">Bayern</span>
+                    <span class="col-6 text-right" tal:content="away/Title">Arsenal</span>
                   </div>
                 </div>
               </tal:block>
@@ -78,9 +82,9 @@
             </article>
           </div>
           <!-- Countdown prossima partita -->
-          <div tal:define="match_datetime view/next_match_datetime" tal:condition="next_match_datetime|nothing" class="countdown">
-            <span class="label" i18n="">Prossima<br/>partita</span>
-            <span tal:attributes="data-deadline next_match_datetime" id="countdown" data-deadline="2020/10/10 12:34:56"></span>
+          <div tal:define="next_match_datetime view/next_match_datetime" tal:condition="next_match_datetime|nothing" class="countdown">
+            <div class="label" i18n="">Prossima partita</div>
+            <div tal:attributes="data-deadline next_match_datetime" id="countdown" data-deadline="2020/10/10 12:34:56"></div>
           </div>
         </div>
       </div>
@@ -93,7 +97,7 @@
           <ul class="clearfix col-4">
             <li tal:repeat="video videos">
                 <a href="#  section-1" tal:attributes="href string:#section-${repeat/video/number};">
-                    <i class="fa fa-play"></i>
+                    <i class="icon-play"></i>
                     <tal:block tal:replace="video/Title">The title hunt in Europe's top leagues</tal:block>
                 </a>
             </li>
@@ -154,16 +158,16 @@
           </div>
         </section>
 
-        <!--Sponsors -->
-        <section id="sponsors" tal:define="sponsors view/sponsors" tal:condition="sponsors">
+        <!--Partners -->
+        <section id="partners" tal:define="partners view/partners" tal:condition="partners">
             <div class="col-xs-12 col-sm-4">
-                <div class="sponsors">
+                <div class="partners">
                     <div class="sp-title">
                         <h3 i18n:translate="">Partners</h3>
                     </div>
-                    <div class="sp-img" tal:repeat="sponsor sponsors">
-                        <img src="" tal:define="scales sponsor/@@images" tal:replace="structure python:scales.tag('image', height=90, direction='down')"/>
-                        <span tal:content="sponsor/Title">Titolo dello sponsor</span>
+                    <div class="sp-img" tal:repeat="partner partners">
+                        <img src="" tal:define="scales partner/@@images" tal:replace="structure python:scales.tag('image', height=90, direction='down')"/>
+                        <span tal:content="partner/Title">Titolo dello sponsor</span>
                     </div>
                 </div>
             </div>
@@ -187,5 +191,18 @@
             </div>
         </section>
     </div>
+
+    <!--Sponsors -->
+    <section id="sponsors" tal:define="sponsors view/sponsors" tal:condition="sponsors">
+    	<div class="container">
+    		<div class="p-l">
+    			<div class="col-2" tal:repeat="sponsor sponsors">
+                    <a href="#" tal:attributes="href sponsor/link">
+                        <img src="" tal:define="scales sponsor/@@images" tal:replace="structure python:scales.tag('image', height=90, direction='down')"/>
+                    </a>
+                </div>
+    		</div>
+    	</div>
+	</section>
   </metal:block>
 </html>

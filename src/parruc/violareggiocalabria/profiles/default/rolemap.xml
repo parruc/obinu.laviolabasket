@@ -13,6 +13,9 @@
         <permission name="parruc.violareggiocalabria: Add Sponsor" acquire="False">
           <role name="Manager"/>
         </permission>
+        <permission name="parruc.violareggiocalabria: Add Partner" acquire="False">
+          <role name="Manager"/>
+        </permission>
         <permission name="parruc.violareggiocalabria: Add Squadra" acquire="False">
           <role name="Manager"/>
         </permission>
