@@ -28,6 +28,15 @@
         layer="..interfaces.IParrucViolareggiocalabriaLayer"
     />
 
+      <include package="zope.annotation"/>
+      <browser:page
+          name="bwimages"
+          for="plone.namedfile.interfaces.IImageScaleTraversable"
+          class=".images.GrayscaleImageScalingView"
+          allowed_attributes="scale"
+          permission="zope2.View"
+          />
+
     <browser:page
         for="..interfaces.IHomepage"
         name="twitter"

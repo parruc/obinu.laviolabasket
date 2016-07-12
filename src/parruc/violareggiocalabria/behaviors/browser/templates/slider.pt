@@ -5,7 +5,7 @@
       <ul class="slides">
         <li tal:repeat="slide_ref slides">
           <tal:block tal:define="slide nocall:slide_ref/to_object">
-            <img tal:define="scales slide/@@images" tal:replace="structure python:scales.tag('image', width=1920, height=592, direction='down')"/>
+            <img tal:define="scales slide/@@bwimages" tal:replace="structure python:scales.tag('image', width=1920, height=592, direction='down')"/>
             <div class="caption">
               <div class="container">
                 <h1 tal:content="slide/title">Titolo</h1>
