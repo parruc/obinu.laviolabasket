@@ -23,6 +23,10 @@ class Sponsor(Item):
     implements(ISponsor)
 
 
+class Partner(Item):
+    implements(ISponsor)
+
+
 class Slide(Item):
     implements(ISlide)
 

@@ -4,4 +4,4 @@ teams = CatalogSource(path={'query': "/violareggiocalabria/", 'depth': -1},
                       portal_type=("Squadra", ))
 
 launches = CatalogSource(path={'query': "/violareggiocalabria/", 'depth': -1},
-                      portal_type=("Document", "News Item"))
+                         portal_type=("Document", "News Item"))

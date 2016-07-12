@@ -59,9 +59,15 @@ class HomepageView(BrowserView):
                  "sort_limit": limit, }
         return [b.getObject() for b in api.content.find(**query)[:limit]]
 
+    def partners(self, limit=6):
+        query = {"portal_type": "Partner",
+                 "sort_on": "getObjPositionInParent",
+                 "sort_limit": limit, }
+        return [b.getObject() for b in api.content.find(**query)[:limit]]
+
     def sponsors(self, limit=6):
         query = {"portal_type": "Sponsor",
-                 "sort_on": "effective",
+                 "sort_on": "getObjPositionInParent",
                  "sort_limit": limit, }
         return [b.getObject() for b in api.content.find(**query)[:limit]]
 
@@ -78,10 +84,10 @@ class HomepageView(BrowserView):
         return "%d %s" % (date.day, short_months[date.month-1])
 
     def news_link(self):
-        return api.portal.get().get("notizie").absolute_url()
+        return api.portal.get().get("news").absolute_url()
 
     def team_link(self):
-        return api.portal.get().get("giocatori").absolute_url()
+        return api.portal.get().get("team").absolute_url()
 
     def tweets(self):
         customer_key = os.getenv("TWITTER_CUSTOMER_KEY", None)

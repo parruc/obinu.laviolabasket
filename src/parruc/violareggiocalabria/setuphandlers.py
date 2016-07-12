@@ -7,8 +7,8 @@ from zope.interface import implementer
 from zope.intid.interfaces import IIntIds
 
 import transaction
-from initial_data import (folders, news, partite, players, slides, sponsors,
-                          teams, videos)
+from initial_data import (folders, news, pages, partite, partners, players,
+                          slides, sponsors, teams, videos)
 from plone import api
 from Products.CMFPlone.interfaces import INonInstallable
 from z3c.relationfield import RelationValue
@@ -67,13 +67,20 @@ def _create_structure():
 def _create_content():
     portal = api.portal.get()
     folder = portal.get("squadre")
-    teams_rels = slides_rels = []
+    teams_rels = slides_rels = pages_rels = []
+    if not api.content.find(portal_type='Document'):
+        for page in pages:
+            obj = api.content.create(container=portal, type="Document", **page)
+            pages_rels.append(RelationValue(getUtility(IIntIds).getId(obj)))
+            api.content.transition(obj=obj, transition='publish')
     if not api.content.find(portal_type='Squadra'):
         for team in teams:
-            logo_path = os.path.join(base_img_path, team["logo"])
+            logo_path = os.path.join(base_img_path, team["image_logo"])
+            teaser_path = os.path.join(base_img_path, team["image_teaser"])
             obj = api.content.create(container=folder, type="Squadra",
                                      **team)
-            obj.logo = load_image(logo_path, 'image/png')
+            obj.image_logo = load_image(logo_path, 'image/png')
+            obj.image_teaser = load_image(teaser_path, 'image/jpg')
             teams_rels.append(RelationValue(getUtility(IIntIds).getId(obj)))
             api.content.transition(obj=obj, transition='publish')
     folder = portal.get("partite")
@@ -86,9 +93,10 @@ def _create_content():
             api.content.transition(obj=obj, transition='publish')
     folder = portal.get("slides")
     if not api.content.find(portal_type='Slide'):
-        for slide in slides:
-            image_path = os.path.join(base_img_path, slide.pop("image"))
+        for count, slide in enumerate(slides):
+            slide["link"] = pages_rels[count+1]
             obj = api.content.create(container=folder, type="Slide", **slide)
+            image_path = os.path.join(base_img_path, slide["image"])
             obj.image = load_image(image_path, 'image/jpg')
             slides_rels.append(RelationValue(getUtility(IIntIds).getId(obj)))
             api.content.transition(obj=obj, transition='publish')
@@ -97,7 +105,7 @@ def _create_content():
         for video in videos:
             obj = api.content.create(container=folder, type="Video", **video)
             api.content.transition(obj=obj, transition='publish')
-    folder = portal.get("giocatori")
+    folder = portal.get("roster")
     if not api.content.find(portal_type='Giocatore'):
         for player in players:
             player["title"] = player["surname"] + " " + player["name"]
@@ -106,10 +114,18 @@ def _create_content():
                                      **player)
             obj.image = load_image(image_path, 'image/jpg')
             api.content.transition(obj=obj, transition='publish')
-    folder = portal.get("notizie")
+    folder = portal.get("news")
     if not api.content.find(portal_type='News Item'):
         for new in news:
             obj = api.content.create(container=folder, type="News Item", **new)
+            api.content.transition(obj=obj, transition='publish')
+    folder = portal.get("partner")
+    if not api.content.find(portal_type='Partner'):
+        for partner in partners:
+            image_path = os.path.join(base_img_path, partner["image"])
+            obj = api.content.create(container=folder, type="Partner",
+                                     **partner)
+            obj.image = load_image(image_path, 'image/png')
             api.content.transition(obj=obj, transition='publish')
     folder = portal.get("sponsor")
     if not api.content.find(portal_type='Sponsor'):
@@ -121,6 +137,7 @@ def _create_content():
             api.content.transition(obj=obj, transition='publish')
     if not api.content.find(portal_type='Homepage'):
         hp = api.content.create(container=portal, title="index",
-                                type="Homepage", slides=slides_rels)
+                                type="Homepage", slides=slides_rels,
+                                exclude_from_nav=True, )
         portal.setDefaultPage(hp.id)
         api.content.transition(obj=hp, transition='publish')

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<object name="Homepage" meta_type="Dexterity FTI" i18n:domain="parruc.violareggiocalabria"
+<object name="Partner" meta_type="Dexterity FTI" i18n:domain="parruc.violareggiocalabria"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-  <property name="title" i18n:translate="">Homepage</property>
+  <property name="title" i18n:translate="">Partner</property>
   <property name="description"
     i18n:translate=""></property>
   <property name="icon_expr"></property>
-  <property name="factory">Homepage</property>
-  <property name="add_view_expr">string:${folder_url}/++add++Homepage</property>
+  <property name="factory">Partner</property>
+  <property name="add_view_expr">string:${folder_url}/++add++Partner</property>
   <property name="link_target"></property>
   <property name="immediate_view">view</property>
   <property name="global_allow">True</property>
@@ -14,21 +14,20 @@
   <property name="allowed_content_types">
   </property>
   <property name="allow_discussion">False</property>
-  <property name="default_view">hp</property>
+  <property name="default_view">view</property>
   <property name="view_methods">
-    <element value="hp"/>
+    <element value="view"/>
   </property>
   <property name="default_view_fallback">False</property>
-  <property name="add_permission">parruc.violareggiocalabria.AddHomepage</property>
-  <property name="klass">parruc.violareggiocalabria.content.Homepage</property>
+  <property name="add_permission">parruc.violareggiocalabria.AddPartner</property>
+  <property name="klass">parruc.violareggiocalabria.content.Partner</property>
   <property name="behaviors">
     <element value="plone.app.content.interfaces.INameFromTitle"/>
     <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
-    <element value="parruc.violareggiocalabria.behaviors.slider.ISlider"/>
+    <element value="plone.app.contenttypes.behaviors.leadimage.ILeadImage"/>
     <element value="plone.app.dexterity.behaviors.id.IShortName"/>
-    <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
   </property>
-  <property name="schema">parruc.violareggiocalabria.interfaces.IHomepage</property>
+  <property name="schema">parruc.violareggiocalabria.interfaces.IPartner</property>
   <property name="model_source"></property>
   <property name="model_file"></property>
   <alias from="(Default)" to="(dynamic view)"/>
