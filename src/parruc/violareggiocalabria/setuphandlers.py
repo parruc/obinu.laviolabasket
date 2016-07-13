@@ -66,7 +66,6 @@ def _create_structure():
 
 def _create_content():
     portal = api.portal.get()
-    folder = portal.get("squadre")
     teams_rels = slides_rels = pages_rels = []
     page_brains = api.content.find(portal_type='Document')
     if page_brains:
@@ -80,6 +79,7 @@ def _create_content():
     if team_brains:
         team_rels = [t.getObject() for t in team_brains]
     else:
+        folder = portal.get("squadre")
         for team in teams:
             logo_path = os.path.join(base_img_path, team["image_logo"])
             teaser_path = os.path.join(base_img_path, team["image_teaser"])
@@ -89,19 +89,19 @@ def _create_content():
             obj.image_teaser = load_image(teaser_path, 'image/jpg')
             teams_rels.append(RelationValue(getUtility(IIntIds).getId(obj)))
             api.content.transition(obj=obj, transition='publish')
-    folder = portal.get("partite")
     if not api.content.find(portal_type='Partita'):
+        folder = portal.get("partite")
         for partita in partite:
             partita['home'] = teams_rels[partita["home_index"]]
             partita['away'] = teams_rels[partita["away_index"]]
             obj = api.content.create(container=folder, type="Partita",
                                      **partita)
             api.content.transition(obj=obj, transition='publish')
-    folder = portal.get("slide")
     slide_brains = api.content.find(portal_type='Slide')
     if slide_brains:
         slide_rels = [s.getObject() for s in slide_brains]
     else:
+        folder = portal.get("slide")
         for count, slide in enumerate(slides):
             slide["link"] = pages_rels[count+1]
             obj = api.content.create(container=folder, type="Slide", **slide)
@@ -109,13 +109,13 @@ def _create_content():
             obj.image = load_image(image_path, 'image/jpg')
             slides_rels.append(RelationValue(getUtility(IIntIds).getId(obj)))
             api.content.transition(obj=obj, transition='publish')
-    folder = portal.get("video")
     if not api.content.find(portal_type='Video'):
+        folder = portal.get("video")
         for video in videos:
             obj = api.content.create(container=folder, type="Video", **video)
             api.content.transition(obj=obj, transition='publish')
-    folder = portal.get("roster")
     if not api.content.find(portal_type='Giocatore'):
+        folder = portal.get("roster")
         for player in players:
             player["title"] = player["surname"] + " " + player["name"]
             image_path = os.path.join(base_img_path, 'player.jpg')
@@ -123,21 +123,21 @@ def _create_content():
                                      **player)
             obj.image = load_image(image_path, 'image/jpg')
             api.content.transition(obj=obj, transition='publish')
-    folder = portal.get("news")
     if not api.content.find(portal_type='News Item'):
+        folder = portal.get("news")
         for new in news:
             obj = api.content.create(container=folder, type="News Item", **new)
             api.content.transition(obj=obj, transition='publish')
-    folder = portal.get("partner")
     if not api.content.find(portal_type='Partner'):
+        folder = portal.get("partner")
         for partner in partners:
             image_path = os.path.join(base_img_path, partner["image"])
             obj = api.content.create(container=folder, type="Partner",
                                      **partner)
             obj.image = load_image(image_path, 'image/png')
             api.content.transition(obj=obj, transition='publish')
-    folder = portal.get("sponsor")
     if not api.content.find(portal_type='Sponsor'):
+        folder = portal.get("sponsor")
         for sponsor in sponsors:
             image_path = os.path.join(base_img_path, sponsor["image"])
             obj = api.content.create(container=folder, type="Sponsor",
