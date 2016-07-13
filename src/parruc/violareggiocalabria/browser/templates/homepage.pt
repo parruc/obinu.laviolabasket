@@ -27,12 +27,12 @@
                                            away nocall:last_played_match/away/to_object;">
                 <div class="col-6">
                   <div class="m-img">
-                      <img src="" tal:define="scales home/@@images" tal:replace="structure python:scales.tag('image_teaser', width=311, height=148, direction='down')"/>
+                    <img src="" tal:define="scales home/@@images" tal:replace="structure python:scales.tag('image_teaser', width=311, height=148, direction='down')"/>
                   </div>
                 </div>
                 <div class="col-6">
                   <div class="m-img">
-                      <img src="" tal:define="scales away/@@images" tal:replace="structure python:scales.tag('image_teaser', width=311, height=148, direction='down')"/>
+                    <img src="" tal:define="scales away/@@images" tal:replace="structure python:scales.tag('image_teaser', width=311, height=148, direction='down')"/>
                   </div>
                 </div>
                 <div class="m-result">
@@ -72,14 +72,16 @@
           <div class="tab-small">
             <a href="" tal:attributes="href view/news_link">Vedi tutte</a>
           </div>
-          <div class="r-box-n">
-            <article tal:repeat="new news">
-              <h3>
-                <a href="" tal:content="new/Title" tal:attributes="href new/absolute_url">La Viola-vola</a>
-              </h3>
-              <p tal:content="new/description">Testo di esempio</p>
-              <span class="date-n" tal:content="python: view.format_news_date(new.effective())">21 Mar</span>
-            </article>
+          <div class="news-container">
+            <div class="r-box-n">
+              <article tal:repeat="new news">
+                <h3>
+                  <a href="" tal:content="new/Title" tal:attributes="href new/absolute_url">La Viola-vola</a>
+                </h3>
+                <p tal:content="new/description">Testo di esempio</p>
+                <span class="date-n" tal:content="python: view.format_news_date(new.effective())">21 Mar</span>
+              </article>
+            </div>
           </div>
           <!-- Countdown prossima partita -->
           <div tal:define="next_match_datetime view/next_match_datetime" tal:condition="next_match_datetime|nothing" class="countdown">
@@ -96,10 +98,10 @@
         <div id="v-tabs">
           <ul class="clearfix col-4">
             <li tal:repeat="video videos">
-                <a href="#  section-1" tal:attributes="href string:#section-${repeat/video/number};">
-                    <i class="icon-play"></i>
-                    <tal:block tal:replace="video/Title">The title hunt in Europe's top leagues</tal:block>
-                </a>
+              <a href="#  section-1" tal:attributes="href string:#section-${repeat/video/number};">
+                <i class="icon-play"></i>
+                <tal:block tal:replace="video/Title">The title hunt in Europe's top leagues</tal:block>
+              </a>
             </li>
           </ul>
           <tal:block tal:repeat="video videos">
@@ -112,97 +114,100 @@
     </section>
 
     <!-- Players -->
-    <section class="container" id="players" tal:define="players view/players" tal:condition="players">
-      <div class="players">
-        <div class="col-4">
-          <div class="our">
-            <h3 i18n:translate="">
-              <span i18n:translate="">I nostri</span>
-              Giocatori</h3>
+    <div class="container">
+      <section id="players" tal:define="players view/players" tal:condition="players">
+        <div class="players">
+          <div class="col-4">
+            <div class="our">
+              <h3 i18n:translate="">
+                <span i18n:translate="">I nostri</span>
+                Giocatori</h3>
+            </div>
+            <div class="bx-controls">
+            </div>
+            <div class="all-team">
+              <a href="" tal:attributes="href view/team_link" i18n:translate="">Vedi la squadra ›</a>
+            </div>
           </div>
-          <div class="all-team">
-            <a href="" tal:attributes="href view/team_link" i18n:translate="">Vedi la squadra ›</a>
-          </div>
-        </div>
-        <div class="col-8">
-          <div class="players-slider">
-            <div tal:repeat="player players" class="slide col-4">
-              <img src="" tal:define="scales player/@@images" tal:replace="structure python:scales.tag('image', width=157, height=177, direction='down')"/>
-              <div class="player-name">
-                <a href="" tal:attributes="href player/absolute_url" tal:content="string: ${player/name} ${player/surname}">Jan Kirchhoff</a>
-                <p tal:content="player/role">Defender</p>
+          <div class="col-8">
+            <div class="players-slider">
+              <div tal:repeat="player players" class="slide col-4">
+                <img src="" tal:define="scales player/@@images" tal:replace="structure python:scales.tag('image', width=157, height=177, direction='down')"/>
+                <div class="player-name">
+                  <a href="" tal:attributes="href player/absolute_url" tal:content="string: ${player/name} ${player/surname}">Jan Kirchhoff</a>
+                  <p tal:content="player/role">Defender</p>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Twitter -->
+    <section id="ttb">
+      <div class="container">
+        <div class="col-4 twiter" id="twitter" tal:define="tweets view/tweets" tal:condition="tweets">
+            <div class="tw-title">
+              <h3>Latest Tweets</h3>
+              <ul class="clearfix t-post">
+                <li tal:repeat="tweet tweets">
+                  <p tal:content="structure tweet/text">Contenuto del tweet</p>
+                  <a tal:attributes="href string: https://twitter.com/${tweet/name}" tal:content="string:@${tweet/name}">@Viola_RC</a>
+                </li>
+              </ul>
+              <tal:block tal:repeat="tweet tweets"></tal:block>
+            </div>
+        </div>
+
+        <!--Partners -->
+        <div class="col-4" id="partners" tal:define="partners view/partners" tal:condition="partners">
+          <div class="partners">
+            <div class="sp-title">
+              <h3 i18n:translate="">Partners</h3>
+            </div>
+            <div class="sp-img" tal:repeat="partner partners">
+              <img src="" tal:define="scales partner/@@images" tal:replace="structure python:scales.tag('image', height=90, direction='down')"/>
+            </div>
+          </div>
+        </div>
+
+        <!--Classifica -->
+        <div class="col-4" id="classifica" tal:define="classifica view/classifica" tal:condition="classifica">
+          <div class="liga-t">
+            <div class="bu-title">
+              <h3 i18n:translate="">Serie A2</h3>
+            </div>
+            <table class="table-striped">
+              <tr class="t-h">
+                <th class="t-c">Pos</th>
+                <th>Club</th>
+                <th>Pld</th>
+                <th>Pts</th>
+              </tr>
+              <tr tal:repeat="squadra classifica">
+                <td class="t-c" tal:content="repeat/squadra/number">1</td>
+                <td tal:content="squadra/Title">FC Bayern München</td>
+                <td tal:content="squadra/played">36</td>
+                <td tal:content="squadra/points">81</td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Twitter -->
-    <div class="container">
-        <section id="twitter" tal:define="tweets view/tweets" tal:condition="tweets">
-          <div class="col-xs-12 col-sm-4">
-            <div class="twiter">
-              <div class="tw-title">
-                <h3>Latest Tweets</h3>
-                <ul class="clearfix t-post">
-                    <li tal:repeat="tweet tweets">
-                        <p tal:content="structure tweet/text">Contenuto del tweet</p>
-                        <a tal:attributes="href string: https://twitter.com/${tweet/name}" tal:content="string:@${tweet/name}">@Viola_RC</a>
-                    </li>
-                </ul>
-                <tal:block tal:repeat="tweet tweets">
-                </tal:block>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!--Partners -->
-        <section id="partners" tal:define="partners view/partners" tal:condition="partners">
-            <div class="col-xs-12 col-sm-4">
-                <div class="partners">
-                    <div class="sp-title">
-                        <h3 i18n:translate="">Partners</h3>
-                    </div>
-                    <div class="sp-img" tal:repeat="partner partners">
-                        <img src="" tal:define="scales partner/@@images" tal:replace="structure python:scales.tag('image', height=90, direction='down')"/>
-                        <span tal:content="partner/Title">Titolo dello sponsor</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!--Classifica -->
-        <section id="classifica" tal:define="classifica view/classifica" tal:condition="classifica">
-            <div class="col-xs-12 col-sm-4">
-                <div class="liga-t">
-                    <div class="bu-title"><h3 i18n:translate="">Serie A2</h3></div>
-                    <table class="table-striped">
-                        <tr class="t-h"><th class="t-c">Pos</th><th>Club</th><th>Pld</th><th>Pts</th></tr>
-                        <tr tal:repeat="squadra classifica">
-                            <td class="t-c" tal:content="repeat/squadra/number">1</td>
-                            <td tal:content="squadra/Title">FC Bayern München</td>
-                            <td tal:content="squadra/played">36</td>
-                            <td tal:content="squadra/points">81</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </section>
-    </div>
-
     <!--Sponsors -->
     <section id="sponsors" tal:define="sponsors view/sponsors" tal:condition="sponsors">
-    	<div class="container">
-    		<div class="p-l">
-    			<div class="col-2" tal:repeat="sponsor sponsors">
-                    <a href="#" tal:attributes="href sponsor/link">
-                        <img src="" tal:define="scales sponsor/@@images" tal:replace="structure python:scales.tag('image', height=90, direction='down')"/>
-                    </a>
-                </div>
-    		</div>
-    	</div>
-	</section>
+      <div class="container">
+        <div class="p-l">
+          <div class="col-2" tal:repeat="sponsor sponsors">
+            <a href="#" tal:attributes="href sponsor/link">
+              <img src="" tal:define="scales sponsor/@@images" tal:replace="structure python:scales.tag('image', height=90, direction='down')"/>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   </metal:block>
 </html>

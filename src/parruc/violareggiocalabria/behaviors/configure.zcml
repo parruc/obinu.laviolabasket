@@ -17,13 +17,4 @@
       factory=".featured.Featured"
       />
 
-      <plone:behavior
-        title="Slider"
-        description="This behavior adds a slider to a content type"
-        provides=".slider.ISlider"
-        marker=".slider.ISlider"
-        for="plone.dexterity.interfaces.IDexterityContent"
-        factory=".slider.Slider"
-        />
-
 </configure>

@@ -68,12 +68,18 @@ def _create_content():
     portal = api.portal.get()
     folder = portal.get("squadre")
     teams_rels = slides_rels = pages_rels = []
-    if not api.content.find(portal_type='Document'):
+    page_brains = api.content.find(portal_type='Document')
+    if page_brains:
+        pages_rels = [p.getObject() for p in page_brains]
+    else:
         for page in pages:
             obj = api.content.create(container=portal, type="Document", **page)
             pages_rels.append(RelationValue(getUtility(IIntIds).getId(obj)))
             api.content.transition(obj=obj, transition='publish')
-    if not api.content.find(portal_type='Squadra'):
+    team_brains = api.content.find(portal_type='Squadra')
+    if team_brains:
+        team_rels = [t.getObject() for t in team_brains]
+    else:
         for team in teams:
             logo_path = os.path.join(base_img_path, team["image_logo"])
             teaser_path = os.path.join(base_img_path, team["image_teaser"])
@@ -91,8 +97,11 @@ def _create_content():
             obj = api.content.create(container=folder, type="Partita",
                                      **partita)
             api.content.transition(obj=obj, transition='publish')
-    folder = portal.get("slides")
-    if not api.content.find(portal_type='Slide'):
+    folder = portal.get("slide")
+    slide_brains = api.content.find(portal_type='Slide')
+    if slide_brains:
+        slide_rels = [s.getObject() for s in slide_brains]
+    else:
         for count, slide in enumerate(slides):
             slide["link"] = pages_rels[count+1]
             obj = api.content.create(container=folder, type="Slide", **slide)

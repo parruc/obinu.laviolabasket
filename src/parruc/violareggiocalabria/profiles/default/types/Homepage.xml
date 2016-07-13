@@ -24,7 +24,7 @@
   <property name="behaviors">
     <element value="plone.app.content.interfaces.INameFromTitle"/>
     <element value="plone.app.dexterity.behaviors.metadata.IBasic"/>
-    <element value="parruc.violareggiocalabria.behaviors.slider.ISlider"/>
+    <element value="parruc.flexslider.behaviors.slider.ISlider"/>
     <element value="plone.app.dexterity.behaviors.id.IShortName"/>
     <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
   </property>

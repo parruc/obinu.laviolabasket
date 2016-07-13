@@ -20,7 +20,7 @@ folders = [{"title": _("Partite"), "permission": base_perm + "Partita",
             "exclude_from_nav": True},
            {"title": _("Video"), "permission": base_perm + "Video",
             "exclude_from_nav": True},
-           {"title": _("Slides"), "permission": base_perm + "Slide",
+           {"title": _("Slide"), "permission": "parruc.flexslider: Add Slide",
             "exclude_from_nav": True}, ]
 
 pages = [{"title": _("Team")},

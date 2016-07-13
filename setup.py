@@ -43,6 +43,7 @@ setup(
         'plone.app.dexterity',
         'requests',
         'requests-oauthlib',
+        'parruc.flexslider'
     ],
     extras_require={
         'test': [

@@ -22,7 +22,7 @@
         <permission name="parruc.violareggiocalabria: Add Video" acquire="False">
           <role name="Manager"/>
         </permission>
-        <permission name="parruc.violareggiocalabria: Add Slide" acquire="False">
+        <permission name="parruc.flexslider: Add Slide" acquire="False">
           <role name="Manager"/>
         </permission>
         <permission name="parruc.violareggiocalabria: Add Homepage" acquire="False">

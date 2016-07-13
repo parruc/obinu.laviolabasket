@@ -123,20 +123,6 @@ class IGiocatore(model.Schema):
     )
 
 
-class ISlide(model.Schema):
-
-    image = NamedBlobImage(
-        title=_("Immagine slide"),
-        required=True,
-    )
-
-    link = RelationChoice(
-        title=_(u"Contenuto dal inkare nella slide"),
-        source=launches,
-        required=False,
-    )
-
-
 class IVideo(model.Schema):
 
     url = schema.URI(
