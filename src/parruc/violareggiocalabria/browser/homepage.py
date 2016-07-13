@@ -12,6 +12,7 @@ from requests_oauthlib import OAuth1
 # from .. import messageFactory as _
 logger = logging.getLogger("Plone")
 
+
 class HomepageView(BrowserView):
 
     def last_played_match(self):
