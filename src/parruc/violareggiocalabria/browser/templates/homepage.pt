@@ -10,13 +10,13 @@
   <metal:block fill-slot="content-core">
     <metal:title fill-slot="content-title"></metal:title>
     <!-- Ultima partita giocata -->
-    <section id="m-a-n">
-      <div class="container">
-        <div class="col-8" tal:define="launch nocall:context/launch/to_object|nothing">
+    <section id="m-a-n" class="container">
+      <div class="row table-row">
+        <div class="col-xs-12 col-sm-8 no-padding-right" tal:define="launch nocall:context/launch/to_object|nothing">
           <tal:block tal:condition="launch">
             <div class="tab" tal:content="launch/Title">Titolo lancio</div>
             <div class="match">
-              <img src="" tal:define="scales context/@@images" tal:replace="structure python:scales.tag('launch_image', width=622, height=150, direction='down')"/>
+              <img src="" tal:define="scales context/@@bwimages" tal:replace="structure python:scales.tag('launch_image', width=785, height=150, direction='down')"/>
               <div class="launch-body" tal:content="structure launch/text/output">Testo del lancio</div>
             </div>
           </tal:block>
@@ -25,33 +25,35 @@
             <div class="match" tal:define="last_played_match view/last_played_match" tal:condition="last_played_match">
               <tal:block tal:define="home nocall:last_played_match/home/to_object;
                                            away nocall:last_played_match/away/to_object;">
-                <div class="col-6">
-                  <div class="m-img">
-                    <img src="" tal:define="scales home/@@images" tal:replace="structure python:scales.tag('image_teaser', width=311, height=148, direction='down')"/>
+                <div class="row">
+                  <div class="team-logo col-xs-6 col-sm-6 no-padding-right">
+                      <img src="" tal:define="scales home/@@images" tal:replace="structure python:scales.tag('image_teaser', width=393, height=150, direction='down', css_class='img-responsive')"/>
+                  </div>
+                  <div class="team-logo col-xs-6 col-sm-6 no-padding-left">
+                      <img src="" tal:define="scales away/@@images" tal:replace="structure python:scales.tag('image_teaser', width=393, height=150, direction='down', css_class='img-responsive')"/>
                   </div>
                 </div>
-                <div class="col-6">
-                  <div class="m-img">
-                    <img src="" tal:define="scales away/@@images" tal:replace="structure python:scales.tag('image_teaser', width=311, height=148, direction='down')"/>
+                <div class="row">
+                  <div class="col-xs-6 col-sm-4 team-logo">
+                    <img src="" tal:define="scales home/@@images" tal:replace="structure python:scales.tag('image_logo', width=100, height=999, direction='up', css_class='img-responsive')"/>
+                  </div>
+                  <div class="hidden-xs col-sm-4 team-league" tal:content="last_played_match/league">Campionato serie A2</div>
+                  <div class="col-xs-6 col-sm-4 team-logo">
+                    <img src="" tal:define="scales away/@@images" tal:replace="structure python:scales.tag('image_logo', width=100, height=999, direction='up', css_class='img-responsive')"/>
                   </div>
                 </div>
-                <div class="m-result">
-                  <div class="logo-club col-3">
-                    <img src="" tal:replace="structure home/@@images/image_logo/logo"/>
-                  </div>
-                  <span class="result col-6">
-                    <div class="match-name" tal:content="last_played_match/league">Campionato serie A2</div>
+                <div class="club-points row">
+                  <div class="result col-xs-12 col-sm-6 text-right">
                     <tal:block tal:replace="last_played_match/score_home">20</tal:block>
-                    <b>:</b>
+                  </div>
+                  <span class="result-separator">:</span>
+                  <div class="result col-xs-12 col-sm-6 text-left">
                     <tal:block tal:replace="last_played_match/score_away">20</tal:block>
-                  </span>
-                  <div class="logo-club col-3">
-                    <img src="" tal:replace="structure away/@@images/image_logo/logo"/>
                   </div>
-                  <div class="club-name col-12">
-                    <span class="col-6 text-left" tal:content="home/Title">Bayern</span>
-                    <span class="col-6 text-right" tal:content="away/Title">Arsenal</span>
-                  </div>
+                </div>
+                <div class="club-name row">
+                  <span class="col-xs-6 col-sm-6 text-left" tal:content="home/Title">Bayern</span>
+                  <span class="col-xs-6 col-sm-6 text-right" tal:content="away/Title">Arsenal</span>
                 </div>
               </tal:block>
             </div>
@@ -67,7 +69,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-4" tal:define="news view/latest_news" tal:condition="news">
+        <div class="col-xs-12 col-sm-4 no-padding-left" tal:define="news view/latest_news" tal:condition="news">
           <div class="tab">News</div>
           <div class="tab-small">
             <a href="" tal:attributes="href view/news_link">Vedi tutte</a>
@@ -123,8 +125,7 @@
                 <span i18n:translate="">I nostri</span>
                 Giocatori</h3>
             </div>
-            <div class="bx-controls">
-            </div>
+            <div class="bx-controls"></div>
             <div class="all-team">
               <a href="" tal:attributes="href view/team_link" i18n:translate="">Vedi la squadra ›</a>
             </div>
@@ -148,16 +149,16 @@
     <section id="ttb">
       <div class="container">
         <div class="col-4 twiter" id="twitter" tal:define="tweets view/tweets" tal:condition="tweets">
-            <div class="tw-title">
-              <h3>Latest Tweets</h3>
-              <ul class="clearfix t-post">
-                <li tal:repeat="tweet tweets">
-                  <p tal:content="structure tweet/text">Contenuto del tweet</p>
-                  <a tal:attributes="href string: https://twitter.com/${tweet/name}" tal:content="string:@${tweet/name}">@Viola_RC</a>
-                </li>
-              </ul>
-              <tal:block tal:repeat="tweet tweets"></tal:block>
-            </div>
+          <div class="tw-title">
+            <h3>Latest Tweets</h3>
+            <ul class="clearfix t-post">
+              <li tal:repeat="tweet tweets">
+                <p tal:content="structure tweet/text">Contenuto del tweet</p>
+                <a tal:attributes="href string: https://twitter.com/${tweet/name}" tal:content="string:@${tweet/name}">@Viola_RC</a>
+              </li>
+            </ul>
+            <tal:block tal:repeat="tweet tweets"></tal:block>
+          </div>
         </div>
 
         <!--Partners -->
