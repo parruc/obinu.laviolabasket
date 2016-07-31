@@ -150,15 +150,18 @@
     <!-- Twitter -->
     <section id="ttb">
       <div class="row table-row">
-        <div class="col-sm-4 col-xs-12 no-padding-right twiter" id="twitter" tal:define="tweets view/tweets" tal:condition="tweets">
+        <div class="col-sm-4 col-xs-12 no-padding-right twiter" id="twitter" tal:define="tweets view/tweets">
           <div class="tw-title">
             <h3>Latest Tweets</h3>
-            <ul class="clearfix t-post">
+            <ul class="clearfix t-post" tal:condition="tweets">
               <li tal:repeat="tweet tweets">
                 <p tal:content="structure tweet/text">Contenuto del tweet</p>
                 <a tal:attributes="href string: https://twitter.com/${tweet/name}" tal:content="string:@${tweet/name}">@Viola_RC</a>
               </li>
             </ul>
+            <p tal:condition="not:tweets">
+                Non sono presenti tweets al momento
+            </p>
             <tal:block tal:repeat="tweet tweets"></tal:block>
           </div>
         </div>
