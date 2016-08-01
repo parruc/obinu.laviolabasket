@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-import logging
-import os
 from datetime import datetime
-
-import requests
-
 from plone import api
 from Products.Five.browser import BrowserView
 from requests_oauthlib import OAuth1
+
+import logging
+import os
+import requests
+
 
 # from .. import messageFactory as _
 logger = logging.getLogger("Plone")
@@ -87,8 +87,8 @@ class HomepageView(BrowserView):
     def news_link(self):
         return api.portal.get().get("news").absolute_url()
 
-    def team_link(self):
-        return api.portal.get().get("team").absolute_url()
+    def roster_link(self):
+        return api.portal.get().get("roster").absolute_url()
 
     def tweets(self):
         customer_key = os.getenv("TWITTER_CUSTOMER_KEY", None)

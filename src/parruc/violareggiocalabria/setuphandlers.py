@@ -1,17 +1,25 @@
 # -*- coding: utf-8 -*-
-import logging
-import os
-
+from initial_data import folders
+from initial_data import news
+from initial_data import pages
+from initial_data import partite
+from initial_data import partners
+from initial_data import players
+from initial_data import slides
+from initial_data import sponsors
+from initial_data import teams
+from initial_data import videos
+from plone import api
+from Products.CMFPlone.interfaces import INonInstallable
+from z3c.relationfield import RelationValue
 from zope.component import getUtility
 from zope.interface import implementer
 from zope.intid.interfaces import IIntIds
 
+import logging
+import os
 import transaction
-from initial_data import (folders, news, pages, partite, partners, players,
-                          slides, sponsors, teams, videos)
-from plone import api
-from Products.CMFPlone.interfaces import INonInstallable
-from z3c.relationfield import RelationValue
+
 
 logger = logging.getLogger('parruc.violareggiocalabria')
 
@@ -59,8 +67,9 @@ def _create_structure():
         obj = api.content.create(container=portal, type="Folder",
                                  title=folder["title"],
                                  exclude_from_nav=folder["exclude_from_nav"])
-        obj.manage_permission(folder["permission"], roles=['Editor'],
-                              acquire=True)
+        if "permission" in folder:
+            obj.manage_permission(folder["permission"], roles=['Editor'],
+                                  acquire=True)
         api.content.transition(obj=obj, transition='publish')
 
 
@@ -72,12 +81,15 @@ def _create_content():
         pages_rels = [p.getObject() for p in page_brains]
     else:
         for page in pages:
-            obj = api.content.create(container=portal, type="Document", **page)
+            parent = portal.get(page.get('parent'), None)
+            if not parent:
+                parent = portal
+            obj = api.content.create(container=parent, type="Document", **page)
             pages_rels.append(RelationValue(getUtility(IIntIds).getId(obj)))
             api.content.transition(obj=obj, transition='publish')
     team_brains = api.content.find(portal_type='Squadra')
     if team_brains:
-        team_rels = [t.getObject() for t in team_brains]
+        teams_rels = [t.getObject() for t in team_brains]
     else:
         folder = portal.get("squadre")
         for team in teams:
@@ -99,7 +111,7 @@ def _create_content():
             api.content.transition(obj=obj, transition='publish')
     slide_brains = api.content.find(portal_type='Slide')
     if slide_brains:
-        slide_rels = [s.getObject() for s in slide_brains]
+        slides_rels = [s.getObject() for s in slide_brains]
     else:
         folder = portal.get("slide")
         for count, slide in enumerate(slides):

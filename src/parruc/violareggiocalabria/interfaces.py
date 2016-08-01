@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 """Module where all interfaces, events and exceptions live."""
 
-from zope import schema
-from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-
 from parruc.violareggiocalabria import _
-from parruc.violareggiocalabria.vocabularies import launches, teams
+from parruc.violareggiocalabria.vocabularies import launches
+from parruc.violareggiocalabria.vocabularies import teams
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
-from plone.supermodel.directives import primary
 from z3c.relationfield.schema import RelationChoice
+from zope import schema
+from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 
 class IParrucViolareggiocalabriaLayer(IDefaultBrowserLayer):
@@ -119,6 +118,11 @@ class IGiocatore(model.Schema):
     )
     image = NamedBlobImage(
         title=_(u"Foto"),
+        required=True,
+    )
+
+    image_back = NamedBlobImage(
+        title=_(u"Foto di sfondo"),
         required=True,
     )
 

@@ -2,7 +2,6 @@
 <object name="portal_types" meta_type="Plone Types Tool">
   <object name="Sponsor" meta_type="Dexterity FTI"/>
   <object name="Partner" meta_type="Dexterity FTI"/>
-  <object name="News Item" meta_type="Dexterity FTI"/>
   <object name="Squadra" meta_type="Dexterity FTI"/>
   <object name="Partita" meta_type="Dexterity FTI"/>
   <object name="Giocatore" meta_type="Dexterity FTI"/>
