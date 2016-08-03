@@ -8,6 +8,7 @@ from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
 from z3c.relationfield.schema import RelationChoice
 from zope import schema
+from zope.interface import Interface
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 
 
@@ -57,7 +58,7 @@ class ISquadra(model.Schema):
     )
 
     played = schema.Int(
-        title=_(u"Numero di partite giocatte"),
+        title=_(u"Numero di partite giocate"),
         required=True,
     )
 
@@ -102,18 +103,76 @@ class IPartita(model.Schema):
     )
 
 
+class IStatisticheGiocatore(Interface):
+
+        year = schema.TextLine(
+            title=_("Anno di riferimento"),
+            required=True,
+        )
+
+        played = schema.Int(
+            title=_(u"Numero di partite giocate"),
+            required=True,
+        )
+
+        score = schema.Int(
+            title=_(u"Punti fatti"),
+            required=True,
+        )
+
+        played_time = schema.Int(
+            title=_(u"Minuti giocati"),
+            required=True,
+        )
+
+        two_points_shots = schema.Int(
+            title=_(u"Tiri da due"),
+            required=True,
+        )
+
+        two_points_shots_percent = schema.Int(
+            title=_(u"Percentuale da due"),
+            required=True,
+        )
+
+        three_points_shots = schema.Int(
+            title=_(u"Tiri da tre"),
+            required=True,
+        )
+
+        three_points_shots_percent = schema.Int(
+            title=_(u"Percentuale da tre"),
+            required=True,
+        )
+
+        rebounds = schema.Int(
+            title=_(u"Rimbalzi"),
+            required=True,
+        )
+
+        blocked = schema.Int(
+            title=_(u"Stoppate"),
+            required=True,
+        )
+
+
 class IGiocatore(model.Schema):
 
     name = schema.TextLine(
-        title=_("Nome"),
+        title=_(u"Nome"),
         required=True,
     )
     surname = schema.TextLine(
-        title=_("Cognome"),
+        title=_(u"Cognome"),
         required=True,
     )
+    birth_date = schema.Date(
+        title=_(u"Data di nascita"),
+        required=True,
+
+    )
     role = schema.TextLine(
-        title=_("Ruolo"),
+        title=_(u"Ruolo"),
         required=True,
     )
     image = NamedBlobImage(
@@ -124,6 +183,24 @@ class IGiocatore(model.Schema):
     image_back = NamedBlobImage(
         title=_(u"Foto di sfondo"),
         required=True,
+    )
+
+    height = schema.Int(
+        title=_(u"Altezza in cm"),
+        required=True,
+    )
+
+    weight = schema.Int(
+        title=_(u"Peso in kg"),
+        required=True,
+    )
+
+    stats = schema.List(
+        title=_(u"Statistiche"),
+        required=False,
+        value_type=schema.Object(title=_("Statistiche stagionali"),
+                                 schema=IStatisticheGiocatore),
+
     )
 
 

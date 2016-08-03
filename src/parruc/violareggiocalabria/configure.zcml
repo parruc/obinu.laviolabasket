@@ -35,5 +35,8 @@
       name="parruc.violareggiocalabria-hiddenprofiles"
       />
 
+  <adapter factory=".adapters.StatisticheGiocatoreFactory"
+    name="parruc.violareggiocalabria.interfaces.IStatisticheGiocatore" />
+
 
 </configure>

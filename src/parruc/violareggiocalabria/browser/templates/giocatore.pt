@@ -1,0 +1,76 @@
+<!-- Homepage -->
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="parruc.violareggiocalabria"
+  metal:use-macro="context/main_template/macros/master">
+
+  <metal:block fill-slot="content-core">
+    <metal:title fill-slot="content-title"></metal:title>
+    <!-- Immagine larga -->
+    <div class="row">
+        <div class="col-xs-12" class="player-images">
+            <img tal:define="scales context/@@bwimages" tal:replace="structure python:scales.tag('image_back', width=1200, height=500, direction='down', css_class='img-responsive')"/>
+            <h1 class="player-name">
+                <span class="orange" tal:content="context/surname">Player Surname</span>
+                <span class="white" tal:content="context/name">Player Name</span>
+            </h1>
+            <div class="player-image">
+                <img tal:define="scales context/@@images" tal:replace="structure python:scales.tag('image', width=300, height=550, direction='down', css_class='img-responsive')"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="diagonal-border"></div>
+            <div class="diagonal-content-wrapper">
+                <div class="diagonal-content">
+                    <h2 class="role" tal:content="context/role">Guardia</h2>
+                    <div class="bio">
+                        <span class="grey" i18n:translate="">Nascita:</span>
+                        <span class="white" tal:content="context/birth_date">14/11/1981</span>
+                    </div>
+                    <div class="bio">
+                        <span class="grey" i18n:translate="">Altezza:</span>
+                        <span class="white" tal:content="string:${context/height}cm">183cm</span>
+                    </div>
+                    <div class="bio">
+                        <span class="grey" i18n:translate="">Peso:</span>
+                        <span class="white" tal:content="string:${context/weight}Kg">180Kg</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12" tal:define="stats view/stats" tal:repeat="year stats">
+            <h2 tal:content="string:Statistiche ${year}">Statistiche 2017-2018</h2>
+            <table>
+                <tr>
+                    <th i18n:translate="">Gare</th>
+                    <th i18n:translate="">Punti</th>
+                    <th i18n:translate="">Tiri da 2</th>
+                    <th i18n:translate="">% da 2</th>
+                    <th i18n:translate="">Tiri da 3</th>
+                    <th i18n:translate="">% da 3</th>
+                    <th i18n:translate="">Rimbalzi</th>
+                    <th i18n:translate="">Stoppate</th>
+                </tr>
+                <tr>
+                    <td tal:content="stats/?year/played">123456</td>
+                    <td tal:content="stats/?year/score">123456</td>
+                    <td tal:content="stats/?year/two_points_shots">123456</td>
+                    <td tal:content="stats/?year/two_points_shots_percent">123456</td>
+                    <td tal:content="stats/?year/three_points_shots">123456</td>
+                    <td tal:content="stats/?year/three_points_shots_percent">123456</td>
+                    <td tal:content="stats/?year/rebounds">123456</td>
+                    <td tal:content="stats/?year/blocked">123456</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+  </metal:block>
+</html>

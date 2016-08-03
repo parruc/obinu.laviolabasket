@@ -29,6 +29,15 @@
     />
 
     <browser:page
+        for="..interfaces.IGiocatore"
+        name="view"
+        class=".giocatore.GiocatoreView"
+        template="templates/giocatore.pt"
+        permission="zope2.View"
+        layer="..interfaces.IParrucViolareggiocalabriaLayer"
+    />
+
+    <browser:page
         for="..interfaces.IHomepage"
         name="hp"
         class=".homepage.HomepageView"
