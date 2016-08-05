@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from plone import api
+#  from plone import api
 from Products.Five.browser import BrowserView
 
 
@@ -8,6 +8,4 @@ from Products.Five.browser import BrowserView
 
 class VideoView(BrowserView):
 
-    @property
-    def pc(self):
-        return api.portal.get_tool(name='portal_catalog')
+    pass

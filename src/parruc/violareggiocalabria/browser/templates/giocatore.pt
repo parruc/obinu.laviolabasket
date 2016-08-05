@@ -11,18 +11,18 @@
     <metal:title fill-slot="content-title"></metal:title>
     <!-- Immagine larga -->
     <div class="row">
-        <div class="col-xs-12" class="player-images">
+        <div class="col-sm-12 hidden-xs">
             <img tal:define="scales context/@@bwimages" tal:replace="structure python:scales.tag('image_back', width=1200, height=500, direction='down', css_class='img-responsive')"/>
-            <h1 class="player-name">
-                <span class="orange" tal:content="context/surname">Player Surname</span>
-                <span class="white" tal:content="context/name">Player Name</span>
-            </h1>
-            <div class="player-image">
-                <img tal:define="scales context/@@images" tal:replace="structure python:scales.tag('image', width=300, height=550, direction='down', css_class='img-responsive')"/>
-                <div class="white-box-wrapper">
-                    <div class="white-border"></div>
-                    <div class="white-box"></div>
-                </div>
+        </div>
+        <h1 class="player-name">
+            <span class="orange-head" tal:content="context/surname">Player Surname</span>
+            <span class="white-head" tal:content="context/name">Player Name</span>
+        </h1>
+        <div class="player-image">
+            <img tal:define="scales context/@@images" tal:replace="structure python:scales.tag('image', width=300, height=550, direction='down', css_class='img-responsive')"/>
+            <div class="white-box-wrapper hidden-xs">
+                <div class="white-box"></div>
+                <div class="white-border"></div>
             </div>
         </div>
     </div>
@@ -56,9 +56,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12" tal:define="stats view/stats" tal:repeat="year stats">
+        <div class="col-xs-12 stats" tal:define="stats view/stats" tal:repeat="year stats">
             <h2 tal:content="string:Statistiche ${year}">Statistiche 2017-2018</h2>
-            <table class="stats-table">
+            <table class="table stats-table">
                 <tr>
                     <th i18n:translate="">Gare</th>
                     <th i18n:translate="">Punti</th>

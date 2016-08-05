@@ -149,8 +149,8 @@
 
     <!-- Twitter -->
     <section id="ttb">
-      <div class="row table-row">
-        <div class="col-sm-4 col-xs-12 no-padding-right twiter" id="twitter" tal:define="tweets view/tweets">
+      <div class="table-row">
+        <div class="col-sm-4 col-xs-12 no-padding" id="twitter" tal:define="tweets view/tweets">
           <div class="tw-title">
             <h3>Latest Tweets</h3>
             <ul class="clearfix t-post" tal:condition="tweets">
@@ -179,7 +179,7 @@
         </div>
 
         <!--Classifica -->
-        <div class="col-sm-4 col-xs-12 no-padding-left" id="classifica" tal:define="classifica view/classifica" tal:condition="classifica">
+        <div class="col-sm-4 col-xs-12 no-padding" id="classifica" tal:define="classifica view/classifica" tal:condition="classifica">
           <div class="liga-t">
             <div class="bu-title">
               <h3 i18n:translate="">Serie A2</h3>

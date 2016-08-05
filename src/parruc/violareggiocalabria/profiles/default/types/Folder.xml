@@ -14,4 +14,8 @@
         <element value="Folder" />
         <element value="Document" />
     </property>
+    <property name="view_methods">
+      <element value="view"/>
+      <element value="giocatori"/>
+    </property>
 </object>

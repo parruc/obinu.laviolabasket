@@ -35,6 +35,12 @@
       name="parruc.violareggiocalabria-hiddenprofiles"
       />
 
+  <utility
+      component=".vocabularies.LeaguesVocabularyFactory"
+      name="parruc.violareggiocalabria.vocabularies.leagues"
+      />
+
+
   <adapter factory=".adapters.StatisticheGiocatoreFactory"
     name="parruc.violareggiocalabria.interfaces.IStatisticheGiocatore" />
 

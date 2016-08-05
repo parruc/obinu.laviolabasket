@@ -28,5 +28,8 @@
         <permission name="parruc.violareggiocalabria: Add Homepage" acquire="False">
           <role name="Manager"/>
         </permission>
+        <permission name="Modify view template" acquire="False">
+          <role name="Manager"/>
+        </permission>
   </permissions>
 </rolemap>

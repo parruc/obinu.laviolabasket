@@ -3,7 +3,6 @@
 
 from parruc.violareggiocalabria import _
 from parruc.violareggiocalabria.vocabularies import launches
-from parruc.violareggiocalabria.vocabularies import leagues
 from parruc.violareggiocalabria.vocabularies import teams
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
@@ -73,9 +72,9 @@ class IHomepage(model.Schema):
         required=True,
     )
 
-    league = RelationChoice(
+    league = schema.Choice(
         title=_(u"Campionato a cui partecipa"),
-        source=leagues,
+        vocabulary='parruc.violareggiocalabria.vocabularies.leagues',
         required=True,
     )
 
@@ -92,9 +91,9 @@ class ISquadra(model.Schema):
         required=True,
     )
 
-    league = RelationChoice(
+    league = schema.Choice(
         title=_(u"Campionato a cui partecipa"),
-        source=leagues,
+        vocabulary='parruc.violareggiocalabria.vocabularies.leagues',
         required=True,
     )
 
@@ -230,7 +229,12 @@ class IGiocatore(model.Schema):
         required=False,
         value_type=schema.Object(title=_("Statistiche stagionali"),
                                  schema=IStatisticheGiocatore),
+    )
 
+    team = RelationChoice(
+        title=_(u"Squadra"),
+        required=True,
+        source=teams,
     )
 
 

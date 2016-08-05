@@ -137,8 +137,15 @@ def _create_content():
             obj = api.content.create(container=folder, type="Video", **video)
             api.content.transition(obj=obj, transition='publish')
     if not api.content.find(portal_type='Giocatore'):
-        folder = portal.get("roster")
         for player in players:
+            if "team_subject" not in player:
+                player["team_subject"] = ("viola", "main")
+            viola_brain = api.content.find(portal_type='Squadra',
+                                           Subject=player.pop("team_subject"))
+            if len(viola_brain) > 0:
+                obj = viola_brain[0].getObject()
+                player["team"] = RelationValue(getUtility(IIntIds).getId(obj))
+            folder = portal.get("roster")
             player["title"] = player["surname"] + " " + player["name"]
             stats = None
             if "stats" in player:

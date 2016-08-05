@@ -13,8 +13,8 @@ class StatisticheGiocatoreFactory(object):
     def __init__(self, context, request, form, widget):
         pass
 
-    def __call__(self, value):
-        return StatisticheGiocatore(value)
+    def __call__(self, values):
+        return StatisticheGiocatore(**values)
 
 
 class TeamInLeagueFactory(object):
@@ -24,5 +24,5 @@ class TeamInLeagueFactory(object):
     def __init__(self, context, request, form, widget):
         pass
 
-    def __call__(self, value):
-        return TeamInLeague(value)
+    def __call__(self, values):
+        return TeamInLeague(**values)

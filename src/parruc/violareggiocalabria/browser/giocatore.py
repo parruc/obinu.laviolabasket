@@ -8,10 +8,6 @@ from Products.Five.browser import BrowserView
 
 class GiocatoreView(BrowserView):
 
-    @property
-    def pc(self):
-        return api.portal.get_tool(name='portal_catalog')
-
     def stats(self):
         results = OrderedDict()
         if not self.context.stats:
