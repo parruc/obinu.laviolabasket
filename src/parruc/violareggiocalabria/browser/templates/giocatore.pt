@@ -19,14 +19,18 @@
             </h1>
             <div class="player-image">
                 <img tal:define="scales context/@@images" tal:replace="structure python:scales.tag('image', width=300, height=550, direction='down', css_class='img-responsive')"/>
+                <div class="white-box-wrapper">
+                    <div class="white-border"></div>
+                    <div class="white-box"></div>
+                </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <div class="diagonal-border"></div>
-            <div class="diagonal-content-wrapper">
-                <div class="diagonal-content">
+            <div class="bio-border"></div>
+            <div class="bio-content-wrapper">
+                <div class="bio-content">
                     <h2 class="role" tal:content="context/role">Guardia</h2>
                     <div class="bio">
                         <span class="grey" i18n:translate="">Nascita:</span>
@@ -44,11 +48,17 @@
             </div>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-xs-12">
+            <div class=".prevnext">
+                <div tal:replace="structure provider:plone.belowcontent" />
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-xs-12" tal:define="stats view/stats" tal:repeat="year stats">
             <h2 tal:content="string:Statistiche ${year}">Statistiche 2017-2018</h2>
-            <table>
+            <table class="stats-table">
                 <tr>
                     <th i18n:translate="">Gare</th>
                     <th i18n:translate="">Punti</th>

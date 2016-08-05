@@ -1,0 +1,21 @@
+<!-- Homepage -->
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="parruc.violareggiocalabria"
+  metal:use-macro="context/main_template/macros/master">
+
+  <metal:block fill-slot="content-core">
+    <metal:title fill-slot="content-title"></metal:title>
+    <div class="row">
+        <div class="col-xs-12" class="players">
+            <tal:block tal:define="players view/players"
+            <h1 tal:content="string:Roster 2016/2017"></h1>
+
+            <tal:repeat="giocatore in view/giocatori"></>
+        </div>
+    </div>
+</metal:block>
+</html>

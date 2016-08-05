@@ -3,6 +3,7 @@
 
 from parruc.violareggiocalabria import _
 from parruc.violareggiocalabria.vocabularies import launches
+from parruc.violareggiocalabria.vocabularies import leagues
 from parruc.violareggiocalabria.vocabularies import teams
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
@@ -25,6 +26,34 @@ class ISponsor(model.Schema):
     )
 
 
+class ITeamInLeague(Interface):
+
+        played = schema.Int(
+            title=_(u"Numero di partite giocate"),
+            required=True,
+        )
+
+        points = schema.Int(
+            title=_(u"Numero di punti"),
+            required=True,
+        )
+        team = RelationChoice(
+            title=_(u"Team"),
+            required=True,
+            source=launches,
+        )
+
+
+class ILeague(model.Schema):
+
+    teams = schema.List(
+        title=_(u"Teams"),
+        required=False,
+        value_type=schema.Object(title=_("Squadra"),
+                                 schema=ITeamInLeague),
+    )
+
+
 class IPartner(model.Schema):
 
     pass
@@ -44,6 +73,12 @@ class IHomepage(model.Schema):
         required=True,
     )
 
+    league = RelationChoice(
+        title=_(u"Campionato a cui partecipa"),
+        source=leagues,
+        required=True,
+    )
+
 
 class ISquadra(model.Schema):
 
@@ -57,13 +92,9 @@ class ISquadra(model.Schema):
         required=True,
     )
 
-    played = schema.Int(
-        title=_(u"Numero di partite giocate"),
-        required=True,
-    )
-
-    points = schema.Int(
-        title=_(u"Numero di punti"),
+    league = RelationChoice(
+        title=_(u"Campionato a cui partecipa"),
+        source=leagues,
         required=True,
     )
 
@@ -192,7 +223,6 @@ class IGiocatore(model.Schema):
 
     weight = schema.Int(
         title=_(u"Peso in kg"),
-        required=True,
     )
 
     stats = schema.List(

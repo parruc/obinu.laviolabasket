@@ -5,6 +5,7 @@ from parruc.violareggiocalabria.interfaces import IPartita
 from parruc.violareggiocalabria.interfaces import ISponsor
 from parruc.violareggiocalabria.interfaces import ISquadra
 from parruc.violareggiocalabria.interfaces import IStatisticheGiocatore
+from parruc.violareggiocalabria.interfaces import ITeamInLeague
 from parruc.violareggiocalabria.interfaces import IVideo
 from plone.dexterity.content import Item
 from zope.interface import implements
@@ -41,6 +42,14 @@ class Video(Item):
 class StatisticheGiocatore(object):
     implements(IStatisticheGiocatore)
 
-    def __init__(self, values):
+    def __init__(self, **values):
+        for key, value in values.items():
+            setattr(self, key, value)
+
+
+class TeamInLeague(object):
+    implements(ITeamInLeague)
+
+    def __init__(self, **values):
         for key, value in values.items():
             setattr(self, key, value)

@@ -12,6 +12,7 @@ from initial_data import videos
 from plone import api
 from Products.CMFPlone.interfaces import INonInstallable
 from z3c.relationfield import RelationValue
+from zope.component import createObject
 from zope.component import getUtility
 from zope.interface import implementer
 from zope.intid.interfaces import IIntIds
@@ -59,16 +60,25 @@ def load_image(path, mime):
                           filename=u''+filename, )
 
 
+def _add_subobjs(obj, field_name, subobj_type, data_list):
+    subobjs = []
+    for count, data in enumerate(data_list):
+        subobj = createObject(subobj_type, **data)
+        subobjs.append(subobj)
+    setattr(obj, field_name, subobjs)
+
+
 def _create_structure():
     portal = api.portal.get()
+    permission = None
     for folder in folders:
+        if "permission" in folder:
+            permission = folder.pop("permission")
         if api.content.find(portal_type='Folder', Title=folder["title"]):
             continue
-        obj = api.content.create(container=portal, type="Folder",
-                                 title=folder["title"],
-                                 exclude_from_nav=folder["exclude_from_nav"])
-        if "permission" in folder:
-            obj.manage_permission(folder["permission"], roles=['Editor'],
+        obj = api.content.create(container=portal, type="Folder", **folder)
+        if permission:
+            obj.manage_permission(permission, roles=['Editor'],
                                   acquire=True)
         api.content.transition(obj=obj, transition='publish')
 
@@ -130,10 +140,17 @@ def _create_content():
         folder = portal.get("roster")
         for player in players:
             player["title"] = player["surname"] + " " + player["name"]
-            image_path = os.path.join(base_img_path, 'player.jpg')
+            stats = None
+            if "stats" in player:
+                stats = player.pop("stats")
             obj = api.content.create(container=folder, type="Giocatore",
                                      **player)
+            if stats:
+                _add_subobjs(obj, "stats", "StatisticheGiocatore", stats)
+            image_path = os.path.join(base_img_path, 'player.jpg')
             obj.image = load_image(image_path, 'image/jpg')
+            image_bg_path = os.path.join(base_img_path, 'players-bg.jpg')
+            obj.image_back = load_image(image_bg_path, 'image/jpg')
             api.content.transition(obj=obj, transition='publish')
     if not api.content.find(portal_type='News Item'):
         folder = portal.get("news")

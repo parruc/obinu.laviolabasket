@@ -38,5 +38,7 @@
   <adapter factory=".adapters.StatisticheGiocatoreFactory"
     name="parruc.violareggiocalabria.interfaces.IStatisticheGiocatore" />
 
+  <adapter factory=".adapters.TeamInLeagueFactory"
+    name="parruc.violareggiocalabria.interfaces.ITeamInLeague" />
 
 </configure>

@@ -29,6 +29,15 @@
     />
 
     <browser:page
+        for="plone.dexterity.interfaces.IDexterityContainer"
+        name="giocatori"
+        class=".giocatori.GiocatoriView"
+        template="templates/giocatori.pt"
+        permission="zope2.View"
+        layer="..interfaces.IParrucViolareggiocalabriaLayer"
+    />
+
+    <browser:page
         for="..interfaces.IGiocatore"
         name="view"
         class=".giocatore.GiocatoreView"
