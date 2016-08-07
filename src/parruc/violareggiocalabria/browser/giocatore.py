@@ -15,3 +15,9 @@ class GiocatoreView(BrowserView):
         for stat in self.context.stats:
             results[stat.year] = stat
         return results
+
+    def date_format(self, date):
+        day = str(date.day)
+        month = str(date.month)
+        year = str(date.year)
+        return "%s/%s/%s" % (day.zfill(2), month.zfill(2), year)

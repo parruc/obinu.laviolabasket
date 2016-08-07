@@ -10,15 +10,15 @@
   <metal:block fill-slot="content-core">
     <metal:title fill-slot="content-title"></metal:title>
     <div class="row">
-      <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="col-md-3 col-sm-4 col-xs-12">
         <h1 class="roster-head">
           <span class="orange-head">Roster</span>
-          <span class="grey-head">2016/2017</span>
+          <span class="white-head">2016/2017</span>
         </h1>
       </div>
-      <div class="col-md-3 col-sm-4 col-xs-6" tal:repeat="player view/get_players">
+      <div class="col-md-3 col-sm-4 col-xs-12 roster-player" tal:repeat="player view/get_players">
         <a href="" tal:attributes="href player/absolute_url; title player/title">
-          <img tal:define="scales player/@@images" tal:replace="structure python:scales.tag('image', width=300, height=550, direction='down', css_class='img-responsive')"/>
+          <img tal:define="scales player/@@images" tal:replace="structure python:scales.tag('image', width=300, height=450, direction='down', css_class='img-responsive')"/>
           <div class="grey-box-wrapper">
             <div class="grey-box" tal:content="player/title"></div>
             <div class="grey-border"></div>

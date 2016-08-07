@@ -10,76 +10,82 @@
   <metal:block fill-slot="content-core">
     <metal:title fill-slot="content-title"></metal:title>
     <!-- Immagine larga -->
-    <div class="row">
-        <div class="col-sm-12 hidden-xs">
-            <img tal:define="scales context/@@bwimages" tal:replace="structure python:scales.tag('image_back', width=1200, height=500, direction='down', css_class='img-responsive')"/>
-        </div>
-        <h1 class="player-name">
-            <span class="orange-head" tal:content="context/surname">Player Surname</span>
-            <span class="white-head" tal:content="context/name">Player Name</span>
-        </h1>
-        <div class="player-image">
-            <img tal:define="scales context/@@images" tal:replace="structure python:scales.tag('image', width=300, height=550, direction='down', css_class='img-responsive')"/>
-            <div class="white-box-wrapper hidden-xs">
-                <div class="white-box"></div>
-                <div class="white-border"></div>
+    <div class="container player-container">
+        <div class="row">
+            <div class="col-sm-12 back-image hidden-xs">
+                <img tal:define="scales context/@@bwimages" tal:replace="structure python:scales.tag('image_back', width=1200, height=500, direction='up', css_class='img-responsive')"/>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="bio-border"></div>
-            <div class="bio-content-wrapper">
-                <div class="bio-content">
-                    <h2 class="role" tal:content="context/role">Guardia</h2>
-                    <div class="bio">
-                        <span class="grey" i18n:translate="">Nascita:</span>
-                        <span class="white" tal:content="context/birth_date">14/11/1981</span>
-                    </div>
-                    <div class="bio">
-                        <span class="grey" i18n:translate="">Altezza:</span>
-                        <span class="white" tal:content="string:${context/height}cm">183cm</span>
-                    </div>
-                    <div class="bio">
-                        <span class="grey" i18n:translate="">Peso:</span>
-                        <span class="white" tal:content="string:${context/weight}Kg">180Kg</span>
+        <div class="row">
+            <div class="col-xs-12 player-image-wrapper">
+                <h1 class="player-name">
+                    <span class="orange-head" tal:content="context/surname">Player Surname</span>
+                    <span class="white-head" tal:content="context/name">Player Name</span>
+                </h1>
+                <div class="player-image">
+                    <img tal:define="scales context/@@images" tal:replace="structure python:scales.tag('image', width=375, height=550, direction='down', css_class='img-responsive')"/>
+                    <div class="white-box-wrapper hidden-xs">
+                        <div class="white-box"></div>
+                        <div class="white-border"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div class=".prevnext">
-                <div tal:replace="structure provider:plone.belowcontent" />
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="bio-border"></div>
+                <div class="bio-content-wrapper">
+                    <div class="bio-content">
+                        <h2 class="role" tal:content="context/role">Guardia</h2>
+                        <div class="bio">
+                            <span class="grey" i18n:translate="">Nascita:</span>
+                            <span class="white" tal:content="python: view.date_format(context.birth_date)">14/11/1981</span>
+                        </div>
+                        <div class="bio">
+                            <span class="grey" i18n:translate="">Altezza:</span>
+                            <span class="white" tal:content="string:${context/height}cm">183cm</span>
+                        </div>
+                        <div class="bio">
+                            <span class="grey" i18n:translate="">Peso:</span>
+                            <span class="white" tal:content="string:${context/weight}Kg">180Kg</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 stats" tal:define="stats view/stats" tal:repeat="year stats">
-            <h2 tal:content="string:Statistiche ${year}">Statistiche 2017-2018</h2>
-            <table class="table stats-table">
-                <tr>
-                    <th i18n:translate="">Gare</th>
-                    <th i18n:translate="">Punti</th>
-                    <th i18n:translate="">Tiri da 2</th>
-                    <th i18n:translate="">% da 2</th>
-                    <th i18n:translate="">Tiri da 3</th>
-                    <th i18n:translate="">% da 3</th>
-                    <th i18n:translate="">Rimbalzi</th>
-                    <th i18n:translate="">Stoppate</th>
-                </tr>
-                <tr>
-                    <td tal:content="stats/?year/played">123456</td>
-                    <td tal:content="stats/?year/score">123456</td>
-                    <td tal:content="stats/?year/two_points_shots">123456</td>
-                    <td tal:content="stats/?year/two_points_shots_percent">123456</td>
-                    <td tal:content="stats/?year/three_points_shots">123456</td>
-                    <td tal:content="stats/?year/three_points_shots_percent">123456</td>
-                    <td tal:content="stats/?year/rebounds">123456</td>
-                    <td tal:content="stats/?year/blocked">123456</td>
-                </tr>
-            </table>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class=".prevnext">
+                    <div tal:replace="structure provider:plone.belowcontent" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 stats" tal:define="stats view/stats" tal:repeat="year stats">
+                <h2 tal:content="string:Statistiche ${year}">Statistiche 2017-2018</h2>
+                <table class="table stats-table">
+                    <tr>
+                        <th i18n:translate="">Gare</th>
+                        <th i18n:translate="">Punti</th>
+                        <th i18n:translate="">Tiri da 2</th>
+                        <th i18n:translate="">% da 2</th>
+                        <th i18n:translate="">Tiri da 3</th>
+                        <th i18n:translate="">% da 3</th>
+                        <th i18n:translate="">Rimbalzi</th>
+                        <th i18n:translate="">Stoppate</th>
+                    </tr>
+                    <tr>
+                        <td tal:content="stats/?year/played">123456</td>
+                        <td tal:content="stats/?year/score">123456</td>
+                        <td tal:content="stats/?year/two_points_shots">123456</td>
+                        <td tal:content="stats/?year/two_points_shots_percent">123456</td>
+                        <td tal:content="stats/?year/three_points_shots">123456</td>
+                        <td tal:content="stats/?year/three_points_shots_percent">123456</td>
+                        <td tal:content="stats/?year/rebounds">123456</td>
+                        <td tal:content="stats/?year/blocked">123456</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
   </metal:block>
