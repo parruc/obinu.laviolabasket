@@ -22,14 +22,19 @@
     title="parruc.violareggiocalabria: Add Sponsor"
     />
 
-    <permission
-        id="parruc.violareggiocalabria.AddPartner"
-        title="parruc.violareggiocalabria: Add Partner"
-        />
+<permission
+    id="parruc.violareggiocalabria.AddPartner"
+    title="parruc.violareggiocalabria: Add Partner"
+    />
 
 <permission
     id="parruc.violareggiocalabria.AddSquadra"
     title="parruc.violareggiocalabria: Add Squadra"
+    />
+
+<permission
+    id="parruc.violareggiocalabria.AddLeague"
+    title="parruc.violareggiocalabria: Add League"
     />
 
 <permission

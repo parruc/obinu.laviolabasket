@@ -17,17 +17,4 @@
         <element>Document</element>
       </value>
     </record>
-    <!-- Vocabolario dei campionati -->
-    <record name="parruc.violareggiocalabria.vocabularies.leagues">
-    <field type="plone.registry.field.Dict">
-        <title>Campionati</title>
-        <key_type type="plone.registry.field.TextLine" />
-        <value_type type="plone.registry.field.TextLine" />
-    </field>
-    <value>
-        <element key="A1">Serie A1</element>
-        <element key="A2">Serie A2</element>
-        <element key="U21">Under 21</element>
-    </value>
-</record>
 </registry>

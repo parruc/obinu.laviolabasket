@@ -7,11 +7,14 @@ from parruc.violareggiocalabria import _
 base_perm = "parruc.violareggiocalabria: Add "
 
 
-folders = [{"title": _(u"Partite"), "permission": base_perm + "Partita", },
+folders = [{"title": _(u"Partite"), "permission": base_perm + "Partita",
+            "view": "partite"},
            {"title": _(u"Roster"), "permission": base_perm + "Giocatore",
-            "nextPreviousEnabled": True},
+            "nextPreviousEnabled": True, "view": "giocatori"},
            {"title": _(u"News"), "permission": base_perm + "News Item", },
            {"title": _(u"Sponsor"), "permission": base_perm + "Sponsor",
+            "exclude_from_nav": True},
+           {"title": _(u"Leagues"), "permission": base_perm + "League",
             "exclude_from_nav": True},
            {"title": _(u"Partner"), "permission": base_perm + "Partner",
             "exclude_from_nav": True},
@@ -29,6 +32,8 @@ pages = [{"title": _(u"Storia"), 'parent': "societa"},
          {"title": _(u"Pala Calafiore"), 'parent': "societa"},
          {"title": _(u"Caffe' Mauro"), },
          {"title": _(u"Contatti")}, ]
+
+leagues = [{"title": "A1"}, {"title": "A2"}, {"title": "Under 18"}]
 
 teams = [{"title": u"Givova Scafati", "played": 30, "points": 40,
           "image_logo": "loghi/givova-scafati.png",
@@ -56,7 +61,7 @@ teams = [{"title": u"Givova Scafati", "played": 30, "points": 40,
           "image_teaser": "teaser1.jpg", "league": "A2", },
          {"title": u"Bermé Reggio Calabria", "played": 30, "points": 28,
           "image_logo": "loghi/viola-reggiocalabria.png", "league": "A2",
-          "Subject": ("viola", "main"), "image_teaser": "teaser2.jpg"},
+          "is_viola": True, "image_teaser": "teaser2.jpg"},
          {"title": u"Angelico Biella", "played": 30, "points": 28,
           "image_logo": "loghi/angelico-biella.png",
           "image_teaser": "teaser1.jpg", "league": "A2", },

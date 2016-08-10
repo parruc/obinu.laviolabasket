@@ -5,6 +5,7 @@
     <property name="allowed_content_types">
         <element value="Giocatore" />
         <element value="News Item" />
+        <element value="League" />
         <element value="Partita" />
         <element value="Slide" />
         <element value="Sponsor" />
@@ -17,5 +18,6 @@
     <property name="view_methods">
       <element value="view"/>
       <element value="giocatori"/>
+      <element value="partite"/>
     </property>
 </object>

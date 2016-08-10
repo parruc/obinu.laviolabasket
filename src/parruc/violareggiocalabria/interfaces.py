@@ -3,6 +3,7 @@
 
 from parruc.violareggiocalabria import _
 from parruc.violareggiocalabria.vocabularies import launches
+from parruc.violareggiocalabria.vocabularies import leagues
 from parruc.violareggiocalabria.vocabularies import teams
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
@@ -44,13 +45,7 @@ class ITeamInLeague(Interface):
 
 
 class ILeague(model.Schema):
-
-    teams = schema.List(
-        title=_(u"Teams"),
-        required=False,
-        value_type=schema.Object(title=_("Squadra"),
-                                 schema=ITeamInLeague),
-    )
+    pass
 
 
 class IPartner(model.Schema):
@@ -72,9 +67,9 @@ class IHomepage(model.Schema):
         required=True,
     )
 
-    league = schema.Choice(
-        title=_(u"Campionato a cui partecipa"),
-        vocabulary='parruc.violareggiocalabria.vocabularies.leagues',
+    league_hp = RelationChoice(
+        title=_(u"Campionato da mostrare"),
+        source=leagues,
         required=True,
     )
 
@@ -91,10 +86,15 @@ class ISquadra(model.Schema):
         required=True,
     )
 
-    league = schema.Choice(
+    league = RelationChoice(
         title=_(u"Campionato a cui partecipa"),
-        vocabulary='parruc.violareggiocalabria.vocabularies.leagues',
+        source=leagues,
         required=True,
+    )
+
+    is_viola = schema.Bool(
+        title=_(u"Squadra del club Viola Reggiocalabria?"),
+        required=False,
     )
 
 
@@ -125,11 +125,6 @@ class IPartita(model.Schema):
     start = schema.Datetime(
         title=_("Data ed ora di inizio della partita"),
         required=True,
-    )
-
-    league = schema.TextLine(
-        title=_("Campionato"),
-        default=_("Campionato regolare serie A2"),
     )
 
 

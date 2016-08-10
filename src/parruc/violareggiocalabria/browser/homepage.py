@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
 from plone import api
+from plone.memoize import view
 from Products.Five.browser import BrowserView
 from requests_oauthlib import OAuth1
 
@@ -16,25 +16,12 @@ logger = logging.getLogger("Plone")
 class HomepageView(BrowserView):
 
     def last_played_match(self):
-        now = datetime.now()
-        query = {"portal_type": "Partita",
-                 "start": {'query': [now], 'range': 'max'},
-                 "sort_on": "start",
-                 "sort_order": "descending",
-                 "sort_limit": 5}
-        matches = api.content.find(**query)
-        for match in matches:
-            if match["score_home"] and match["score_away"]:
-                return match
+        team = self.context.league_hp.to_object.get_viola()
+        return team.last_played_match()
 
-    def future_matches(self, limit=5):
-        now = datetime.now()
-        query = {"portal_type": "Partita",
-                 "start": {'query': [now], 'range': 'min'},
-                 "sort_on": "start",
-                 "sort_order": "ascending",
-                 "sort_limit": limit}
-        return api.content.find(**query)[:limit]
+    def future_matches(self):
+        team = self.context.league_hp.to_object.get_viola()
+        return team.future_matches()
 
     def next_match_datetime(self):
         next_match = self.future_matches(limit=1)
