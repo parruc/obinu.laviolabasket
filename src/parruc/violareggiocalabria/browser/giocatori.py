@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from parruc.violareggiocalabria.utils import back_references
+from parruc.violareggiocalabria.utils import get_backrelations
 from plone import api
 from Products.Five.browser import BrowserView
 
@@ -22,4 +22,4 @@ class GiocatoriView(BrowserView):
 
     def get_players(self):
         team = self.get_team()
-        return back_references(team, "team")
+        return get_backrelations(team, "team")

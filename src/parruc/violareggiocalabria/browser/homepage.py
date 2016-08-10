@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
+# from plone.memoize import view
 from plone import api
-from plone.memoize import view
 from Products.Five.browser import BrowserView
 from requests_oauthlib import OAuth1
 
@@ -17,11 +17,18 @@ class HomepageView(BrowserView):
 
     def last_played_match(self):
         team = self.context.league_hp.to_object.get_viola()
+        if not team:
+            return []
         return team.last_played_match()
 
-    def future_matches(self):
+    def future_matches(self, limit=5):
         team = self.context.league_hp.to_object.get_viola()
-        return team.future_matches()
+        if not team:
+            return []
+        matches = team.future_matches()
+        if len(matches > limit):
+            return matches[:limit]
+        return matches
 
     def next_match_datetime(self):
         next_match = self.future_matches(limit=1)

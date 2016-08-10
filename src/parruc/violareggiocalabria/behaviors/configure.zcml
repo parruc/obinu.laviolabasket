@@ -5,8 +5,6 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="unibo.magazine">
 
-  <include package=".browser" />
-
     <!-- Behaviors -->
     <plone:behavior
       title="Featured"

@@ -1,21 +1,49 @@
 # -*- coding: utf-8 -*-
-from Acquisition import aq_inner
 from zc.relation.interfaces import ICatalog
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
-from zope.security import checkPermission
 
 
-def back_references(source_object, attribute_name):
-    """ Return back references from source
-        object on specified attribute_name """
-    catalog = getUtility(ICatalog)
+def get_relations(obj, attribute=None, backrefs=False):
+    """Get any kind of references and backreferences"""
+    retval = []
+    int_id = get_intid(obj)
+    if not int_id:
+        return retval
+
+    relation_catalog = getUtility(ICatalog)
+    if not relation_catalog:
+        return retval
+
+    query = {}
+    if attribute:
+        # Constrain the search for certain relation-types.
+        query['from_attribute'] = attribute
+
+    if backrefs:
+        query['to_id'] = int_id
+    else:
+        query['from_id'] = int_id
+    relations = relation_catalog.findRelations(query)
+    for relation in relations:
+        if relation.isBroken():
+            continue
+        retval += relation
+    return retval
+
+
+def get_backrelations(obj, attribute=None):
+    return get_relations(obj, attribute=attribute, backrefs=True)
+
+
+def get_intid(obj):
+    """Return the intid of an object from the intid-catalog"""
     intids = getUtility(IIntIds)
-    result = []
-    for rel in catalog.findRelations(
-        dict(to_id=intids.getId(aq_inner(source_object)),
-             from_attribute=attribute_name)):
-        obj = intids.queryObject(rel.from_id)
-        if obj is not None and checkPermission('zope2.View', obj):
-            result.append(obj)
-    return result
+    if intids is None:
+        return
+    # check that the object has an intid, otherwise there's nothing to be done
+    try:
+        return intids.getId(obj)
+    except KeyError:
+        # The object has not been added to the ZODB yet
+        return

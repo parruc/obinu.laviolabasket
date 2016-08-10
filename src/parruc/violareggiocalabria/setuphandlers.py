@@ -13,11 +13,12 @@ from initial_data import videos
 from plone import api
 from Products.CMFPlone.interfaces import INonInstallable
 from z3c.relationfield import RelationValue
-from zc.relation.interfaces import ICatalog
 from zope.component import createObject
 from zope.component import getUtility
+from zope.event import notify
 from zope.interface import implementer
 from zope.intid.interfaces import IIntIds
+from zope.lifecycleevent import ObjectModifiedEvent
 
 import logging
 import os
@@ -58,17 +59,16 @@ def obj_to_rel(obj):
 
 
 def publish_and_reindex(obj):
-    obj.reindexObject()
-    references_catalog = getUtility(ICatalog)
-    references_catalog.index(obj)
     if api.content.get_state(obj=obj) != "published":
         api.content.transition(obj=obj, transition='publish')
+    notify(ObjectModifiedEvent(obj))
+    transaction.commit()
 
 
-def get_object_by_title(obj_list, title):
-    for obj in obj_list:
-        if obj.to_object.title == title:
-            return obj
+def get_rel_by_title(rel_list, title):
+    for rel in rel_list:
+        if rel.to_object.title == title:
+            return rel
 
 
 def load_image(path, mime):
@@ -141,11 +141,9 @@ def _create_content():
         for team in teams:
             logo_path = os.path.join(base_img_path, team["image_logo"])
             teaser_path = os.path.join(base_img_path, team["image_teaser"])
-            if "league" in team and team["league"]:
-                league = team.pop("league")
-                team["league"] = get_object_by_title(leagues_rels, league)
             obj = api.content.create(container=folder, type="Squadra",
                                      **team)
+            obj.league = get_rel_by_title(leagues_rels, team["league_name"])
             obj.image_logo = load_image(logo_path, 'image/png')
             obj.image_teaser = load_image(teaser_path, 'image/jpg')
             teams_rels.append(obj)
@@ -154,10 +152,10 @@ def _create_content():
     if not api.content.find(portal_type='Partita'):
         folder = portal.get("partite")
         for partita in partite:
-            partita['home'] = teams_rels[partita["home_index"]]
-            partita['away'] = teams_rels[partita["away_index"]]
             obj = api.content.create(container=folder, type="Partita",
                                      **partita)
+            obj.home = teams_rels[partita["home_index"]]
+            obj.away = teams_rels[partita["away_index"]]
             publish_and_reindex(obj)
     slide_brains = api.content.find(portal_type='Slide')
     if slide_brains:
@@ -179,11 +177,6 @@ def _create_content():
             publish_and_reindex(obj)
     if not api.content.find(portal_type='Giocatore'):
         for player in players:
-            viola_brain = api.content.find(portal_type='Squadra',
-                                           is_viola=True)
-            if len(viola_brain) > 0:
-                obj = viola_brain[0].getObject()
-                player["team"] = RelationValue(getUtility(IIntIds).getId(obj))
             folder = portal.get("roster")
             player["title"] = player["surname"] + " " + player["name"]
             stats = None
@@ -191,6 +184,10 @@ def _create_content():
                 stats = player.pop("stats")
             obj = api.content.create(container=folder, type="Giocatore",
                                      **player)
+            viola_brain = api.content.find(portal_type='Squadra',
+                                           is_viola=True)
+            viola_obj = viola_brain[0].getObject()
+            obj.team = obj_to_rel(viola_obj)
             if stats:
                 _add_subobjs(obj, "stats", "StatisticheGiocatore", stats)
             image_path = os.path.join(base_img_path, 'player.jpg')
@@ -220,9 +217,9 @@ def _create_content():
             obj.image = load_image(image_path, 'image/png')
             publish_and_reindex(obj)
     if not api.content.find(portal_type='Homepage'):
-        league = get_object_by_title(leagues_rels, "A2")
-        hp = api.content.create(container=portal, title="index.html",
-                                type="Homepage", slides=slides_rels,
-                                exclude_from_nav=True, league_hp=league)
-        portal.setDefaultPage(hp.id)
+        obj = api.content.create(container=portal, title="index.html",
+                                 type="Homepage", exclude_from_nav=True, )
+        obj.slides = slides_rels
+        obj.league_hp = get_rel_by_title(leagues_rels, "A2")
+        portal.setDefaultPage(obj.id)
         publish_and_reindex(obj)

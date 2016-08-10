@@ -49,7 +49,6 @@ class ILeague(model.Schema):
 
 
 class IPartner(model.Schema):
-
     pass
 
 

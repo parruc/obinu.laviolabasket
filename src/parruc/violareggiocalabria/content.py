@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#  from plone.memoize import view
 from datetime import datetime
 from parruc.violareggiocalabria.interfaces import IGiocatore
 from parruc.violareggiocalabria.interfaces import IHomepage
@@ -9,9 +10,8 @@ from parruc.violareggiocalabria.interfaces import ISquadra
 from parruc.violareggiocalabria.interfaces import IStatisticheGiocatore
 from parruc.violareggiocalabria.interfaces import ITeamInLeague
 from parruc.violareggiocalabria.interfaces import IVideo
-from parruc.violareggiocalabria.utils import back_references
+from parruc.violareggiocalabria.utils import get_backrelations
 from plone.dexterity.content import Item
-#  from plone.memoize import view
 from zope.interface import implements
 
 
@@ -24,7 +24,8 @@ class League(Item):
 
     #  @view.memoize
     def get_teams(self):
-        return back_references(self, "league")
+        import ipdb; ipdb.set_trace()
+        return get_backrelations(self, "league")
 
     #  @view.memoize
     def get_viola(self):
@@ -54,12 +55,12 @@ class Squadra(Item):
     implements(ISquadra)
 
     def get_players(self):
-        return back_references(self, "team")
+        return get_backrelations(self, "team")
 
     #  @view.memoize
     def get_matches(self):
-        home = back_references(self, "home")
-        away = back_references(self, "away")
+        home = get_backrelations(self, "home")
+        away = get_backrelations(self, "away")
         matches = home + away
         matches.sort(lambda match: match.start)
         return matches
