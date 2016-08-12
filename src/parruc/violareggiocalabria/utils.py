@@ -28,7 +28,7 @@ def get_relations(obj, attribute=None, backrefs=False):
     for relation in relations:
         if relation.isBroken():
             continue
-        retval += relation
+        retval.append(relation)
     return retval
 
 

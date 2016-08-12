@@ -26,14 +26,16 @@ class HomepageView(BrowserView):
         if not team:
             return []
         matches = team.future_matches()
-        if len(matches > limit):
+        if not matches:
+            return []
+        if len(matches) > limit:
             return matches[:limit]
         return matches
 
     def next_match_datetime(self):
         next_match = self.future_matches(limit=1)
         if next_match:
-            return next_match[0]["start"].strftime("%Y/%m/%d %H:%M:%S")
+            return next_match[0].start.strftime("%Y/%m/%d %H:%M:%S")
 
     def latest_videos(self, limit=4):
         query = {"portal_type": "Video",
@@ -42,10 +44,8 @@ class HomepageView(BrowserView):
         return [b.getObject() for b in api.content.find(**query)[:limit]]
 
     def players(self):
-        """ TODO: replace con references in hp"""
-        query = {"portal_type": "Giocatore",
-                 "sort_on": "getObjPositionInParent", }
-        return [b.getObject() for b in api.content.find(**query)]
+        team = self.context.league_hp.to_object.get_viola()
+        return team.get_players()
 
     def latest_news(self, limit=5):
         """ TODO: get only featured"""

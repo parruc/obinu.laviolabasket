@@ -25,6 +25,9 @@ import os
 import transaction
 
 
+# from zope.lifecycleevent import ObjectModifiedEvent
+
+
 logger = logging.getLogger('parruc.violareggiocalabria')
 
 
@@ -62,13 +65,12 @@ def publish_and_reindex(obj):
     if api.content.get_state(obj=obj) != "published":
         api.content.transition(obj=obj, transition='publish')
     notify(ObjectModifiedEvent(obj))
-    transaction.commit()
 
 
-def get_rel_by_title(rel_list, title):
-    for rel in rel_list:
-        if rel.to_object.title == title:
-            return rel
+def get_rel_by_title(obj_list, title):
+    for obj in obj_list:
+        if obj.title == title:
+            return obj_to_rel(obj)
 
 
 def load_image(path, mime):
@@ -109,33 +111,34 @@ def _create_structure():
 
 def _create_content():
     portal = api.portal.get()
-    teams_rels = slides_rels = pages_rels = leagues_rels = []
+    teams_objs = []
+    slides_objs = []
+    pages_objs = []
+    leagues_objs = []
     page_brains = api.content.find(portal_type='Document')
     if page_brains:
-        pages_rels = [p.getObject() for p in page_brains]
+        pages_objs = [p.getObject() for p in page_brains]
     else:
         for page in pages:
             parent = portal.get(page.get('parent'), None)
             if not parent:
                 parent = portal
             obj = api.content.create(container=parent, type="Document", **page)
-            pages_rels.append(obj)
+            pages_objs.append(obj)
             publish_and_reindex(obj)
     league_brains = api.content.find(portal_type='League')
-    pages_rels = map(obj_to_rel, pages_rels)
     if league_brains:
-        leagues_rels = [l.getObject() for l in league_brains]
+        leagues_objs = [l.getObject() for l in league_brains]
     else:
         folder = portal.get("leagues")
         for league in leagues:
             obj = api.content.create(container=folder, type="League",
                                      **league)
             publish_and_reindex(obj)
-            leagues_rels.append(obj)
-    leagues_rels = map(obj_to_rel, leagues_rels)
+            leagues_objs.append(obj)
     team_brains = api.content.find(portal_type='Squadra')
     if team_brains:
-        teams_rels = [t.getObject() for t in team_brains]
+        teams_objs = [t.getObject() for t in team_brains]
     else:
         folder = portal.get("squadre")
         for team in teams:
@@ -143,33 +146,31 @@ def _create_content():
             teaser_path = os.path.join(base_img_path, team["image_teaser"])
             obj = api.content.create(container=folder, type="Squadra",
                                      **team)
-            obj.league = get_rel_by_title(leagues_rels, team["league_name"])
+            obj.league = get_rel_by_title(leagues_objs, team["league_name"])
             obj.image_logo = load_image(logo_path, 'image/png')
             obj.image_teaser = load_image(teaser_path, 'image/jpg')
-            teams_rels.append(obj)
+            teams_objs.append(obj)
             publish_and_reindex(obj)
-    teams_rels = map(obj_to_rel, teams_rels)
     if not api.content.find(portal_type='Partita'):
         folder = portal.get("partite")
         for partita in partite:
             obj = api.content.create(container=folder, type="Partita",
                                      **partita)
-            obj.home = teams_rels[partita["home_index"]]
-            obj.away = teams_rels[partita["away_index"]]
+            obj.home = obj_to_rel(teams_objs[partita["home_index"]])
+            obj.away = obj_to_rel(teams_objs[partita["away_index"]])
             publish_and_reindex(obj)
     slide_brains = api.content.find(portal_type='Slide')
     if slide_brains:
-        slides_rels = [s.getObject() for s in slide_brains]
+        slides_objs = [s.getObject() for s in slide_brains]
     else:
         folder = portal.get("slide")
         for count, slide in enumerate(slides):
-            slide["link"] = pages_rels[count+1]
+            slide["link"] = obj_to_rel(pages_objs[count+1])
             obj = api.content.create(container=folder, type="Slide", **slide)
             image_path = os.path.join(base_img_path, slide["image"])
             obj.image = load_image(image_path, 'image/jpg')
-            slides_rels.append(obj)
+            slides_objs.append(obj)
             publish_and_reindex(obj)
-    slides_rels = map(obj_to_rel, slides_rels)
     if not api.content.find(portal_type='Video'):
         folder = portal.get("video")
         for video in videos:
@@ -184,9 +185,7 @@ def _create_content():
                 stats = player.pop("stats")
             obj = api.content.create(container=folder, type="Giocatore",
                                      **player)
-            viola_brain = api.content.find(portal_type='Squadra',
-                                           is_viola=True)
-            viola_obj = viola_brain[0].getObject()
+            viola_obj = teams_objs[8]
             obj.team = obj_to_rel(viola_obj)
             if stats:
                 _add_subobjs(obj, "stats", "StatisticheGiocatore", stats)
@@ -219,7 +218,7 @@ def _create_content():
     if not api.content.find(portal_type='Homepage'):
         obj = api.content.create(container=portal, title="index.html",
                                  type="Homepage", exclude_from_nav=True, )
-        obj.slides = slides_rels
-        obj.league_hp = get_rel_by_title(leagues_rels, "A2")
+        obj.slides = [obj_to_rel(s) for s in slides_objs]
+        obj.league_hp = get_rel_by_title(leagues_objs, "A2")
         portal.setDefaultPage(obj.id)
         publish_and_reindex(obj)

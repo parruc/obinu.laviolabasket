@@ -13,7 +13,7 @@
     <div class="container player-container">
         <div class="row">
             <div class="col-sm-12 back-image hidden-xs">
-                <img tal:define="scales context/@@bwimages" tal:replace="structure python:scales.tag('image_back', width=1200, height=500, direction='up', css_class='img-responsive')"/>
+                <img tal:define="scales context/@@bwimages" tal:replace="structure python:scales.tag('image_back', width=1200, height=500, direction='up', css_class='img-dark img-responsive')"/>
             </div>
         </div>
         <div class="row">

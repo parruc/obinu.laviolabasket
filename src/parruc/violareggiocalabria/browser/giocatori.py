@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from parruc.violareggiocalabria.utils import get_backrelations
 from plone import api
 from Products.Five.browser import BrowserView
 
@@ -12,14 +11,8 @@ class GiocatoriView(BrowserView):
     def current_year(self):
         pass
 
-    def get_team(self):
-        # TODO: Also query by league
-        query = {"portal_type": "Squadra",
-                 "is_viola": True, }
-        res = api.content.find(**query)
-        if len(res) > 0:
-            return res[0].getObject()
-
     def get_players(self):
-        team = self.get_team()
-        return get_backrelations(team, "team")
+        query = {"portal_type": "Homepage", "sort_limit": 1}
+        hp = api.content.find(**query)[0].getObject()
+        team = hp.league_hp.to_object.get_viola()
+        return team.get_players()
