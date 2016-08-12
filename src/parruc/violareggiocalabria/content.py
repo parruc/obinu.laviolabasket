@@ -55,7 +55,6 @@ class Squadra(Item):
     implements(ISquadra)
 
     def get_players(self):
-        import ipdb; ipdb.set_trace()
         return [r.from_object for r in get_backrelations(self, "team")]
 
     #  @view.memoize

@@ -16,7 +16,9 @@
           <tal:block tal:condition="launch">
             <div class="tab" tal:content="launch/Title">Titolo lancio</div>
             <div class="match">
-              <img src="" tal:define="scales context/@@bwimages" tal:replace="structure python:scales.tag('launch_image', width=785, height=150, direction='down', css_class='img-dark img-responsive')"/>
+                <span class="img-dark">
+                    <img src="" tal:define="scales context/@@bwimages" tal:replace="structure python:scales.tag('launch_image', width=785, height=150, direction='down', css_class='img-responsive')"/>
+                </span>
               <div class="launch-body" tal:content="structure launch/text/output">Testo del lancio</div>
             </div>
           </tal:block>
@@ -26,34 +28,33 @@
               <tal:block tal:define="home nocall:last_played_match/home/to_object;
                                      away nocall:last_played_match/away/to_object;">
                 <div class="row">
-                  <div class="team-logo col-xs-6 col-sm-6 no-padding-right">
-                    <img src="" tal:define="scales home/@@images" tal:replace="structure python:scales.tag('image_teaser', width=393, height=150, direction='down', css_class='img-responsive')"/>
+                  <div class="col-xs-6 col-sm-6 no-padding-right img-dark">
+                    <img src="" tal:define="scales home/@@bwimages" tal:replace="structure python:scales.tag('image_teaser', width=393, height=150, direction='down', css_class='img-responsive')"/>
                   </div>
-                  <div class="team-logo col-xs-6 col-sm-6 no-padding-left">
-                    <img src="" tal:define="scales away/@@images" tal:replace="structure python:scales.tag('image_teaser', width=393, height=150, direction='down', css_class='img-responsive')"/>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-6 col-sm-4 team-logo">
-                    <img src="" tal:define="scales home/@@images" tal:replace="structure python:scales.tag('image_logo', width=100, height=999, direction='up', css_class='img-responsive')"/>
-                  </div>
-                  <div class="hidden-xs col-sm-4 team-league" tal:content="context/league_hp/to_object/title">Campionato serie A2</div>
-                  <div class="col-xs-6 col-sm-4 team-logo">
-                    <img src="" tal:define="scales away/@@images" tal:replace="structure python:scales.tag('image_logo', width=100, height=999, direction='up', css_class='img-responsive')"/>
+                  <div class="col-xs-6 col-sm-6 no-padding-left img-dark">
+                    <img src="" tal:define="scales away/@@bwimages" tal:replace="structure python:scales.tag('image_teaser', width=393, height=150, direction='down', css_class='img-responsive')"/>
                   </div>
                 </div>
-                <div class="club-points row">
-                  <div class="result col-xs-6 text-right">
-                    <tal:block tal:replace="last_played_match/score_home">20</tal:block>
+                <div class="row teams">
+                  <div class="col-xs-4 team-logo">
+                    <img src="" tal:define="scales home/@@images" tal:replace="structure python:scales.tag('image_logo', width=999, height=175, direction='up', css_class='img-responsive')"/>
                   </div>
-                  <span class="result-separator">:</span>
-                  <div class="result col-xs-6 text-left padding-left">
-                    <tal:block tal:replace="last_played_match/score_away">20</tal:block>
+                  <div class="col-xs-4 scores">
+                    <span class="score" tal:content="last_played_match/score_home">20</span>
+                    <span class="score" tal:content="last_played_match/score_away">20</span>
+                  </div>
+                  <div class="col-xs-4 team-logo">
+                    <img src="" tal:define="scales away/@@images" tal:replace="structure python:scales.tag('image_logo', width=999, height=175, direction='up', css_class='img-responsive')"/>
                   </div>
                 </div>
-                <div class="club-name row">
-                  <span class="col-xs-6 text-left" tal:content="home/Title">Bayern</span>
-                  <span class="col-xs-6 text-right" tal:content="away/Title">Arsenal</span>
+                <div class="row result text-center">
+                  <div class="col-xs-4 team-name" tal:content="home/Title">Bayern</div>
+                  <div class="col-xs-4">
+                      <div class="team-league" tal:content="last_played_match/match_type">Campionato regolare</div>
+                      <div class="team-league" tal:content="context/league_hp/to_object/description">Serie A2</div>
+                      <div class="team-league" tal:content="python view.format_match_date(last_played_match.start)">20 Aprile 15:00</div>
+                  </div>
+                  <div class="col-xs-4 team-name" tal:content="away/Title">Arsenal</div>
                 </div>
               </tal:block>
             </div>

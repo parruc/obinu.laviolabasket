@@ -3,6 +3,8 @@
 from plone import api
 from Products.Five.browser import BrowserView
 from requests_oauthlib import OAuth1
+from utils import long_months
+from utils import short_months
 
 import logging
 import os
@@ -73,10 +75,18 @@ class HomepageView(BrowserView):
         return api.content.find(**query)
 
     def format_news_date(self, zope_date):
-        short_months = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug",
-                        "Ago", "Set", "Ott", "Nov", "Dic"]
         date = zope_date.asdatetime()
-        return "%d %s" % (date.day, short_months[date.month-1])
+        day = str(date.day).zfill(2)
+        month = short_months[date.month-1]
+        return "%d %s" % (day, month)
+
+    def format_match_date(self, zope_date):
+        date = zope_date.asdatetime()
+        day = str(date.day).zfill(2)
+        month = long_months[date.month-1]
+        hour = str(date.hour).zfill(2)
+        minute = str(date.minute).zfill(2)
+        return "%s %s %s:%s" % (day, month, hour, minute)
 
     def news_link(self):
         return api.portal.get().get("news").absolute_url()

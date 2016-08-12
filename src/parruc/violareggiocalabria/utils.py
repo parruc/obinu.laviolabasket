@@ -4,6 +4,14 @@ from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 
 
+long_months = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
+               "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre",
+               "Dicembre"]
+
+
+short_months = [m[:3] for m in long_months]
+
+
 def get_relations(obj, attribute=None, backrefs=False):
     """Get any kind of references and backreferences"""
     retval = []

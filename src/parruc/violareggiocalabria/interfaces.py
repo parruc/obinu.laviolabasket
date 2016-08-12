@@ -4,6 +4,7 @@
 from parruc.violareggiocalabria import _
 from parruc.violareggiocalabria.vocabularies import launches
 from parruc.violareggiocalabria.vocabularies import leagues
+from parruc.violareggiocalabria.vocabularies import match_types
 from parruc.violareggiocalabria.vocabularies import teams
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
@@ -63,7 +64,7 @@ class IHomepage(model.Schema):
 
     launch_image = NamedBlobImage(
         title=_(u"Immagine per il lancio"),
-        required=True,
+        required=False,
     )
 
     league_hp = RelationChoice(
@@ -123,6 +124,13 @@ class IPartita(model.Schema):
 
     start = schema.Datetime(
         title=_("Data ed ora di inizio della partita"),
+        required=True,
+    )
+
+    match_type = schema.Choice(
+        title=_(u"Tipo di partita"),
+        vocabulary=match_types,
+        default="regular",
         required=True,
     )
 
