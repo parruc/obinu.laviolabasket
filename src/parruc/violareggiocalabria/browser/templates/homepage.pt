@@ -44,7 +44,7 @@
                     <span class="score" tal:content="last_played_match/score_away">20</span>
                   </div>
                   <div class="col-xs-4 team-logo">
-                    <img src="" tal:define="scales away/@@images" tal:replace="structure python:scales.tag('image_logo', width=999, height=175, direction='up', css_class='img-responsive')"/>
+                    <img src="" tal:define="scales away/@@images" tal:replace="structure python:scales.tag('image_logo', width=130, height=136, direction='up', css_class='img-responsive')"/>
                   </div>
                 </div>
                 <div class="row result text-center">
