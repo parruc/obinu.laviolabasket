@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 # from plone.memoize import view
+from datetime import datetime
+from parruc.violareggiocalabria.utils import format_date
+from parruc.violareggiocalabria.utils import format_date_ago
+from parruc.violareggiocalabria.utils import format_date_time
 from plone import api
+from plone.memoize import ram
 from Products.Five.browser import BrowserView
 from requests_oauthlib import OAuth1
-from utils import long_months
-from utils import short_months
+from time import time
 
 import logging
 import os
@@ -74,26 +78,7 @@ class HomepageView(BrowserView):
                  "sort-order": "descending", }
         return api.content.find(**query)
 
-    def format_news_date(self, zope_date):
-        date = zope_date.asdatetime()
-        day = str(date.day).zfill(2)
-        month = short_months[date.month-1]
-        return "%d %s" % (day, month)
-
-    def format_match_date(self, zope_date):
-        date = zope_date.asdatetime()
-        day = str(date.day).zfill(2)
-        month = long_months[date.month-1]
-        hour = str(date.hour).zfill(2)
-        minute = str(date.minute).zfill(2)
-        return "%s %s %s:%s" % (day, month, hour, minute)
-
-    def news_link(self):
-        return api.portal.get().get("news").absolute_url()
-
-    def roster_link(self):
-        return api.portal.get().get("roster").absolute_url()
-
+    @ram.cache(lambda *args: time() // (60 * 10))
     def tweets(self):
         customer_key = os.getenv("TWITTER_CUSTOMER_KEY", None)
         customer_secret = os.getenv("TWITTER_CUSTOMER_SECRET", None)
@@ -117,6 +102,8 @@ class HomepageView(BrowserView):
             return[]
         for item in json_data:
             text = item["text"]
+            format = '%a %b %d %H:%M:%S +0000 %Y'
+            created = datetime.strptime(item['created_at'], format)
             urls = []
             if "entities" in item and "urls" in item["entities"]:
                 urls += item["entities"]["urls"]
@@ -126,6 +113,30 @@ class HomepageView(BrowserView):
                 u = url["url"]
                 text = text.replace(u, "<a href='"+u+"'>"+u+"</a>")
             name = item["user"]["screen_name"]
-            results.append({"text": text, "name": name})
+            results.append({"text": text, "name": name, "created": created})
 
         return results
+
+    def format_news_date(self, date):
+        return format_date(date, month_length=3)
+
+    def format_match_date(self, date):
+        return format_date_time(date)
+
+    def format_next_matches_date(self, date):
+        return format_date_time(date, month_length=3)
+
+    def format_video_date(self, date):
+        return format_date_ago(date)
+
+    def format_twitter_date(self, date):
+        return format_date_ago(date)
+
+    def news_link(self):
+        return api.portal.get().get("news").absolute_url()
+
+    def roster_link(self):
+        return api.portal.get().get("roster").absolute_url()
+
+    def video_link(self):
+        return api.portal.get().get("video").absolute_url()

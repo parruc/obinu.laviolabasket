@@ -6,6 +6,7 @@ from parruc.violareggiocalabria.vocabularies import launches
 from parruc.violareggiocalabria.vocabularies import leagues
 from parruc.violareggiocalabria.vocabularies import match_types
 from parruc.violareggiocalabria.vocabularies import teams
+from parruc.violareggiocalabria.vocabularies import video_categories
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
 from z3c.relationfield.schema import RelationChoice
@@ -245,4 +246,11 @@ class IVideo(model.Schema):
     url = schema.URI(
         title=_("Url del video youtube"),
         required=True
+    )
+
+    category = schema.Choice(
+        title=_(u"Categoria del video"),
+        vocabulary=video_categories,
+        default="regular",
+        required=True,
     )

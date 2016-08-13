@@ -11,6 +11,8 @@ from parruc.violareggiocalabria.interfaces import IStatisticheGiocatore
 from parruc.violareggiocalabria.interfaces import ITeamInLeague
 from parruc.violareggiocalabria.interfaces import IVideo
 from parruc.violareggiocalabria.utils import get_backrelations
+from parruc.violareggiocalabria.vocabularies import match_types
+from parruc.violareggiocalabria.vocabularies import video_categories
 from plone.dexterity.content import Item
 from zope.interface import implements
 
@@ -41,6 +43,11 @@ class Giocatore(Item):
 
 class Partita(Item):
     implements(IPartita)
+
+    def get_match_type_title(self):
+        if not getattr(self, "match_type", None):
+            return ""
+        return match_types.getTerm(self.match_type).title
 
 
 class Sponsor(Item):
@@ -85,6 +92,11 @@ class Squadra(Item):
 
 class Video(Item):
     implements(IVideo)
+
+    def get_video_category_title(self):
+        if not getattr(self, "video_category", None):
+            return ""
+        return video_categories.getTerm(self.video_category).title
 
 
 class StatisticheGiocatore(object):

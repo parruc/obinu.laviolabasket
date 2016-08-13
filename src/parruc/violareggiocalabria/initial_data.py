@@ -33,10 +33,9 @@ pages = [{"title": _(u"Storia"), 'parent': "societa"},
          {"title": _(u"Caffè Mauro"), },
          {"title": _(u"Contatti")}, ]
 
-leagues = [{"title": "A1", "description": _("Campionato regolare Serie A1")},
-           {"title": "A2", "description": _("Campionato regolare Serie A2")},
-           {"title": "Under 18",
-            "description": _("Campionato regolare under 18")}, ]
+leagues = [{"title": "A1", "description": _("Serie A1")},
+           {"title": "A2", "description": _("Serie A2")},
+           {"title": "Under 18", "description": _("under 18")}, ]
 
 teams = [{"title": u"Givova Scafati", "played": 30, "points": 40,
           "image_logo": "loghi/givova-scafati.png",
@@ -113,12 +112,16 @@ slides = [{"title": u"La viola mette a segno punti preziosi",
            "image": "slide2.jpg"}, ]
 
 videos = [{"title": u"Coach Frates post Viola Tortona",
+           "video_category": "interview",
            "url": "https://www.youtube.com/embed/BFTz_-bIVuM"},
           {"title": u"Valerio Costa post Viola Casalpusterlengo",
+           "video_category": "interview",
           "url": "https://www.youtube.com/embed/18Op_UYJEYw"},
           {"title": u"Coach Bolignano post Viola Trapani",
+           "video_category": "interview",
            "url": "https://www.youtube.com/embed/YjnDyeSrgYo"},
           {"title": u"Roberto Rullo post Viola Trapani",
+           "video_category": "interview",
            "url": "https://www.youtube.com/embed/rzlLYloWQpM"}
           ]
 players = [{"name": "Ion", "surname": "Lupusor", "role": "Ala", "height": 203,

@@ -50,9 +50,9 @@
                 <div class="row result text-center">
                   <div class="col-xs-4 team-name" tal:content="home/Title">Bayern</div>
                   <div class="col-xs-4">
-                      <div class="team-league" tal:content="last_played_match/match_type">Campionato regolare</div>
+                      <div class="team-league" tal:content="python: last_played_match.get_match_type_title()">Campionato regolare</div>
                       <div class="team-league" tal:content="context/league_hp/to_object/description">Serie A2</div>
-                      <div class="team-league" tal:content="python view.format_match_date(last_played_match.start)">20 Aprile 15:00</div>
+                      <div class="team-league" tal:content="python: view.format_match_date(last_played_match.start)">20 Aprile 15:00</div>
                   </div>
                   <div class="col-xs-4 team-name" tal:content="away/Title">Arsenal</div>
                 </div>
@@ -64,7 +64,7 @@
             <ul class="clearfix">
               <li tal:repeat="match future_matches">
                 <span class="text-right"><tal:block tal:replace="match/home/to_object/Title"/></span>
-                <span class="d-g" tal:content="match/start">14 Apr 21:45</span>
+                <span class="d-g" tal:content="python: view.format_next_matches_date(match.start)">14 Apr 21:45</span>
                 <span class="text-left"><tal:block tal:replace="match/away/to_object/Title"/></span>
               </li>
             </ul>
@@ -86,7 +86,8 @@
           </div>
           <!-- Countdown prossima partita -->
           <div tal:define="next_match_datetime view/next_match_datetime" tal:condition="next_match_datetime|nothing" class="countdown">
-            <div class="label" i18n="">Prossima partita</div>
+            <span class="label" i18n="">Prossima</span>
+            <span class="label" i18n="">partita</span>
             <div tal:attributes="data-deadline next_match_datetime" id="countdown" data-deadline="2020/10/10 12:34:56"></div>
           </div>
         </div>
@@ -100,17 +101,29 @@
           <div class="col-sm-4 col-xs-12 no-padding-right">
             <ul>
               <li tal:repeat="video videos">
-                <a href="#  section-1" tal:attributes="href string:#section-${repeat/video/number};">
-                  <i class="icon-play"></i>
-                  <tal:block tal:replace="video/Title">The title hunt in Europe's top leagues</tal:block>
+                <a href="#section-1" tal:attributes="href string:#section-${repeat/video/number};">
+                  <div class="video-description">
+                      <div class="icon-play"></div>
+                      <h4 tal:content="video/Title">The title hunt in Europe's top leagues</h4>
+                      <div class="video-category">
+                          <tal:block tal:content="string: Pubblicato ${python: view.format_video_date(video.created())}">2 settimane fa</tal:block>
+                          <tal:block tal:define="cat video/get_video_category_title" tal:condition="cat" tal:content="string:|${cat}">Interviste</tal:block>
+                      </div>
+                  </div>
                 </a>
               </li>
             </ul>
+            <a class="video-tab" href="sezione video" tal:attributes="href view/video_link">
+                <div class="tab">
+                    <h2 i18n:translate="">Vedi tutti i video</h2>
+                </div>
+            </a>
           </div>
           <div class="col-sm-8 col-xs-12 no-padding-left">
             <tal:block tal:repeat="video videos">
               <div class="tab-content" tal:attributes="id string:section-${repeat/video/number}">
-                <iframe width="560" height="329" style="border:0;" src="" tal:attributes="src video/url" allowfullscreen=""></iframe>
+                <iframe width="554" height="358" style="border:0;" src="" tal:attributes="src video/url" allowfullscreen=""></iframe>
+                <div class="video-inner-title" tal:content="video/Title">Titolo del video</div>
               </div>
             </tal:block>
           </div>
@@ -126,17 +139,17 @@
             <div class="our">
               <h3 i18n:translate="">
                 <span i18n:translate="">I nostri</span>
-                Giocatori</h3>
+                <span class="bigger" i18n:translate="">Giocatori</h3>
             </div>
             <div class="all-team">
               <a href="" tal:attributes="href view/roster_link" i18n:translate="">Vedi la squadra ›</a>
             </div>
-            <div class="bx-controls hidden-xs"></div>
+            <div class="bx-controls hidden-md hidden-sm hidden-xs"></div>
           </div>
           <div class="col-xs-8 no-padding-left">
             <div class="players-slider">
               <div tal:repeat="player players" class="slide col-4">
-                <img src="" tal:define="scales player/@@images" tal:replace="structure python:scales.tag('image', width=157, height=177, direction='down')"/>
+                <img src="" tal:define="scales player/@@images" tal:replace="structure python:scales.tag('image', width=199, height=177, direction='down')"/>
                 <div class="player-name">
                   <a href="" tal:attributes="href player/absolute_url" tal:content="string: ${player/name} ${player/surname}">Jan Kirchhoff</a>
                   <p tal:content="player/role">Defender</p>
@@ -150,26 +163,28 @@
 
     <!-- Twitter -->
     <section id="ttb">
-      <div class="table-row">
-        <div class="col-sm-4 col-xs-12 no-padding" id="twitter" tal:define="tweets view/tweets">
-          <div class="tw-title">
-            <h3>Latest Tweets</h3>
+      <div class="row">
+        <div class="col-sm-4 col-xs-12 no-padding-right" tal:define="tweets view/tweets">
+            <div id="twitter" class="same-height">
+              <div class="tw-title">
+                <h3>Latest Tweets</h3>
+            </div>
             <ul class="clearfix t-post" tal:condition="tweets">
-              <li tal:repeat="tweet tweets">
+              <li class="tweet" tal:repeat="tweet tweets">
                 <p tal:content="structure tweet/text">Contenuto del tweet</p>
                 <a tal:attributes="href string: https://twitter.com/${tweet/name}" tal:content="string:@${tweet/name}">@Viola_RC</a>
+                <span class="date" tal:condition="tweet/created" tal:content="python: view.format_twitter_date(tweet['created'])">
               </li>
             </ul>
             <p tal:condition="not:tweets">
                 Non sono presenti tweets al momento
             </p>
-            <tal:block tal:repeat="tweet tweets"></tal:block>
           </div>
         </div>
 
         <!--Partners -->
-        <div class="col-sm-4 col-xs-12 no-padding" id="partners" tal:define="partners view/partners" tal:condition="partners">
-          <div class="partners">
+        <div class="col-sm-4 col-xs-12 no-padding" tal:define="partners view/partners" tal:condition="partners">
+          <div id="partners" class="partners same-height">
             <div class="sp-title">
               <h3 i18n:translate="">Partners</h3>
             </div>
@@ -180,8 +195,8 @@
         </div>
 
         <!--Classifica -->
-        <div class="col-sm-4 col-xs-12 no-padding" id="classifica" tal:define="classifica view/classifica" tal:condition="classifica">
-          <div class="liga-t">
+        <div class="col-sm-4 col-xs-12 no-padding-left" tal:define="classifica view/classifica" tal:condition="classifica">
+          <div id="classifica" class="liga-t same-height">
             <div class="bu-title">
               <h3 i18n:translate="">Serie A2</h3>
             </div>
