@@ -2,6 +2,7 @@
 from DateTime import DateTime
 from datetime import datetime
 from parruc.violareggiocalabria import _
+from plone import api
 from zc.relation.interfaces import ICatalog
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
@@ -12,6 +13,45 @@ import math
 months = [_(u"Gennaio"), _(u"Febbraio"), _(u"Marzo"), _(u"Aprile"),
           _(u"Maggio"), _(u"Giugno"), _(u"Luglio"), _(u"Agosto"),
           _(u"Settembre"), _(u"Ottobre"), _(u"Novembre"), _(u"Dicembre")]
+
+
+def news_link(add=False):
+    folder_url = api.portal.get().get("news").absolute_url()
+    if add:
+        folder_url += "/++add++News Item"
+    return folder_url
+
+
+def roster_link(add=False):
+    folder_url = api.portal.get().get("roster").absolute_url()
+    if add:
+        folder_url += "/++add++Giocatore"
+    return folder_url
+
+
+def giocatori_link(add=False):
+    return roster_link(add)
+
+
+def video_link(add=False):
+    folder_url = api.portal.get().get("video").absolute_url()
+    if add:
+        folder_url += "/++add++Video"
+    return folder_url
+
+
+def partite_link(add=False):
+    folder_url = api.portal.get().get("partite").absolute_url()
+    if add:
+        folder_url += "/++add++Partita"
+    return folder_url
+
+
+def squadre_link(add=False):
+    folder_url = api.portal.get().get("squadre").absolute_url()
+    if add:
+        folder_url += "/++add++Squadra"
+    return folder_url
 
 
 def format_date_ago(date):

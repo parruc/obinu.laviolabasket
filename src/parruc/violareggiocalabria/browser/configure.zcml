@@ -64,4 +64,14 @@
         layer="..interfaces.IParrucViolareggiocalabriaLayer"
     />
 
+    <browser:viewlet
+        name="violareggiocalabria.controlpanel"
+        for="*"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+        layer="..interfaces.IParrucViolareggiocalabriaLayer"
+        class=".viewlets.ControlPanelViewlet"
+        template="templates/controlpanelviewlet.pt"
+        permission="cmf.ModifyPortalContent"
+    />
+
 </configure>

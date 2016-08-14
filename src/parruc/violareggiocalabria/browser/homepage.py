@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 # from plone.memoize import view
 from datetime import datetime
-from parruc.violareggiocalabria.utils import format_date
-from parruc.violareggiocalabria.utils import format_date_ago
-from parruc.violareggiocalabria.utils import format_date_time
+from parruc.violareggiocalabria import utils
 from plone import api
 from plone.memoize import ram
 from Products.Five.browser import BrowserView
@@ -118,25 +116,25 @@ class HomepageView(BrowserView):
         return results
 
     def format_news_date(self, date):
-        return format_date(date, month_length=3)
+        return utils.format_date(date, month_length=3)
 
     def format_match_date(self, date):
-        return format_date_time(date)
+        return utils.format_date_time(date)
 
     def format_next_matches_date(self, date):
-        return format_date_time(date, month_length=3)
+        return utils.format_date_time(date, month_length=3)
 
     def format_video_date(self, date):
-        return format_date_ago(date)
+        return utils.format_date_ago(date)
 
     def format_twitter_date(self, date):
-        return format_date_ago(date)
+        return utils.format_date_ago(date)
 
     def news_link(self):
-        return api.portal.get().get("news").absolute_url()
+        utils.news_link()
 
     def roster_link(self):
-        return api.portal.get().get("roster").absolute_url()
+        utils.roster_link()
 
     def video_link(self):
-        return api.portal.get().get("video").absolute_url()
+        utils.video_link()
