@@ -6,6 +6,9 @@
     <index name="points" meta_type="FieldIndex">
         <indexed_attr value="points"/>
     </index>
+    <index name="is_main" meta_type="FieldIndex">
+        <indexed_attr value="is_main"/>
+    </index>
 
     <column value="league"/>
     <column value="home"/>

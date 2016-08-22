@@ -47,7 +47,11 @@ class ITeamInLeague(Interface):
 
 
 class ILeague(model.Schema):
-    pass
+
+    is_main = schema.Bool(
+        title=_(u"E' il campionato principale?"),
+        required=False,
+    )
 
 
 class IPartner(model.Schema):
