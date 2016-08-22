@@ -12,8 +12,8 @@
     <!-- Immagine larga -->
     <div class="container player-container">
         <div class="row">
-            <div class="col-sm-12 back-image hidden-xs img-dark">
-                <img tal:define="scales context/@@bwimages" tal:replace="structure python:scales.tag('image_back', width=1200, height=500, direction='up', css_class='img-dark img-responsive')"/>
+            <div class="col-sm-12 back-image hidden-xs">
+                <img tal:define="scales context/@@bwimages" tal:replace="structure python:scales.tag('image_back', width=1200, height=450, direction='up', css_class='img-dark img-responsive')"/>
             </div>
         </div>
         <div class="row">
@@ -23,7 +23,7 @@
                     <span class="white-head" tal:content="context/name">Player Name</span>
                 </h1>
                 <div class="player-image">
-                    <img tal:define="scales context/@@images" tal:replace="structure python:scales.tag('image', width=375, height=550, direction='down', css_class='img-responsive')"/>
+                    <img tal:define="scales context/@@images" tal:replace="structure python:scales.tag('image', width=375, height=500, direction='down', css_class='img-responsive')"/>
                     <div class="white-box-wrapper hidden-xs">
                         <div class="white-box"></div>
                         <div class="white-border"></div>
