@@ -14,6 +14,7 @@
    <record name="plone.displayed_types" interface="Products.CMFPlone.interfaces.controlpanel.INavigationSchema" field="displayed_types">
       <value purge="true">
         <element>Folder</element>
+        <element>FolderWithSlider</element>
         <element>Document</element>
       </value>
     </record>

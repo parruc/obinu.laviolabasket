@@ -105,6 +105,19 @@ class ISquadra(model.Schema):
 
 class IPartita(model.Schema):
 
+    competition = RelationChoice(
+        title=_(u"Competizione di cui fa parte la partita"),
+        source=leagues,
+        required=True,
+    )
+
+    match_type = schema.Choice(
+        title=_(u"Tipo di partita"),
+        vocabulary=match_types,
+        default="regular",
+        required=True,
+    )
+
     home = RelationChoice(
         title=_(u"Squadra di casa"),
         source=teams,
@@ -132,10 +145,13 @@ class IPartita(model.Schema):
         required=True,
     )
 
-    match_type = schema.Choice(
-        title=_(u"Tipo di partita"),
-        vocabulary=match_types,
-        default="regular",
+    fb_link = schema.URI(
+        title=_("Link alla galleria su Facebook"),
+        required=True
+    )
+
+    image = NamedBlobImage(
+        title=_(u"Foto copertina della partita"),
         required=True,
     )
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from plone import api
+from parruc.violareggiocalabria import utils
 from Products.Five.browser import BrowserView
 
 
@@ -9,19 +9,24 @@ from Products.Five.browser import BrowserView
 class PartiteView(BrowserView):
 
     def get_team(self):
-        query = {"portal_type": "League", "is_main": True}
-        league = api.content.find(**query)[0].getObject()
+        league = utils.get_main_league()
         team = league.get_viola()
         return team
 
     def last_played_match(self):
-        team = self.context.league_hp.to_object.get_viola()
+        team = self.get_team()
         if not team:
             return []
         return team.last_played_match()
 
+    def past_matches(self, limit=5):
+        team = self.get_team()
+        if not team:
+            return []
+        return team.past_matches()
+
     def future_matches(self, limit=5):
-        team = self.context.league_hp.to_object.get_viola()
+        team = self.get_team()
         if not team:
             return []
         matches = team.future_matches()
@@ -30,3 +35,9 @@ class PartiteView(BrowserView):
         if len(matches) > limit:
             return matches[:limit]
         return matches
+
+    def format_match_date(self, date):
+        return utils.format_date_time(date)
+
+    def format_next_matches_date(self, date):
+        return utils.format_date_time(date, month_length=3)

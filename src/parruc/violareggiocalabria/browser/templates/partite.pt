@@ -10,82 +10,105 @@
   <metal:block fill-slot="content-core">
     <metal:title fill-slot="content-title"></metal:title>
 
-      <!-- Ultima partita giocata -->
-      <section id="m-a-n">
-        <div class="row">
-          <div class="col-xs-12 col-sm-8 no-padding-right match-container" tal:define="launch nocall:context/launch/to_object|nothing">
-            <div class="tab" i18n="">Partite</div>
-            <div class="match" tal:define="last_played_match view/last_played_match" tal:condition="last_played_match">
-              <tal:block tal:define="home nocall:last_played_match/home/to_object;
+    <!-- Ultima partita giocata -->
+    <section id="m-a-n" tal:define="last_played_match view/last_played_match">
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 no-padding-right match-container">
+          <div class="tab" i18n="">Partite</div>
+          <div class="match" tal:condition="last_played_match">
+            <tal:block tal:define="home nocall:last_played_match/home/to_object;
                                      away nocall:last_played_match/away/to_object;">
-                <div class="row">
-                  <div class="col-xs-6 col-sm-6 no-padding-right img-dark">
-                    <img src="" tal:define="scales home/@@bwimages" tal:replace="structure python:scales.tag('image_teaser', width=393, height=150, direction='down', css_class='img-responsive')"/>
-                  </div>
-                  <div class="col-xs-6 col-sm-6 no-padding-left img-dark">
-                    <img src="" tal:define="scales away/@@bwimages" tal:replace="structure python:scales.tag('image_teaser', width=393, height=150, direction='down', css_class='img-responsive')"/>
-                  </div>
+              <div class="row">
+                <div class="col-xs-6 col-sm-6 no-padding-right img-dark">
+                  <img src="" tal:define="scales home/@@bwimages" tal:replace="structure python:scales.tag('image_teaser', width=393, height=150, direction='down', css_class='img-responsive')"/>
                 </div>
-                <div class="row teams">
-                  <div class="col-xs-4 team-logo">
-                    <img src="" tal:define="scales home/@@images" tal:replace="structure python:scales.tag('image_logo', width=130, height=136, direction='up', css_class='img-responsive')"/>
-                  </div>
-                  <div class="col-xs-4 scores">
-                    <span class="score" tal:content="last_played_match/score_home">20</span>
-                    <span class="score" tal:content="last_played_match/score_away">20</span>
-                  </div>
-                  <div class="col-xs-4 team-logo">
-                    <img src="" tal:define="scales away/@@images" tal:replace="structure python:scales.tag('image_logo', width=130, height=136, direction='up', css_class='img-responsive')"/>
-                  </div>
+                <div class="col-xs-6 col-sm-6 no-padding-left img-dark">
+                  <img src="" tal:define="scales away/@@bwimages" tal:replace="structure python:scales.tag('image_teaser', width=393, height=150, direction='down', css_class='img-responsive')"/>
                 </div>
-                <div class="row result text-center">
-                  <div class="col-xs-4 team-name" tal:content="home/Title">Bayern</div>
-                  <div class="col-xs-4">
-                      <div class="team-league" tal:content="python: last_played_match.get_match_type_title()">Campionato regolare</div>
-                      <div class="team-league" tal:content="context/league_hp/to_object/description">Serie A2</div>
-                      <div class="team-league" tal:content="python: view.format_match_date(last_played_match.start)">20 Aprile 15:00</div>
-                  </div>
-                  <div class="col-xs-4 team-name" tal:content="away/Title">Arsenal</div>
+              </div>
+              <div class="row teams">
+                <div class="col-xs-4 team-logo">
+                  <img src="" tal:define="scales home/@@images" tal:replace="structure python:scales.tag('image_logo', width=130, height=136, direction='up', css_class='img-responsive')"/>
                 </div>
-              </tal:block>
-            </div>
-            <!-- Prossime partite -->
-            <div class="a-games" tal:define="future_matches view/future_matches" tal:condition="future_matches">
-              <ul class="clearfix">
-                <li tal:repeat="match future_matches">
-                  <span class="text-right"><tal:block tal:replace="match/home/to_object/Title"/></span>
-                  <span class="d-g" tal:content="python: view.format_next_matches_date(match.start)">14 Apr 21:45</span>
-                  <span class="text-left"><tal:block tal:replace="match/away/to_object/Title"/></span>
-                </li>
-              </ul>
-            </div>
-        </div>
-
-          <!--div class="col-xs-12 col-sm-4 no-padding-left news-container" tal:define="news view/latest_news" tal:condition="news">
-            <div class="tab">News</div>
-            <div class="tab-small">
-              <a href="" tal:attributes="href view/news_link">Vedi tutte</a>
-            </div>
-            <div class="r-box-n">
-              <article tal:repeat="new news">
-                <h3>
-                  <a href="" tal:content="new/Title" tal:attributes="href new/absolute_url">La Viola-vola</a>
-                </h3>
-                <p tal:content="new/description">Testo di esempio</p>
-                <span class="date-n" tal:content="python: view.format_news_date(new.effective())">21 Mar</span>
-              </article>
-          </div-->
-            <!-- Countdown prossima partita -->
-            <!--div tal:define="next_match_datetime view/next_match_datetime" tal:condition="next_match_datetime|nothing" class="countdown">
-              <span class="label" i18n="">Prossima</span>
-              <span class="label" i18n="">partita</span>
-              <div tal:attributes="data-deadline next_match_datetime" id="countdown" data-deadline="2020/10/10 12:34:56"></div>
-            </div>
+                <div class="col-xs-4 scores">
+                  <span class="score" tal:content="last_played_match/score_home">20</span>
+                  <span class="score-separator">:</span>
+                  <span class="score" tal:content="last_played_match/score_away">20</span>
+                </div>
+                <div class="col-xs-4 team-logo">
+                  <img src="" tal:define="scales away/@@images" tal:replace="structure python:scales.tag('image_logo', width=130, height=136, direction='up', css_class='img-responsive')"/>
+                </div>
+              </div>
+              <div class="row result text-center">
+                <div class="col-xs-4 team-name" tal:content="home/Title">Bayern</div>
+                <div class="col-xs-4">
+                  <div class="team-league" tal:content="last_played_match/get_match_type_title">Campionato regolare</div>
+                  <div class="team-league" tal:content="last_played_match/competition/to_object/description">Serie A2</div>
+                  <div class="team-league" tal:content="python: view.format_match_date(last_played_match.start)">20 Aprile 15:00</div>
+                </div>
+                <div class="col-xs-4 team-name" tal:content="away/Title">Arsenal</div>
+              </div>
+            </tal:block>
+          </div>
+          <!-- Prossime partite -->
+          <div class="a-games" tal:define="future_matches view/future_matches" tal:condition="future_matches">
+            <ul class="clearfix">
+              <li tal:repeat="match future_matches">
+                <span class="text-right"><tal:block tal:replace="match/home/to_object/Title"/></span>
+                <span class="d-g" tal:content="python: view.format_next_matches_date(match.start)">14 Apr 21:45</span>
+                <span class="text-left"><tal:block tal:replace="match/away/to_object/Title"/></span>
+              </li>
+            </ul>
           </div>
         </div>
-    </section-->
+        <div class="col-xs-12 col-sm-4 no-padding-left news-container">
+          <div class="tab">Foto</div>
+          <div class="tab-small">
+            <a href="" tal:attributes="href last_played_match/fb_link">Vedi tutte</a>
+          </div>
+          <div>
+            <img src="" tal:define="scales last_played_match/@@images" tal:replace="structure python:scales.tag('image', width=400, height=500, direction='down', css_class='img-responsive')"/>
 
+            <div class="orange-wrapper">
+              <div class="grey-border"></div>
+              <div class="grey-content-wrapper">
+                <div class="grey-content">
+                  <div class="grey-box">
+                    <h3>
+                      <span class="text-right"><tal:block tal:replace="last_played_match/home/to_object/Title"/></span>
+                      VS
+                      <span class="text-left"><tal:block tal:replace="last_played_match/away/to_object/Title"/></span>
+                    </h3>
+                  </div>
+                </div>
 
+              </div>
+              <span class="match-date" tal:content="python: view.format_next_matches_date(last_played_match.start)">14 Apr 21:45</span>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="played" tal:define="past_matches view/past_matches" tal:condition="past_matches">
+        <table class="table-striped">
+          <tr class="t-h">
+            <th class="tab">Partite giocate</th>
+            <th>Home</th>
+            <th>Data</th>
+            <th>Away</th>
+            <th class="left-orange-dash">Canestri</th>
+          </tr>
+          <tr tal:repeat="past_match past_matches">
+              <tal:block tal:define="length repeat/past_match/length; index repeat/past_match/index">
+                <td class="t-c" tal:content="python: str(length-index)">1</td>
+                <td tal:content="past_match/home/to_object/Title">FC Bayern München</td>
+                <td tal:content="python: view.format_next_matches_date(past_match.start)">13 Ago 2016 14:30</td>
+                <td tal:content="past_match/away/to_object/Title">FC Bayern München</td>
+                <td class="left-orange-dash" tal:content="string: ${past_match/score_home}:${past_match/score_away}">93:96</td>
+            </tal:block>
+          </tr>
+        </table>
+    </div>
+  </section>
 
-  </metal:block>
-  </html>
+</metal:block>
+</html>

@@ -94,13 +94,16 @@ def _create_structure():
     portal = api.portal.get()
     permission = view = None
     for folder in folders:
+        content_type = "Folder"
+        if "slider" in folder:
+            content_type = "FolderWithSlider"
         if "permission" in folder:
             permission = folder.pop("permission")
         if "view" in folder:
             view = folder.pop("view")
         if api.content.find(portal_type='Folder', Title=folder["title"]):
             continue
-        obj = api.content.create(container=portal, type="Folder", **folder)
+        obj = api.content.create(container=portal, type=content_type, **folder)
         if permission:
             obj.manage_permission(permission, roles=['Editor'],
                                   acquire=True)
@@ -151,14 +154,6 @@ def _create_content():
             obj.image_teaser = load_image(teaser_path, 'image/jpg')
             teams_objs.append(obj)
             publish_and_reindex(obj)
-    if not api.content.find(portal_type='Partita'):
-        folder = portal.get("partite")
-        for partita in partite:
-            obj = api.content.create(container=folder, type="Partita",
-                                     **partita)
-            obj.home = obj_to_rel(teams_objs[partita["home_index"]])
-            obj.away = obj_to_rel(teams_objs[partita["away_index"]])
-            publish_and_reindex(obj)
     slide_brains = api.content.find(portal_type='Slide')
     if slide_brains:
         slides_objs = [s.getObject() for s in slide_brains]
@@ -170,6 +165,19 @@ def _create_content():
             image_path = os.path.join(base_img_path, slide["image"])
             obj.image = load_image(image_path, 'image/jpg')
             slides_objs.append(obj)
+            publish_and_reindex(obj)
+    if not api.content.find(portal_type='Partita'):
+        folder = portal.get("partite")
+        folder.slides = [obj_to_rel(s) for s in slides_objs]
+        publish_and_reindex(folder)
+        for partita in partite:
+            partita["competition"] = get_rel_by_title(leagues_objs, "A2")
+            obj = api.content.create(container=folder, type="Partita",
+                                     **partita)
+            image_path = os.path.join(base_img_path, partita["image"])
+            obj.image = load_image(image_path, 'image/jpg')
+            obj.home = obj_to_rel(teams_objs[partita["home_index"]])
+            obj.away = obj_to_rel(teams_objs[partita["away_index"]])
             publish_and_reindex(obj)
     if not api.content.find(portal_type='Video'):
         folder = portal.get("video")

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from DateTime import DateTime
 from datetime import datetime
+from DateTime import DateTime
 from parruc.violareggiocalabria import _
 from plone import api
 from zc.relation.interfaces import ICatalog
@@ -13,6 +13,14 @@ import math
 months = [_(u"Gennaio"), _(u"Febbraio"), _(u"Marzo"), _(u"Aprile"),
           _(u"Maggio"), _(u"Giugno"), _(u"Luglio"), _(u"Agosto"),
           _(u"Settembre"), _(u"Ottobre"), _(u"Novembre"), _(u"Dicembre")]
+
+
+def get_main_league():
+    query = {"portal_type": "League", "is_main": True}
+    league = api.content.find(**query)
+    if len(league) < 1:
+        return False
+    return league[0].getObject()
 
 
 def news_link(add=False):

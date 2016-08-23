@@ -89,6 +89,15 @@ class Squadra(Item):
                 results.append(match)
         return results
 
+    def past_matches(self):
+        results = []
+        now = datetime.now()
+        matches = self.get_matches()
+        for match in matches:
+            if match.start < now:
+                results.append(match)
+        return results
+
 
 class Video(Item):
     implements(IVideo)
