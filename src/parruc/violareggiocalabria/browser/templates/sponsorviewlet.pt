@@ -1,0 +1,7 @@
+<div id="viola-sponsors" class="row">
+    <div class="col-xs-2 sponsors" tal:repeat="sponsor view/get_sponsors">
+        <a class="btn" href="" tal:attributes="href sponsor/link">
+            <img src="" tal:define="scales sponsor/@@images" tal:replace="structure python:scales.tag('image', width=400, height=150, direction='up', css_class='img-responsive')"/>
+        </a>
+    </div>
+</div>
