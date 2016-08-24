@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from initial_data import banners
 from initial_data import folders
 from initial_data import leagues
 from initial_data import news
@@ -213,6 +214,14 @@ def _create_content():
             image_path = os.path.join(base_img_path, partner["image"])
             obj = api.content.create(container=folder, type="Partner",
                                      **partner)
+            obj.image = load_image(image_path, 'image/png')
+            publish_and_reindex(obj)
+    if not api.content.find(portal_type='Banner'):
+        folder = portal.get("banner")
+        for banner in banners:
+            image_path = os.path.join(base_img_path, banner["image"])
+            obj = api.content.create(container=folder, type="Banner",
+                                     **banner)
             obj.image = load_image(image_path, 'image/png')
             publish_and_reindex(obj)
     if not api.content.find(portal_type='Sponsor'):

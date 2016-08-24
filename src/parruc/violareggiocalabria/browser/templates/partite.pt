@@ -67,7 +67,7 @@
             <a href="" tal:attributes="href last_played_match/fb_link">Vedi tutte</a>
           </div>
           <div>
-            <img src="" tal:define="scales last_played_match/@@images" tal:replace="structure python:scales.tag('image', width=400, height=500, direction='down', css_class='img-responsive')"/>
+            <img src="" tal:define="scales last_played_match/@@images" tal:replace="structure python:scales.tag('image', width=400, height=450, direction='down', css_class='img-responsive')"/>
 
             <div class="orange-wrapper">
               <div class="grey-border"></div>
@@ -85,10 +85,12 @@
               </div>
               <span class="match-date" tal:content="python: view.format_next_matches_date(last_played_match.start)">14 Apr 21:45</span>
             </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="played" tal:define="past_matches view/past_matches" tal:condition="past_matches">
+    </section>
+    <section id="played-matches">
+      <div class="played" tal:define="past_matches view/past_matches" tal:condition="past_matches">
         <table class="table-striped">
           <tr class="t-h">
             <th class="tab">Partite giocate</th>
@@ -98,17 +100,24 @@
             <th class="left-orange-dash">Canestri</th>
           </tr>
           <tr tal:repeat="past_match past_matches">
-              <tal:block tal:define="length repeat/past_match/length; index repeat/past_match/index">
-                <td class="t-c" tal:content="python: str(length-index)">1</td>
-                <td tal:content="past_match/home/to_object/Title">FC Bayern München</td>
-                <td tal:content="python: view.format_next_matches_date(past_match.start)">13 Ago 2016 14:30</td>
-                <td tal:content="past_match/away/to_object/Title">FC Bayern München</td>
-                <td class="left-orange-dash" tal:content="string: ${past_match/score_home}:${past_match/score_away}">93:96</td>
+            <tal:block tal:define="length repeat/past_match/length; index repeat/past_match/index">
+              <td class="t-c" tal:content="python: str(length-index)">1</td>
+              <td tal:content="past_match/home/to_object/Title">FC Bayern München</td>
+              <td class="match-date" tal:content="python: view.format_next_matches_date(past_match.start)">13 Ago 2016 14:30</td>
+              <td tal:content="past_match/away/to_object/Title">FC Bayern München</td>
+              <td class="left-orange-dash" tal:content="string: ${past_match/score_home}:${past_match/score_away}">93:96</td>
             </tal:block>
           </tr>
         </table>
-    </div>
-  </section>
+      </div>
+    </section>
 
-</metal:block>
+    <section id="banners">
+        <tal:block tal:repeat="banner view/get_banners">
+            <a href="#" tal:attributes="href banner/link">
+                <img src="" tal:define="scales banner/@@images" tal:replace="structure python:scales.tag('image', width=400, height=150, direction='up', css_class='img-responsive')"/>
+            </a>
+        </tal:block>
+    </section>
+  </metal:block>
 </html>

@@ -54,6 +54,10 @@ class Sponsor(Item):
     implements(ISponsor)
 
 
+class Banner(Item):
+    implements(ISponsor)
+
+
 class Partner(Item):
     implements(ISponsor)
 

@@ -14,6 +14,8 @@ folders = [{"title": _(u"Partite"), "permission": base_perm + "Partita",
            {"title": _(u"News"), "permission": base_perm + "News Item", },
            {"title": _(u"Sponsor"), "permission": base_perm + "Sponsor",
             "exclude_from_nav": True},
+           {"title": _(u"Banner"), "permission": base_perm + "Banner",
+            "exclude_from_nav": True},
            {"title": _(u"Leagues"), "permission": base_perm + "League",
             "exclude_from_nav": True},
            {"title": _(u"Partner"), "permission": base_perm + "Partner",
@@ -185,10 +187,27 @@ news = [{"title": u"News diprova 1",
         {"title": u"News diprova 5", "description":
          "Questa è una news di prova"}, ]
 
-partners = [{"title": u"Partner 1", "image": "loghi/viola-reggiocalabria.png"},
-            {"title": u"Partner 2", "image": "loghi/viola-reggiocalabria.png"},
-            {"title": u"Partner 3", "image": "loghi/viola-reggiocalabria.png"}]
+partners = [{"title": u"Partner 1", "image": "loghi/viola-reggiocalabria.png",
+             "link": "http://fb.com"},
+            {"title": u"Partner 2", "image": "loghi/viola-reggiocalabria.png",
+             "link": "http://fb.com"},
+            {"title": u"Partner 3", "image": "loghi/viola-reggiocalabria.png",
+             "link": "http://fb.com"}]
 
-sponsors = [{"title": u"Sponsor 1", "image": "loghi/viola-reggiocalabria.png"},
-            {"title": u"Sponsor 2", "image": "loghi/viola-reggiocalabria.png"},
-            {"title": u"Sponsor 3", "image": "loghi/viola-reggiocalabria.png"}]
+sponsors = [{"title": u"Sponsor 1", "image": "loghi/viola-reggiocalabria.png",
+             "link": "http://fb.com"},
+            {"title": u"Sponsor 2", "image": "loghi/viola-reggiocalabria.png",
+             "link": "http://fb.com"},
+            {"title": u"Sponsor 3", "image": "loghi/viola-reggiocalabria.png",
+             "link": "http://fb.com"},
+            {"title": u"Sponsor 4", "image": "loghi/viola-reggiocalabria.png",
+             "link": "http://fb.com"}]
+
+banners = [{"title": u"Banner 1", "image": "loghi/viola-reggiocalabria.png",
+            "weight": 10, "position": "horizzontal", "link": "http://fb.com"},
+           {"title": u"Banner 2", "image": "loghi/viola-reggiocalabria.png",
+            "weight": 20, "position": "vertical", "link": "http://fb.com"},
+           {"title": u"Banner 3", "image": "loghi/viola-reggiocalabria.png",
+            "weight": 10, "position": "horizzontal", "link": "http://fb.com"},
+           {"title": u"Banner 4", "image": "loghi/viola-reggiocalabria.png",
+            "weight": 20, "position": "vertical", "link": "http://fb.com"}]

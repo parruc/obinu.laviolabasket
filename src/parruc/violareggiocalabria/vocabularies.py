@@ -35,6 +35,11 @@ match_types = SimpleVocabulary(
      SimpleTerm(value=u'friendly', title=_(u'Amichevole')),
      ])
 
+banner_positions = SimpleVocabulary(
+    [SimpleTerm(value=u'horizzontal', title=_(u'Orizzontale')),
+     SimpleTerm(value=u'vertical', title=_(u'Verticale')),
+     ])
+
 video_categories = SimpleVocabulary(
     [SimpleTerm(value=u'regular', title=_(u'Campionato')),
      SimpleTerm(value=u'tournament', title=_(u'Tornei')),

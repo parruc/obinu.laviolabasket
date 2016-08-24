@@ -31,6 +31,9 @@
         <permission name="parruc.violareggiocalabria: Add League" acquire="False">
           <role name="Manager"/>
         </permission>
+        <permission name="parruc.violareggiocalabria: Add Banner" acquire="False">
+          <role name="Manager"/>
+        </permission>
         <permission name="Modify view template" acquire="False">
           <role name="Manager"/>
         </permission>

@@ -9,6 +9,10 @@
     <index name="is_main" meta_type="FieldIndex">
         <indexed_attr value="is_main"/>
     </index>
+    <index name="position" meta_type="FieldIndex">
+        <indexed_attr value="position"/>
+    </index>
+
 
     <column value="league"/>
     <column value="home"/>
@@ -18,4 +22,5 @@
     <column value="start"/>
     <column value="score_home"/>
     <column value="score_away"/>
+    <column value="weight"/>
 </object>

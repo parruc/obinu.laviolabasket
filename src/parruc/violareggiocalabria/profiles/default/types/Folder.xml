@@ -4,6 +4,7 @@
     <property name="filter_content_types">True</property>
     <property name="allowed_content_types">
         <element value="Giocatore" />
+        <element value="Banner" />
         <element value="News Item" />
         <element value="League" />
         <element value="Partita" />

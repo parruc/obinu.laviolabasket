@@ -41,3 +41,7 @@ class PartiteView(BrowserView):
 
     def format_next_matches_date(self, date):
         return utils.format_date_time(date, month_length=3)
+
+    def get_banners(self, length=1):
+        for counter in xrange(length):
+            yield utils.get_random_banner()

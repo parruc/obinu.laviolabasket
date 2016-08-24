@@ -46,4 +46,9 @@
     id="parruc.violareggiocalabria.AddHomepage"
     title="parruc.violareggiocalabria: Add Homepage"
     />
+
+<permission
+    id="parruc.violareggiocalabria.AddBanner"
+    title="parruc.violareggiocalabria: Add Banner"
+    />
 </configure>

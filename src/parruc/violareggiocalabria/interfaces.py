@@ -2,6 +2,7 @@
 """Module where all interfaces, events and exceptions live."""
 
 from parruc.violareggiocalabria import _
+from parruc.violareggiocalabria.vocabularies import banner_positions
 from parruc.violareggiocalabria.vocabularies import launches
 from parruc.violareggiocalabria.vocabularies import leagues
 from parruc.violareggiocalabria.vocabularies import match_types
@@ -18,6 +19,28 @@ from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 class IParrucViolareggiocalabriaLayer(IDefaultBrowserLayer):
     """Marker interface that defines a browser layer."""
     pass
+
+
+class IBanner(model.Schema):
+
+    link = schema.URI(
+        title=_("Link a cui punta il banner"),
+        required=True
+    )
+
+    weight = schema.Int(
+        title=_(u"Peso da zero a cento del banner"),
+        required=True,
+        min=1,
+        max=100,
+    )
+
+    position = schema.Choice(
+        title=_(u"Tipo di banner (orizzontale verticale)"),
+        vocabulary=banner_positions,
+        default="horizzontal",
+        required=True,
+    )
 
 
 class ISponsor(model.Schema):

@@ -8,6 +8,7 @@ from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 
 import math
+import random
 
 
 months = [_(u"Gennaio"), _(u"Febbraio"), _(u"Marzo"), _(u"Aprile"),
@@ -162,3 +163,25 @@ def get_intid(obj):
     except KeyError:
         # The object has not been added to the ZODB yet
         return
+
+
+def weighted_choice(weights):
+    totals = []
+    running_total = 0
+
+    for w in weights:
+        running_total += w
+        totals.append(running_total)
+
+    rnd = random.random() * running_total
+    for i, total in enumerate(totals):
+        if rnd < total:
+            return i
+
+
+def get_random_banner(position="horizzontal"):
+    query = {"portal_type": "Banner", "position": position}
+    banners = api.content.find(**query)
+    weights = [banner.weight for banner in banners]
+    banner = banners[weighted_choice(weights)]
+    return banner.getObject()
