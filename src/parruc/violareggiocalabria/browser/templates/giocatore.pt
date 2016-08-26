@@ -62,7 +62,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12 stats" tal:define="stats view/stats" tal:repeat="year stats">
-                <h2 tal:content="string:Statistiche ${year}">Statistiche 2017-2018</h2>
+                <h2 tal:content="year">2017-2018</h2>
                 <table class="table stats-table">
                     <tr>
                         <th i18n:translate="">Gare</th>

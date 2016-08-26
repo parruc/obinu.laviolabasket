@@ -50,7 +50,7 @@
                 </div>
                 <div class="row result text-center">
                   <div class="col-xs-4 team-name" tal:content="home/Title">Bayern</div>
-                  <div class="col-xs-4">
+                  <div class="col-xs-4 team-leagues">
                       <div class="team-league" tal:content="python: last_played_match.get_match_type_title()">Campionato regolare</div>
                       <div class="team-league" tal:content="last_played_match/competition/to_object/description">Serie A2</div>
                       <div class="team-league" tal:content="python: view.format_match_date(last_played_match.start)">20 Aprile 15:00</div>

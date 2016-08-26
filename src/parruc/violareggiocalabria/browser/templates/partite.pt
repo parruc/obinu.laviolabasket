@@ -31,9 +31,9 @@
                   <img src="" tal:define="scales home/@@images" tal:replace="structure python:scales.tag('image_logo', width=130, height=136, direction='up', css_class='img-responsive')"/>
                 </div>
                 <div class="col-xs-4 scores">
-                  <span class="score" tal:content="last_played_match/score_home">20</span>
+                  <span tal:replace="last_played_match/score_home">20</span>
                   <span class="score-separator">:</span>
-                  <span class="score" tal:content="last_played_match/score_away">20</span>
+                  <span tal:replace="last_played_match/score_away">20</span>
                 </div>
                 <div class="col-xs-4 team-logo">
                   <img src="" tal:define="scales away/@@images" tal:replace="structure python:scales.tag('image_logo', width=130, height=136, direction='up', css_class='img-responsive')"/>
@@ -41,7 +41,7 @@
               </div>
               <div class="row result text-center">
                 <div class="col-xs-4 team-name" tal:content="home/Title">Bayern</div>
-                <div class="col-xs-4">
+                <div class="col-xs-4 team-leagues">
                   <div class="team-league" tal:content="last_played_match/get_match_type_title">Campionato regolare</div>
                   <div class="team-league" tal:content="last_played_match/competition/to_object/description">Serie A2</div>
                   <div class="team-league" tal:content="python: view.format_match_date(last_played_match.start)">20 Aprile 15:00</div>
@@ -85,6 +85,12 @@
               </div>
               <span class="match-date" tal:content="python: view.format_next_matches_date(last_played_match.start)">14 Apr 21:45</span>
             </div>
+          </div>
+          <!-- Countdown prossima partita -->
+          <div tal:define="next_match_datetime view/next_match_datetime" tal:condition="next_match_datetime|nothing" class="countdown">
+            <span class="label" i18n="">Prossima</span>
+            <span class="label" i18n="">partita</span>
+            <div tal:attributes="data-deadline next_match_datetime" id="countdown" data-deadline="2020/10/10 12:34:56"></div>
           </div>
         </div>
       </div>

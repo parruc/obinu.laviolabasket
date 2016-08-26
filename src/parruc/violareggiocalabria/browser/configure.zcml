@@ -75,6 +75,16 @@
     />
 
     <browser:viewlet
+        name="violareggiocalabria.banners"
+        for="*"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+        layer="..interfaces.IParrucViolareggiocalabriaLayer"
+        class=".viewlets.BannerViewlet"
+        template="templates/bannerviewlet.pt"
+        permission="zope2.View"
+    />
+
+    <browser:viewlet
         name="violareggiocalabria.controlpanel"
         for="*"
         manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"

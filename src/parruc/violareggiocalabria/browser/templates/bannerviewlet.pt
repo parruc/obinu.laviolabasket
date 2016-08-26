@@ -1,0 +1,9 @@
+<div id="viola-banner">
+    <div class="row">
+        <div class="col-xs-12" tal:define="banner view/get_banner">
+            <a href="#" tal:attributes="href banner/link">
+                <img src="" tal:define="scales banner/@@images" tal:replace="structure python:scales.tag('image', width=728, height=90, direction='down', css_class='img-responsive')"/>
+            </a>
+        </div>
+    </div>
+</div>

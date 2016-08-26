@@ -45,3 +45,8 @@ class PartiteView(BrowserView):
     def get_banners(self, length=1):
         for counter in xrange(length):
             yield utils.get_random_banner()
+
+    def next_match_datetime(self):
+        next_match = self.future_matches(limit=1)
+        if next_match:
+            return next_match[0].start.strftime("%Y/%m/%d %H:%M:%S")
