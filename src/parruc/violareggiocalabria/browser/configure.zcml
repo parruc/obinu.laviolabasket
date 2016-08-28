@@ -39,6 +39,15 @@
 
     <browser:page
         for="plone.dexterity.interfaces.IDexterityContainer"
+        name="news"
+        class=".news.NewsView"
+        template="templates/news.pt"
+        permission="zope2.View"
+        layer="..interfaces.IParrucViolareggiocalabriaLayer"
+    />
+
+    <browser:page
+        for="plone.dexterity.interfaces.IDexterityContainer"
         name="giocatori"
         class=".giocatori.GiocatoriView"
         template="templates/giocatori.pt"
@@ -51,6 +60,15 @@
         name="view"
         class=".giocatore.GiocatoreView"
         template="templates/giocatore.pt"
+        permission="zope2.View"
+        layer="..interfaces.IParrucViolareggiocalabriaLayer"
+    />
+
+    <browser:page
+        for="plone.app.contenttypes.interfaces.INewsItem"
+        name="view"
+        class=".news.NewsItemView"
+        template="templates/newsitem.pt"
         permission="zope2.View"
         layer="..interfaces.IParrucViolareggiocalabriaLayer"
     />

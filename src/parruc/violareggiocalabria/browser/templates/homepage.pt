@@ -79,10 +79,10 @@
           <div class="r-box-n">
             <article tal:repeat="new news">
               <h3>
-                <a href="" tal:content="new/Title" tal:attributes="href new/absolute_url">La Viola-vola</a>
+                <a href="" tal:content="new/Title" tal:attributes="href new/getURL">La Viola-vola</a>
               </h3>
               <p tal:content="new/description">Testo di esempio</p>
-              <span class="date-n" tal:content="python: view.format_news_date(new.effective())">21 Mar</span>
+              <span class="date-n" tal:content="python: view.format_news_date(new.effective)">21 Mar</span>
             </article>
           </div>
           <!-- Countdown prossima partita -->

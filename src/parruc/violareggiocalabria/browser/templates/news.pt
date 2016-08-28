@@ -1,0 +1,92 @@
+<!-- News -->
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="parruc.violareggiocalabria"
+  metal:use-macro="context/main_template/macros/master">
+
+  <metal:block fill-slot="content-core">
+     <metal:title fill-slot="content-title"></metal:title>
+     <metal:title fill-slot="content-description"></metal:title>
+    <tal:block tal:define="news view/batched_news">
+      <section id="news">
+        <div class="row">
+          <div class="col-sm-8 col-xs-12 news-container no-padding-right" tal:condition="not:news">
+            <div class="tab">News</div>
+            Non sono presenti notizie
+          </div>
+          <div class="col-xs-8 news-container no-padding-right" tal:condition="news">
+            <div class="tab">News</div>
+            <div class="r-box-n orange-top-border">
+              <article tal:repeat="new news">
+                <h3>
+                  <a href="" tal:content="new/Title" tal:attributes="href new/getURL">La Viola-vola</a>
+                </h3>
+                <p tal:content="new/description">Testo di esempio</p>
+                <span class="date-n" tal:content="python: view.format_news_date(new.effective)">21 Mar</span>
+              </article>
+            </div>
+            <div class="grey-boxes">
+              <div class="row">
+                <div class="left-box col-xs-6">
+                  <div class="grey-box-wrapper">
+                    <div class="grey-border"></div>
+                    <div class="grey-box"></div>
+                  </div>
+                </div>
+                <div class="right-box col-xs-6">
+                  <div class="grey-box-wrapper">
+                    <div class="grey-border"></div>
+                    <div class="grey-box"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="nextprev-wrapper" tal:condition="news/multiple_pages">
+              <div class="nextprev">
+                <div class="row">
+                  <div class="text-right col-xs-6 no-padding-right">
+                    <tal:block tal:condition="news/has_previous">
+                      <span class="prev-link-wrapper">
+                        <a title="Go to previous item" i18n:attributes="title title_previous_item" i18n:domain="plone" tal:attributes="href python: view.create_paging_link(news.previouspage)">
+                          <span>
+                            Precedente
+                          </span>
+                        </a>
+                      </span>
+                      <span class="prev"></span>
+                    </tal:block>
+                  </div>
+
+                  <div class="text-left col-xs-6 no-padding-left">
+                    <tal:block tal:condition="news/has_next">
+                      <span class="next-link-wrapper">
+                        <a title="Go to next item" i18n:attributes="title title_next_item" i18n:domain="plone" tal:attributes="href python: view.create_paging_link(news.nextpage)">
+                          <span>
+                            Successivo
+                          </span>
+                        </a>
+                      </span>
+                      <span class="next"></span>
+
+                    </tal:block>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="col-sm-4 col-xs-12 banners-container no-padding-left">
+                <div class="banners">
+                  <tal:block tal:repeat="banner view/get_banners">
+                    <a href="#" tal:attributes="href banner/link">
+                      <img src="" tal:define="scales banner/@@images" tal:replace="structure python:scales.tag('image', width=415, height=347, direction='up', css_class='img-responsive')"/>
+                    </a>
+                  </tal:block>
+              </div>
+            </div>
+        </section>
+      </tal:block>
+    </metal:block>
+  </html>

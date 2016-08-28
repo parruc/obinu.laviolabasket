@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
 from DateTime import DateTime
+from datetime import datetime
 from parruc.violareggiocalabria import _
 from plone import api
 from zc.relation.interfaces import ICatalog
@@ -177,11 +177,3 @@ def weighted_choice(weights):
     for i, total in enumerate(totals):
         if rnd < total:
             return i
-
-
-def get_random_banner(position="horizzontal"):
-    query = {"portal_type": "Banner", "position": position}
-    banners = api.content.find(**query)
-    weights = [banner.weight for banner in banners]
-    banner = banners[weighted_choice(weights)]
-    return banner.getObject()

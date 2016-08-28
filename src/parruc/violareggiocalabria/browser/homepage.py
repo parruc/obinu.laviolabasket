@@ -56,7 +56,7 @@ class HomepageView(BrowserView):
         query = {"portal_type": "News Item",
                  "sort_on": "effective",
                  "sort_limit": limit, }
-        return [b.getObject() for b in api.content.find(**query)[:limit]]
+        return api.content.find(**query)[:limit]
 
     def partners(self, limit=6):
         query = {"portal_type": "Partner",

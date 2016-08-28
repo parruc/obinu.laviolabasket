@@ -117,13 +117,5 @@
         </table>
       </div>
     </section>
-
-    <section id="banners">
-        <tal:block tal:repeat="banner view/get_banners">
-            <a href="#" tal:attributes="href banner/link">
-                <img src="" tal:define="scales banner/@@images" tal:replace="structure python:scales.tag('image', width=400, height=150, direction='up', css_class='img-responsive')"/>
-            </a>
-        </tal:block>
-    </section>
   </metal:block>
 </html>
