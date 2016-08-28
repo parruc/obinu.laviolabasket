@@ -17,6 +17,7 @@
           <div class="r-box-n orange-top-border">
             <article>
               <h3 tal:content="context/Title">La Viola-vola</h3>
+              <div tal:content="structure provider:plone.abovecontenttitle"></div>
               <p tal:content="context/description">Testo di esempio</p>
               <span class="date-n" tal:content="python: view.format_news_date(context.effective())">21 Mar</span>
               <p tal:condition="context/text" tal:content="structure context/text/output">Testo HTML</p>
