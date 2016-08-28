@@ -131,10 +131,10 @@ class HomepageView(BrowserView):
         return utils.format_date_ago(date)
 
     def news_link(self):
-        utils.news_link()
+        return utils.news_link()
 
     def roster_link(self):
-        utils.roster_link()
+        return utils.roster_link()
 
     def video_link(self):
-        utils.video_link()
+        return utils.video_link()
