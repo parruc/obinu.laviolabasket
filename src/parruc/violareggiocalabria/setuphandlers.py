@@ -146,8 +146,8 @@ def _create_content():
     else:
         folder = portal.get("squadre")
         for team in teams:
-            logo_path = os.path.join(base_img_path, team["image_logo"])
-            teaser_path = os.path.join(base_img_path, team["image_teaser"])
+            logo_path = os.path.join(base_img_path, team.pop("image_logo"))
+            teaser_path = os.path.join(base_img_path, team.pop("image_teaser"))
             obj = api.content.create(container=folder, type="Squadra",
                                      **team)
             obj.league = get_rel_by_title(leagues_objs, team["league_name"])
@@ -163,7 +163,7 @@ def _create_content():
         for count, slide in enumerate(slides):
             slide["link"] = obj_to_rel(pages_objs[count+1])
             obj = api.content.create(container=folder, type="Slide", **slide)
-            image_path = os.path.join(base_img_path, slide["image"])
+            image_path = os.path.join(base_img_path, slide.pop("image"))
             obj.image = load_image(image_path, 'image/jpg')
             slides_objs.append(obj)
             publish_and_reindex(obj)
@@ -175,7 +175,7 @@ def _create_content():
             partita["competition"] = get_rel_by_title(leagues_objs, "A2")
             obj = api.content.create(container=folder, type="Partita",
                                      **partita)
-            image_path = os.path.join(base_img_path, partita["image"])
+            image_path = os.path.join(base_img_path, partita.pop("image"))
             obj.image = load_image(image_path, 'image/jpg')
             obj.home = obj_to_rel(teams_objs[partita["home_index"]])
             obj.away = obj_to_rel(teams_objs[partita["away_index"]])
@@ -213,7 +213,7 @@ def _create_content():
     if not api.content.find(portal_type='Partner'):
         folder = portal.get("partner")
         for partner in partners:
-            image_path = os.path.join(base_img_path, partner["image"])
+            image_path = os.path.join(base_img_path, partner.pop("image"))
             obj = api.content.create(container=folder, type="Partner",
                                      **partner)
             obj.image = load_image(image_path, 'image/png')
@@ -221,7 +221,7 @@ def _create_content():
     if not api.content.find(portal_type='Banner'):
         folder = portal.get("banner")
         for banner in banners:
-            image_path = os.path.join(base_img_path, banner["image"])
+            image_path = os.path.join(base_img_path, banner.pop("image"))
             obj = api.content.create(container=folder, type="Banner",
                                      **banner)
             obj.image = load_image(image_path, 'image/png')
@@ -229,7 +229,7 @@ def _create_content():
     if not api.content.find(portal_type='Sponsor'):
         folder = portal.get("sponsor")
         for sponsor in sponsors:
-            image_path = os.path.join(base_img_path, sponsor["image"])
+            image_path = os.path.join(base_img_path, sponsor.pop("image"))
             obj = api.content.create(container=folder, type="Sponsor",
                                      **sponsor)
             obj.image = load_image(image_path, 'image/png')
