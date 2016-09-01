@@ -200,7 +200,9 @@ def _create_content():
                 _add_subobjs(obj, "stats", "StatisticheGiocatore", stats)
             image_path = os.path.join(base_img_path, 'player.jpg')
             obj.image = load_image(image_path, 'image/jpg')
-            image_bg_path = os.path.join(base_img_path, 'players-bg.jpg')
+            image_bg_path = os.path.join(base_img_path,
+                                         "players",
+                                         player.pop("image_path"))
             obj.image_back = load_image(image_bg_path, 'image/jpg')
             publish_and_reindex(obj)
     if not api.content.find(portal_type='News Item'):
