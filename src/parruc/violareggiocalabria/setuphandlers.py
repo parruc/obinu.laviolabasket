@@ -93,8 +93,8 @@ def _add_subobjs(obj, field_name, subobj_type, data_list):
 
 def _create_structure():
     portal = api.portal.get()
+    permission = view = None
     for folder in folders:
-        permission = view = None
         content_type = "Folder"
         if "slider" in folder:
             content_type = "FolderWithSlider"
@@ -198,17 +198,15 @@ def _create_content():
             obj.team = obj_to_rel(viola_obj)
             if stats:
                 _add_subobjs(obj, "stats", "StatisticheGiocatore", stats)
-            image_path = os.path.join(base_img_path, 'player.jpg')
+            image_path = os.path.join(base_img_path, "players",
+                                      player.pop("image_path"))
             obj.image = load_image(image_path, 'image/jpg')
-            image_bg_path = os.path.join(base_img_path,
-                                         "players",
-                                         player.pop("image_path"))
+            image_bg_path = os.path.join(base_img_path, "players",
+                                         'players-bg.jpg')
             obj.image_back = load_image(image_bg_path, 'image/jpg')
             publish_and_reindex(obj)
     if not api.content.find(portal_type='News Item'):
         folder = portal.get("news")
-        folder.slides = [obj_to_rel(s) for s in slides_objs]
-        publish_and_reindex(folder)
         for new in news:
             obj = api.content.create(container=folder, type="News Item", **new)
             publish_and_reindex(obj)
