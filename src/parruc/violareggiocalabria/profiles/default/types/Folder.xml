@@ -21,5 +21,6 @@
       <element value="view"/>
       <element value="giocatori"/>
       <element value="partite"/>
+      <element value="news"/>
     </property>
 </object>

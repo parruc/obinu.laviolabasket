@@ -92,6 +92,7 @@ class IHomepage(model.Schema):
 
     launch_image = NamedBlobImage(
         title=_(u"Immagine per il lancio"),
+        description=_(u"Dimensione consigliata 786x150"),
         required=False,
     )
 
@@ -106,11 +107,13 @@ class ISquadra(model.Schema):
 
     image_logo = NamedBlobImage(
         title=_(u"Logo"),
+        description=_(u"Dimensione consigliata 150x150"),
         required=True,
     )
 
     image_teser = NamedBlobImage(
-        title=_(u"Logo"),
+        title=_(u"Teaser squadra"),
+        description=_(u"Dimensione consigliata 393x150"),
         required=True,
     )
 
@@ -175,6 +178,7 @@ class IPartita(model.Schema):
 
     image = NamedBlobImage(
         title=_(u"Foto copertina della partita"),
+        description=_(u"Dimensione consigliata 400x450"),
         required=True,
     )
 
@@ -253,11 +257,14 @@ class IGiocatore(model.Schema):
     )
     image = NamedBlobImage(
         title=_(u"Foto"),
+        description=_(u"Dimensione consigliata 350x500"),
         required=True,
     )
 
     image_back = NamedBlobImage(
         title=_(u"Foto di sfondo"),
+        description=_(u"Dimensione consigliata 1200x450. La larghezza \
+                       effettivamente visibile sarà di circa 850x450"),
         required=True,
     )
 

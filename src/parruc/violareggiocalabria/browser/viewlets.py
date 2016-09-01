@@ -21,13 +21,10 @@ class SponsorViewlet(base.ViewletBase):
 
 class BannerViewlet(base.ViewletBase):
 
-    def get_banners(self):
-        query = {"portal_type": "Banner"}
-        banners = api.content.find(**query)
-        for banner in banners:
-            yield banner.getObject()
-
     def get_banner(self):
-        query = {"portal_type": "Banner", "sort_limit": 1}
+        query = {"portal_type": "Banner",
+                 "position": "horizzontal"}
         banners = api.content.find(**query)
-        return banners[0].getObject()
+        weights = [banner.weight for banner in banners]
+        banner = banners[utils.weighted_choice(weights)]
+        return banner.getObject()

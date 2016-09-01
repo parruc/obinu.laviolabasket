@@ -5,5 +5,11 @@
  <property name="behaviors" purge="false">
   <element value="parruc.violareggiocalabria.behaviors.featured.IFeatured"/>
   <element value="plone.app.dexterity.behaviors.id.IShortName"/>
+  <element value="parruc.flexslider.behaviors.slider.IParentSlider"/>
+  ParentSlider
+ </property>
+ <property name="default_view">view</property>
+ <property name="view_methods">
+   <element value="view"/>
  </property>
 </object>

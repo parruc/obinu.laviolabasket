@@ -93,8 +93,8 @@ def _add_subobjs(obj, field_name, subobj_type, data_list):
 
 def _create_structure():
     portal = api.portal.get()
-    permission = view = None
     for folder in folders:
+        permission = view = None
         content_type = "Folder"
         if "slider" in folder:
             content_type = "FolderWithSlider"
@@ -207,6 +207,8 @@ def _create_content():
             publish_and_reindex(obj)
     if not api.content.find(portal_type='News Item'):
         folder = portal.get("news")
+        folder.slides = [obj_to_rel(s) for s in slides_objs]
+        publish_and_reindex(folder)
         for new in news:
             obj = api.content.create(container=folder, type="News Item", **new)
             publish_and_reindex(obj)

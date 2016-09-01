@@ -56,7 +56,7 @@ class HomepageView(BrowserView):
         query = {"portal_type": "News Item",
                  "sort_on": "effective",
                  "sort_limit": limit, }
-        return [b.getObject() for b in api.content.find(**query)[:limit]]
+        return api.content.find(**query)[:limit]
 
     def partners(self, limit=6):
         query = {"portal_type": "Partner",
@@ -131,10 +131,10 @@ class HomepageView(BrowserView):
         return utils.format_date_ago(date)
 
     def news_link(self):
-        utils.news_link()
+        return utils.news_link()
 
     def roster_link(self):
-        utils.roster_link()
+        return utils.roster_link()
 
     def video_link(self):
-        utils.video_link()
+        return utils.video_link()
