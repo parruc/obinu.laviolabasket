@@ -16,7 +16,7 @@
         <element value="Folder" />
         <element value="Document" />
     </property>
-    <property name="default_view">giocatori</property>
+    <property name="default_view">view</property>
     <property name="view_methods">
       <element value="view"/>
       <element value="giocatori"/>

@@ -29,6 +29,14 @@
     />
 
     <browser:page
+        for="plone.app.contenttypes.interfaces.IDocument"
+        name="document_view"
+        template="templates/document.pt"
+        permission="zope2.View"
+        layer="..interfaces.IParrucViolareggiocalabriaLayer"
+    />
+
+    <browser:page
         for="plone.dexterity.interfaces.IDexterityContainer"
         name="partite"
         class=".partite.PartiteView"
