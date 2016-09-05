@@ -34,7 +34,8 @@ pages = [{"title": _(u"Storia"), 'parent': "societa"},
          {"title": _(u"Club"), 'parent': "societa"},
          {"title": _(u"Pala Calafiore"), 'parent': "societa"},
          {"title": _(u"Caffè Mauro"), },
-         {"title": _(u"Contatti")}, ]
+         #  {"title": _(u"Contatti")},
+         ]
 
 leagues = [{"title": "A1", "description": _("Serie A1")},
            {"title": "A2", "description": _("Serie A2"), 'is_main': True},

@@ -102,7 +102,7 @@ def _create_structure():
             permission = folder.pop("permission")
         if "view" in folder:
             view = folder.pop("view")
-        if api.content.find(portal_type='Folder', Title=folder["title"]):
+        if api.content.find(portal_type=content_type, Title=folder["title"]):
             continue
         obj = api.content.create(container=portal, type=content_type, **folder)
         if permission:
