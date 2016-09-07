@@ -174,7 +174,7 @@
               <li class="tweet" tal:repeat="tweet tweets">
                 <p tal:content="structure tweet/text">Contenuto del tweet</p>
                 <a tal:attributes="href string: https://twitter.com/${tweet/name}" tal:content="string:@${tweet/name}">@Viola_RC</a>
-                <span class="date" tal:condition="tweet/created" tal:content="python: view.format_twitter_date(tweet['created'])">
+                <span tal:condition="tweet/created" tal:content="python: view.format_twitter_date(tweet['created'])">
               </li>
             </ul>
             <p tal:condition="not:tweets">
