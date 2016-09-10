@@ -219,16 +219,5 @@
         </div>
       </div>
     </section>
-
-    <!--Sponsors -->
-    <section id="sponsors" tal:define="sponsors view/sponsors" tal:condition="sponsors">
-      <div class="row">
-        <div class="col-xs-2" tal:repeat="sponsor sponsors">
-          <a href="#" tal:attributes="href sponsor/link">
-            <img src="" tal:define="scales sponsor/@@images" tal:replace="structure python:scales.tag('image', height=90, direction='down')"/>
-          </a>
-        </div>
-      </div>
-    </section>
   </metal:block>
 </html>
