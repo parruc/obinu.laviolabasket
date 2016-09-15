@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from parruc.violareggiocalabria.content import StatisticheGiocatore
 from parruc.violareggiocalabria.content import TeamInLeague
 from z3c.form.interfaces import IObjectFactory

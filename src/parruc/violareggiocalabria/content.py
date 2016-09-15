@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #  from plone.memoize import view
 from datetime import datetime
+from parruc.devtools import profiled
 from parruc.violareggiocalabria.interfaces import IGiocatore
 from parruc.violareggiocalabria.interfaces import IHomepage
 from parruc.violareggiocalabria.interfaces import ILeague
@@ -25,11 +26,13 @@ class League(Item):
     implements(ILeague)
 
     #  @view.memoize
+    @profiled(threshold=10)
     def get_teams(self):
         """ TODO: Trasformare in view così posso cachare """
         return [r.from_object for r in get_backrelations(self, "league")]
 
     #  @view.memoize
+    @profiled(threshold=10)
     def get_viola(self):
         for team in self.get_teams():
             if team.is_viola:
@@ -44,6 +47,7 @@ class Giocatore(Item):
 class Partita(Item):
     implements(IPartita)
 
+    @profiled(threshold=10)
     def get_match_type_title(self):
         if not getattr(self, "match_type", None):
             return ""
@@ -65,10 +69,12 @@ class Partner(Item):
 class Squadra(Item):
     implements(ISquadra)
 
+    @profiled(threshold=10)
     def get_players(self):
         return [r.from_object for r in get_backrelations(self, "team")]
 
     #  @view.memoize
+    @profiled(threshold=10)
     def get_matches(self):
         home = [r.from_object for r in get_backrelations(self, "home")]
         away = [r.from_object for r in get_backrelations(self, "away")]
@@ -76,6 +82,7 @@ class Squadra(Item):
         matches.sort(key=lambda match: match.start, reverse=False)
         return matches
 
+    @profiled(threshold=10)
     def last_played_match(self):
         now = datetime.now()
         matches = self.get_matches()
@@ -84,6 +91,7 @@ class Squadra(Item):
             if match.start < now and match.score_home and match.score_away:
                 return match
 
+    @profiled(threshold=10)
     def future_matches(self):
         results = []
         now = datetime.now()
@@ -93,6 +101,7 @@ class Squadra(Item):
                 results.append(match)
         return results
 
+    @profiled(threshold=10)
     def past_matches(self):
         results = []
         now = datetime.now()
@@ -106,6 +115,7 @@ class Squadra(Item):
 class Video(Item):
     implements(IVideo)
 
+    @profiled(threshold=10)
     def get_video_category_title(self):
         if not getattr(self, "video_category", None):
             return ""
@@ -115,6 +125,7 @@ class Video(Item):
 class StatisticheGiocatore(object):
     implements(IStatisticheGiocatore)
 
+    @profiled(threshold=10)
     def __init__(self, **values):
         for key, value in values.items():
             setattr(self, key, value)
@@ -123,6 +134,7 @@ class StatisticheGiocatore(object):
 class TeamInLeague(object):
     implements(ITeamInLeague)
 
+    @profiled(threshold=10)
     def __init__(self, **values):
         for key, value in values.items():
             setattr(self, key, value)
