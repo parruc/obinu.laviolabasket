@@ -37,7 +37,7 @@ class NewsView(BaseNews):
     def batched_news(self):
         query = {"portal_type": "News Item",
                  "sort_on": "effective",
-                 "sort_order": "descending",}
+                 "sort_order": "descending", }
         news = api.content.find(**query)
         pagenumber = int(self.request.get("p", "1"))
         batch = Batch.fromPagenumber(items=news, pagesize=6,
