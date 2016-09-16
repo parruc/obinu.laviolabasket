@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from parruc.devtools import profiled
 from parruc.violareggiocalabria import utils
 from plone import api
 from plone.batching import Batch
@@ -9,6 +10,7 @@ from Products.Five.browser import BrowserView
 
 
 class BaseNews(BrowserView):
+    @profiled(threshold=10)
     def get_banners(self, number=2):
         query = {"portal_type": "Banner",
                  "position": "vertical"}
@@ -31,19 +33,21 @@ class NewsItemView(BaseNews):
 
 
 class NewsView(BaseNews):
-
+    @profiled(threshold=10)
     def batched_news(self):
         query = {"portal_type": "News Item",
                  "sort_on": "effective",
-                 "sort_order": "descending",}
+                 "sort_order": "descending", }
         news = api.content.find(**query)
         pagenumber = int(self.request.get("p", "1"))
         batch = Batch.fromPagenumber(items=news, pagesize=6,
                                      pagenumber=pagenumber, navlistsize=0)
         return batch
 
+    @profiled(threshold=10)
     def create_paging_link(self, pagenumber):
         return self.context.absolute_url() + "?p=%d" % pagenumber
 
+    @profiled(threshold=10)
     def format_news_date(self, date):
         return utils.format_date(date, month_length=3)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from parruc.violareggiocalabria import _
 from plone.app.vocabularies.catalog import CatalogSource
 from zope.schema.vocabulary import SimpleTerm

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # from plone.memoize import view
 from datetime import datetime
+from parruc.devtools import profiled
 from parruc.violareggiocalabria import utils
 from plone import api
 from plone.memoize import ram
@@ -18,13 +19,14 @@ logger = logging.getLogger("Plone")
 
 
 class HomepageView(BrowserView):
-
+    @profiled(threshold=10)
     def last_played_match(self):
         team = self.context.league_hp.to_object.get_viola()
         if not team:
             return []
         return team.last_played_match()
 
+    @profiled(threshold=10)
     def future_matches(self, limit=5):
         team = self.context.league_hp.to_object.get_viola()
         if not team:
@@ -36,21 +38,25 @@ class HomepageView(BrowserView):
             return matches[:limit]
         return matches
 
+    @profiled(threshold=10)
     def next_match_datetime(self):
         next_match = self.future_matches(limit=1)
         if next_match:
             return next_match[0].start.strftime("%Y/%m/%d %H:%M:%S")
 
+    @profiled(threshold=10)
     def latest_videos(self, limit=4):
         query = {"portal_type": "Video",
                  "sort_on": "getObjPositionInParent",
                  "sort_limit": limit}
         return [b.getObject() for b in api.content.find(**query)[:limit]]
 
+    @profiled(threshold=10)
     def players(self):
         team = self.context.league_hp.to_object.get_viola()
         return team.get_players()
 
+    @profiled(threshold=10)
     def latest_news(self, limit=5):
         """ TODO: get only featured"""
         query = {"portal_type": "News Item",
@@ -58,24 +64,28 @@ class HomepageView(BrowserView):
                  "sort_limit": limit, }
         return api.content.find(**query)[:limit]
 
+    @profiled(threshold=10)
     def partners(self, limit=6):
         query = {"portal_type": "Partner",
                  "sort_on": "getObjPositionInParent",
                  "sort_limit": limit, }
         return [b.getObject() for b in api.content.find(**query)[:limit]]
 
+    @profiled(threshold=10)
     def sponsors(self, limit=6):
         query = {"portal_type": "Sponsor",
                  "sort_on": "getObjPositionInParent",
                  "sort_limit": limit, }
         return [b.getObject() for b in api.content.find(**query)[:limit]]
 
+    @profiled(threshold=10)
     def classifica(self):
         query = {"portal_type": "Squadra",
                  "sort_on": "points",
                  "sort-order": "descending", }
         return api.content.find(**query)
 
+    @profiled(threshold=10)
     @ram.cache(lambda *args: time() // (60 * 10))
     def tweets(self):
         customer_key = os.getenv("TWITTER_CUSTOMER_KEY", None)
@@ -115,26 +125,34 @@ class HomepageView(BrowserView):
 
         return results
 
+    @profiled(threshold=10)
     def format_news_date(self, date):
         return utils.format_date(date, month_length=3)
 
+    @profiled(threshold=10)
     def format_match_date(self, date):
         return utils.format_date_time(date)
 
+    @profiled(threshold=10)
     def format_next_matches_date(self, date):
         return utils.format_date_time(date, month_length=3)
 
+    @profiled(threshold=10)
     def format_video_date(self, date):
         return utils.format_date_ago(date)
 
+    @profiled(threshold=10)
     def format_twitter_date(self, date):
         return utils.format_date_ago(date)
 
+    @profiled(threshold=10)
     def news_link(self):
         return utils.news_link()
 
+    @profiled(threshold=10)
     def roster_link(self):
         return utils.roster_link()
 
+    @profiled(threshold=10)
     def video_link(self):
         return utils.video_link()

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
 from datetime import datetime
+from parruc.devtools import profiled
 from parruc.violareggiocalabria import _
 from plone import api
 from zc.relation.interfaces import ICatalog
@@ -16,6 +17,7 @@ months = [_(u"Gennaio"), _(u"Febbraio"), _(u"Marzo"), _(u"Aprile"),
           _(u"Settembre"), _(u"Ottobre"), _(u"Novembre"), _(u"Dicembre")]
 
 
+@profiled(threshold=10)
 def get_main_league():
     query = {"portal_type": "League", "is_main": True}
     league = api.content.find(**query)
@@ -24,6 +26,7 @@ def get_main_league():
     return league[0].getObject()
 
 
+@profiled(threshold=10)
 def news_link(add=False):
     folder_url = api.portal.get().get("news").absolute_url()
     if add:
@@ -31,6 +34,7 @@ def news_link(add=False):
     return folder_url
 
 
+@profiled(threshold=10)
 def roster_link(add=False):
     folder_url = api.portal.get().get("roster").absolute_url()
     if add:
@@ -38,10 +42,12 @@ def roster_link(add=False):
     return folder_url
 
 
+@profiled(threshold=10)
 def giocatori_link(add=False):
     return roster_link(add)
 
 
+@profiled(threshold=10)
 def video_link(add=False):
     folder_url = api.portal.get().get("video").absolute_url()
     if add:
@@ -49,6 +55,7 @@ def video_link(add=False):
     return folder_url
 
 
+@profiled(threshold=10)
 def partite_link(add=False):
     folder_url = api.portal.get().get("partite").absolute_url()
     if add:
@@ -56,6 +63,7 @@ def partite_link(add=False):
     return folder_url
 
 
+@profiled(threshold=10)
 def squadre_link(add=False):
     folder_url = api.portal.get().get("squadre").absolute_url()
     if add:
@@ -63,6 +71,7 @@ def squadre_link(add=False):
     return folder_url
 
 
+@profiled(threshold=10)
 def format_date_ago(date):
     if isinstance(date, DateTime):
         date = date.asdatetime()
@@ -98,6 +107,7 @@ def format_date_ago(date):
         return _(u"%d %s fa" % (years, year))
 
 
+@profiled(threshold=10)
 def format_date(date, month_length=0):
     if isinstance(date, DateTime):
         date = date.asdatetime()
@@ -108,6 +118,7 @@ def format_date(date, month_length=0):
     return "%s %s" % (day, month)
 
 
+@profiled(threshold=10)
 def format_date_time(date, month_length=0):
     if isinstance(date, DateTime):
         date = date.asdatetime()
@@ -120,6 +131,7 @@ def format_date_time(date, month_length=0):
     return "%s %s %s:%s" % (day, month, hour, minute)
 
 
+@profiled(threshold=10)
 def get_relations(obj, attribute=None, backrefs=False):
     """Get any kind of references and backreferences"""
     retval = []
@@ -148,10 +160,12 @@ def get_relations(obj, attribute=None, backrefs=False):
     return retval
 
 
+@profiled(threshold=10)
 def get_backrelations(obj, attribute=None):
     return get_relations(obj, attribute=attribute, backrefs=True)
 
 
+@profiled(threshold=10)
 def get_intid(obj):
     """Return the intid of an object from the intid-catalog"""
     intids = getUtility(IIntIds)
@@ -165,6 +179,7 @@ def get_intid(obj):
         return
 
 
+@profiled(threshold=10)
 def weighted_choice(weights):
     totals = []
     running_total = 0

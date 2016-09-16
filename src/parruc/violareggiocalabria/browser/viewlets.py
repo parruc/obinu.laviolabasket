@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+from parruc.devtools import profiled
 from parruc.violareggiocalabria import utils
 from plone import api
 from plone.app.layout.viewlets import common as base
@@ -11,7 +13,7 @@ class ControlPanelViewlet(base.ViewletBase):
 
 
 class SponsorViewlet(base.ViewletBase):
-
+    @profiled(threshold=10)
     def get_sponsors(self):
         query = {"portal_type": "Sponsor"}
         sponsors = api.content.find(**query)
@@ -20,7 +22,7 @@ class SponsorViewlet(base.ViewletBase):
 
 
 class BannerViewlet(base.ViewletBase):
-
+    @profiled(threshold=10)
     def get_banner(self):
         query = {"portal_type": "Banner",
                  "position": "horizzontal"}
