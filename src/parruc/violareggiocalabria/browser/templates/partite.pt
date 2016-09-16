@@ -61,7 +61,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-xs-12 col-sm-4 no-padding-left news-container">
+        <div tal:condition="last_played_match" class="col-xs-12 col-sm-4 no-padding-left news-container">
           <div class="tab">Foto</div>
           <div class="tab-small">
             <a href="" tal:attributes="href last_played_match/fb_link">Vedi tutte</a>
