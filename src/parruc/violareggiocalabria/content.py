@@ -12,6 +12,7 @@ from parruc.violareggiocalabria.interfaces import IStatisticheGiocatore
 from parruc.violareggiocalabria.interfaces import ITeamInLeague
 from parruc.violareggiocalabria.interfaces import IVideo
 from parruc.violareggiocalabria.utils import get_backrelations
+from parruc.violareggiocalabria.utils import sort_by_position
 from parruc.violareggiocalabria.vocabularies import match_types
 from parruc.violareggiocalabria.vocabularies import video_categories
 from plone.dexterity.content import Item
@@ -71,7 +72,8 @@ class Squadra(Item):
 
     @profiled(threshold=10)
     def get_players(self):
-        return [r.from_object for r in get_backrelations(self, "team")]
+        players = [r.from_object for r in get_backrelations(self, "team")]
+        return sorted(players, sort_by_position)
 
     #  @view.memoize
     @profiled(threshold=10)

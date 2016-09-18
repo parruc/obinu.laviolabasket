@@ -2,6 +2,7 @@
 from initial_data import banners
 from initial_data import folders
 from initial_data import leagues
+from initial_data import links
 from initial_data import news
 from initial_data import pages
 from initial_data import partite
@@ -127,9 +128,18 @@ def _create_content():
             parent = portal.get(page.get('parent'), None)
             if not parent:
                 parent = portal
+            view = page.pop("view", None)
             obj = api.content.create(container=parent, type="Document", **page)
+            if view:
+                obj.setLayout(view)
             pages_objs.append(obj)
             publish_and_reindex(obj)
+    link_brains = api.content.find(portal_type='Link')
+    if not link_brains:
+        for link in links:
+            obj = api.content.create(container=portal, type="Link", **link)
+            publish_and_reindex(obj)
+
     league_brains = api.content.find(portal_type='League')
     if league_brains:
         leagues_objs = [l.getObject() for l in league_brains]

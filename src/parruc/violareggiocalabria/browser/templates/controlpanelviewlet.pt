@@ -1,5 +1,0 @@
-<div id="viola-controlpanel" class="row">
-    <div class="col-xs-2" tal:repeat="link view/get_links">
-        <a class="btn" href="" tal:attributes="href link/url" tal:content="string: Aggiungi ${link/title}">Aggiungi qualcosa</a>
-    </div>
-</div>

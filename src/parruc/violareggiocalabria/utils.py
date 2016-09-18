@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from DateTime import DateTime
 from datetime import datetime
+from OFS.interfaces import IOrderedContainer
 from parruc.devtools import profiled
 from parruc.violareggiocalabria import _
 from plone import api
@@ -15,6 +16,29 @@ import random
 months = [_(u"Gennaio"), _(u"Febbraio"), _(u"Marzo"), _(u"Aprile"),
           _(u"Maggio"), _(u"Giugno"), _(u"Luglio"), _(u"Agosto"),
           _(u"Settembre"), _(u"Ottobre"), _(u"Novembre"), _(u"Dicembre")]
+
+
+def _get_position_in_parent(obj):
+    parent = obj.aq_inner.aq_parent
+    ordered = IOrderedContainer(parent, None)
+    if ordered is not None:
+        return ordered.getObjectPosition(obj.getId())
+    return 0
+
+
+def sort_by_position(a, b):
+    return _get_position_in_parent(a) - _get_position_in_parent(b)
+
+
+def send_mail(source, recipients, subject, message):
+    mail_host = api.portal.get_tool(name='MailHost')
+
+    for recipient in recipients:
+        mail_host.send(message,
+                       recipient,
+                       source,
+                       subject=subject,
+                       charset="utf-8",)
 
 
 @profiled(threshold=10)

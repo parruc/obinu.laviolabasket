@@ -3,6 +3,7 @@
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
     <property name="filter_content_types">True</property>
     <property name="allowed_content_types">
+        <element value="Link" />
         <element value="Giocatore" />
         <element value="Banner" />
         <element value="News Item" />

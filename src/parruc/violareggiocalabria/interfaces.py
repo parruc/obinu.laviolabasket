@@ -111,7 +111,7 @@ class ISquadra(model.Schema):
         required=True,
     )
 
-    image_teser = NamedBlobImage(
+    image_teaser = NamedBlobImage(
         title=_(u"Teaser squadra"),
         description=_(u"Dimensione consigliata 393x150"),
         required=True,

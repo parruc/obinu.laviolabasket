@@ -1,0 +1,84 @@
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="parruc.violareggiocalabria"
+  tal:omit-tag=""
+  metal:use-macro="context/main_template/macros/master">
+
+  <metal:block fill-slot="content-core">
+    <metal:content-title fill-slot="content-title"></metal:content-title>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyD0_xtXh8WeWdlU0SFsI0Zog8PgNpHjhHc"></script>
+    <div id="map-canvas"></div>
+    <script type="text/javascript">
+      function initialize() {
+        var myLatlng = new google.maps.LatLng(38.0946925, 15.6512406);
+        var mapOptions = {
+          zoom: 16,
+          center: myLatlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        //=====Initialise Default Marker
+        var marker = new google.maps.Marker({
+          position: myLatlng, map: map, title: 'marker'
+          //=====You can even customize the icons here
+        });
+
+        //=====Initialise InfoWindow
+        var infowindow = new google.maps.InfoWindow({content: "<B>Viola Reggio Calabria Basker</B><BR /> Via Pio XI, 337 - 89133 Reggio Calabria"});
+
+        //=====Eventlistener for InfoWindow
+        google.maps.event.addListener(marker, 'click', function () {
+          infowindow.open(map, marker);
+        });
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+    <div id="contact-form">
+      <div class="contact-info row">
+        <div class="col-xs-6">
+          <h1 class="orange">Viola Reggio Calabria</h1>
+          <p class="address">Via Pio XI, 337
+            <br/>
+            89133 Reggio Calabria</p>
+          <p class="address">Tel. +39 0965 595105</p>
+          <a href="mailto:info@violareggiocalabria.it">info@violareggiocalabria.it</a>
+        </div>
+        <div class="col-xs-6 contact-logo">
+          <img src="++resource++parruc.violareggiocalabria/logo.png"/>
+        </div>
+      </div>
+      <div class="contact-form">
+        <ul class="nav nav-pills">
+          <li tal:repeat="recipient view/recipients_voc" role="presentation">
+            <a tal:content="recipient/title" data-token="" tal:attributes="data-token recipient/token" class="contact-toggler" href="#">Home</a>
+          </li>
+        </ul>
+        <metal:form use-macro="view/@@ploneform-macros/titlelessform">
+          <metal:fields fill-slot="fields">
+            <metal:define define-macro="fields" tal:define="show_default_label show_default_label|nothing">
+
+              <legend tal:condition="show_default_label" tal:attributes="id string:fieldsetlegend-default" tal:content="default_fieldset_label">Form name</legend>
+              <div class="hidden">
+                <tal:recipient-field tal:replace="structure view/widgets/recipient/@@ploneform-render-widget"/>
+              </div>
+              <div class="row">
+                  <div class="col-sm-6 col-xs-12">
+                    <tal:name-field tal:replace="structure view/widgets/name/@@ploneform-render-widget"/>
+                    <tal:email-field tal:replace="structure view/widgets/email/@@ploneform-render-widget"/>
+                    <tal:phone-field tal:replace="structure view/widgets/phone/@@ploneform-render-widget"/>
+                  </div>
+                  <div class="col-sm-6 col-xs-12">
+                    <tal:text-field tal:replace="structure view/widgets/text/@@ploneform-render-widget"/>
+                  </div>
+              </div>
+            </metal:define>
+          </metal:fields>
+        </metal:form>
+      </div>
+    </div>
+  </metal:block>
+</html>

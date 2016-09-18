@@ -5,13 +5,6 @@ from plone import api
 from plone.app.layout.viewlets import common as base
 
 
-class ControlPanelViewlet(base.ViewletBase):
-
-    def get_links(self):
-        for item in ["partite", "squadre", "news", "giocatori", "video", ]:
-            yield{"title": item, "url": getattr(utils, item+"_link")(add=True)}
-
-
 class SponsorViewlet(base.ViewletBase):
     @profiled(threshold=10)
     def get_sponsors(self):

@@ -7,6 +7,7 @@
 
     <!-- Set overrides folder for Just-a-Bunch-Of-Templates product -->
     <include package="z3c.jbot" file="meta.zcml" />
+    <include package="plone.z3cform" />
 
     <browser:jbot
         directory="overrides"
@@ -82,6 +83,14 @@
         layer="..interfaces.IParrucViolareggiocalabriaLayer"
     />
 
+    <browser:page
+        for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+        name="contatti"
+        class=".contacts.ContactFormView"
+        permission="zope2.View"
+        layer="..interfaces.IParrucViolareggiocalabriaLayer"
+        />
+
     <browser:viewlet
         name="violareggiocalabria.sponsors"
         for="*"
@@ -100,16 +109,6 @@
         class=".viewlets.BannerViewlet"
         template="templates/bannerviewlet.pt"
         permission="zope2.View"
-    />
-
-    <browser:viewlet
-        name="violareggiocalabria.controlpanel"
-        for="*"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
-        layer="..interfaces.IParrucViolareggiocalabriaLayer"
-        class=".viewlets.ControlPanelViewlet"
-        template="templates/controlpanelviewlet.pt"
-        permission="cmf.ModifyPortalContent"
     />
 
 </configure>
