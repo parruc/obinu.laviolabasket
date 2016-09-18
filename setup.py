@@ -12,7 +12,7 @@ long_description = '\n\n'.join([
 
 setup(
     name='parruc.violareggiocalabria',
-    version='1.0a1',
+    version='1.0.0',
     description="Viola Reggiocalabria basket club website, core package",
     long_description=long_description,
     # Get more from https://pypi.python.org/pypi?%3Aaction=list_classifiers
