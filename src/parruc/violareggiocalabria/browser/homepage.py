@@ -80,10 +80,16 @@ class HomepageView(BrowserView):
 
     @profiled(threshold=10)
     def classifica(self):
-        query = {"portal_type": "Squadra",
-                 "sort_on": "points",
-                 "sort-order": "descending", }
+
         return api.content.find(**query)
+        teams = self.context.league_hp.to_object.teams
+        if teams:
+            teams.sort(key=lambda x: x.points)
+        else:
+            teams = []
+        for team in teams:
+            yield {"points": team.points, "played": team.played,
+                   "Title": team.team.Title}
 
     @profiled(threshold=10)
     @ram.cache(lambda *args: time() // (60 * 10))

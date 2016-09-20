@@ -76,6 +76,14 @@ class ILeague(model.Schema):
         required=False,
     )
 
+    teams = schema.List(
+        title=_(u"Classifica"),
+        required=False,
+        value_type=schema.Object(title=_("Squadra"),
+                                 schema=ITeamInLeague),
+    )
+
+
 
 class IPartner(model.Schema):
     pass
@@ -117,11 +125,11 @@ class ISquadra(model.Schema):
         required=True,
     )
 
-    league = RelationChoice(
-        title=_(u"Campionato a cui partecipa"),
-        source=leagues,
-        required=True,
-    )
+#    league = RelationChoice(
+#        title=_(u"Campionato a cui partecipa"),
+#        source=leagues,
+#        required=True,
+#    )
 
     is_viola = schema.Bool(
         title=_(u"Squadra del club Viola Reggiocalabria?"),

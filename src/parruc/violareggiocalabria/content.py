@@ -31,6 +31,11 @@ class League(Item):
     def get_teams(self):
         """ TODO: Trasformare in view così posso cachare """
         return [r.from_object for r in get_backrelations(self, "league")]
+        if not self.teams:
+            return []
+        return [t.team for t in self.teams]
+
+
 
     #  @view.memoize
     @profiled(threshold=10)

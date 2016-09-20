@@ -185,7 +185,8 @@ def _create_content():
             partita["competition"] = get_rel_by_title(leagues_objs, "A2")
             obj = api.content.create(container=folder, type="Partita",
                                      **partita)
-            image_path = os.path.join(base_img_path, partita.pop("image"))
+            image_path = os.path.join(base_img_path,
+                                      "players", "players-bg.jpg")
             obj.image = load_image(image_path, 'image/jpg')
             obj.home = obj_to_rel(teams_objs[partita["home_index"]])
             obj.away = obj_to_rel(teams_objs[partita["away_index"]])

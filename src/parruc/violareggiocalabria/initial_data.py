@@ -94,20 +94,20 @@ teams = [{"title": u"Givova Scafati", "played": 30, "points": 40,
           "image_teaser": "teaser1.jpg", "league_name": "A2", }, ]
 
 
-partite = [{"title": u"Vittoria al cardiopalma", "image": "players-bg.jpg",
+partite = [{"title": u"Vittoria al cardiopalma",
             "home_index": 8, "away_index": 5, "match_type": "regular",
             "score_home": 99, "score_away": 75, "fb_link": "http://fb.com",
             "start": datetime(2016, 7, 1, 15, 30, 0), },
            {"title": u"Vittoria al cardiopalma", "match_type": "regular",
-            "home_index": 8, "away_index": 9, "image": "players-bg.jpg",
+            "home_index": 8, "away_index": 9, 
             "score_home": 88, "score_away": 87, "fb_link": "http://fb.com",
             "start": datetime(2016, 8, 1, 15, 30, 0), },
            {"title": u"Grande vittoria fuori casa", "match_type": "regular",
-            "home_index": 2, "away_index": 8, "image": "players-bg.jpg",
+            "home_index": 2, "away_index": 8,
             "score_home": 45, "score_away": 98, "fb_link": "http://fb.com",
             "start": datetime(2016, 9, 1, 19, 30, 0), },
            {"title": u"Sconfitta di misura", "match_type": "regular",
-            "home_index": 1, "away_index": 8, "image": "players-bg.jpg",
+            "home_index": 1, "away_index": 8,
             "score_home": 76, "score_away": 90, "fb_link": "http://fb.com",
             "start": datetime(2016, 10, 1, 21, 30, 0), }, ]
 
