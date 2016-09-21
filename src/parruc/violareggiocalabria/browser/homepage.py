@@ -61,6 +61,7 @@ class HomepageView(BrowserView):
         """ TODO: get only featured"""
         query = {"portal_type": "News Item",
                  "sort_on": "effective",
+                 "sort_order": "descending", 
                  "sort_limit": limit, }
         return api.content.find(**query)[:limit]
 
