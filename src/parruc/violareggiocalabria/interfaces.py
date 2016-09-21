@@ -8,8 +8,10 @@ from parruc.violareggiocalabria.vocabularies import leagues
 from parruc.violareggiocalabria.vocabularies import match_types
 from parruc.violareggiocalabria.vocabularies import teams
 from parruc.violareggiocalabria.vocabularies import video_categories
+# from plone.autoform import directives as form
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
+# from z3c.form.browser.select import SelectFieldWidget
 from z3c.relationfield.schema import RelationChoice
 from zope import schema
 from zope.interface import Interface
@@ -65,7 +67,7 @@ class ITeamInLeague(Interface):
         team = RelationChoice(
             title=_(u"Team"),
             required=True,
-            source=launches,
+            source=teams,
         )
 
 
@@ -82,7 +84,6 @@ class ILeague(model.Schema):
         value_type=schema.Object(title=_("Squadra"),
                                  schema=ITeamInLeague),
     )
-
 
 
 class IPartner(model.Schema):

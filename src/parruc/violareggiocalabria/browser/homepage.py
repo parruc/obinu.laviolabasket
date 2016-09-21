@@ -81,8 +81,6 @@ class HomepageView(BrowserView):
 
     @profiled(threshold=10)
     def classifica(self):
-
-        return api.content.find(**query)
         teams = self.context.league_hp.to_object.teams
         if teams:
             teams.sort(key=lambda x: x.points)
