@@ -17,7 +17,7 @@
             <div class="tab">News</div>
             Non sono presenti notizie
           </div>
-          <div class="col-xs-8 news-container no-padding-right" tal:condition="news">
+          <div class="col-sm-8 col-xs-12 news-container no-padding-right" tal:condition="news">
             <div class="tab">News</div>
             <div class="r-box-n orange-top-border">
               <article tal:repeat="new news">
