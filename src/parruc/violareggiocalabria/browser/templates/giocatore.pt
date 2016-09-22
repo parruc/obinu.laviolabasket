@@ -9,6 +9,7 @@
 
   <metal:block fill-slot="content-core">
     <metal:title fill-slot="content-title"></metal:title>
+    <metal:description fill-slot="content-description"></metal:description>
     <!-- Immagine larga -->
     <div class="container player-container">
         <div class="row">

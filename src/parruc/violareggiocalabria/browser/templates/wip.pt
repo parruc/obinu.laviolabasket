@@ -1,0 +1,58 @@
+<!-- News -->
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  i18n:domain="parruc.violareggiocalabria"
+  metal:use-macro="context/main_template/macros/master">
+
+  <metal:block fill-slot="content-core">
+    <metal:title fill-slot="content-title"></metal:title>
+    <metal:title fill-slot="content-description"></metal:title>
+    <section id="news">
+      <div class="row">
+        <div class="col-sm-8 col-xs-12 news-container no-padding-right">
+          <div class="tab">
+            <h1 tal:content="context/Title">Titolo</h1>
+          </div>
+          <div class="r-box-n orange-top-border">
+            <article>
+                <div class="wip" tal:content="structure context/text/output"></div>
+            </article>
+          </div>
+          <div class="grey-boxes">
+            <div class="row">
+              <div class="left-box col-xs-6">
+                <div class="grey-box-wrapper">
+                  <div class="grey-border"></div>
+                  <div class="grey-box"></div>
+                </div>
+              </div>
+              <div class="right-box col-xs-6">
+                <div class="grey-box-wrapper">
+                  <div class="grey-border"></div>
+                  <div class="grey-box"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="prevnext">
+            <div class="row">
+              <div tal:replace="structure provider:plone.belowcontent"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 col-xs-12 banners-container no-padding-left">
+          <div class="banners">
+            <tal:block tal:repeat="banner view/get_banners">
+              <a href="#" tal:attributes="href banner/link">
+                <img src="" tal:define="scales banner/@@images" tal:replace="structure python:scales.tag('image', width=415, height=347, direction='up', css_class='img-responsive')"/>
+              </a>
+            </tal:block>
+          </div>
+        </div>
+      </div>
+    </section>
+  </metal:block>
+</html>

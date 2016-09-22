@@ -21,6 +21,15 @@
     />
 
     <browser:page
+        for="*"
+        name="wip"
+        class=".wip.WipView"
+        template="templates/wip.pt"
+        permission="zope2.View"
+        layer="..interfaces.IParrucViolareggiocalabriaLayer"
+    />
+
+    <browser:page
         for="..interfaces.IVideo"
         name="view"
         class=".video.VideoView"

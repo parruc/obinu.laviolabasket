@@ -9,6 +9,7 @@
 
   <metal:block fill-slot="content-core">
     <metal:title fill-slot="content-title"></metal:title>
+    <metal:description fill-slot="content-description"></metal:description>
     <!-- Ultima partita giocata -->
     <section id="m-a-n">
       <div class="row">
