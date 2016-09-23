@@ -17,6 +17,8 @@ launches = CatalogSource(path={'query': "/", 'depth': -1},
 leagues = CatalogSource(path={'query': "/", 'depth': -1},
                         portal_type=("League", ))
 
+matches = CatalogSource(path={'query': "/", 'depth': -1},
+                        portal_type=("Partita", ))
 
 # def _get_terms_from_registry(voc_name):
 #     registry = queryUtility(IRegistry)
@@ -34,6 +36,7 @@ match_types = SimpleVocabulary(
      SimpleTerm(value=u'playoff', title=_(u'Playoff')),
      SimpleTerm(value=u'playout', title=_(u'Playout')),
      SimpleTerm(value=u'friendly', title=_(u'Amichevole')),
+     SimpleTerm(value=u'tournament', title=_(u'Torneo')),
      ])
 
 banner_positions = SimpleVocabulary(

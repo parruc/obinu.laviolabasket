@@ -6,6 +6,7 @@ from parruc.violareggiocalabria.vocabularies import banner_positions
 from parruc.violareggiocalabria.vocabularies import launches
 from parruc.violareggiocalabria.vocabularies import leagues
 from parruc.violareggiocalabria.vocabularies import match_types
+from parruc.violareggiocalabria.vocabularies import matches
 from parruc.violareggiocalabria.vocabularies import teams
 from parruc.violareggiocalabria.vocabularies import video_categories
 # from plone.autoform import directives as form
@@ -102,6 +103,13 @@ class IHomepage(model.Schema):
     launch_image = NamedBlobImage(
         title=_(u"Immagine per il lancio"),
         description=_(u"Dimensione consigliata 786x150"),
+        required=False,
+    )
+
+    launch_match = RelationChoice(
+        title=_(u"Lancio ad una Partita"),
+        description=_(u"Sostituisce l'ultima partita se non ci sono lanci"),
+        source=matches,
         required=False,
     )
 

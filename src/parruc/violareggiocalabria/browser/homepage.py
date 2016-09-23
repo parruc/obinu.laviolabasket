@@ -21,6 +21,8 @@ logger = logging.getLogger("Plone")
 class HomepageView(BrowserView):
     @profiled(threshold=10)
     def last_played_match(self):
+        if hasattr(self.context, "launch_match") and self.context.launch_match:
+            return self.context.launch_match.to_object
         team = self.context.league_hp.to_object.get_viola()
         if not team:
             return []
@@ -61,7 +63,7 @@ class HomepageView(BrowserView):
         """ TODO: get only featured"""
         query = {"portal_type": "News Item",
                  "sort_on": "effective",
-                 "sort_order": "descending", 
+                 "sort_order": "descending",
                  "sort_limit": limit, }
         return api.content.find(**query)[:limit]
 
