@@ -35,8 +35,6 @@ class League(Item):
             return []
         return [t.team for t in self.teams]
 
-
-
     #  @view.memoize
     @profiled(threshold=10)
     def get_viola(self):

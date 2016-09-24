@@ -9,10 +9,8 @@ from parruc.violareggiocalabria.vocabularies import match_types
 from parruc.violareggiocalabria.vocabularies import matches
 from parruc.violareggiocalabria.vocabularies import teams
 from parruc.violareggiocalabria.vocabularies import video_categories
-# from plone.autoform import directives as form
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
-# from z3c.form.browser.select import SelectFieldWidget
 from z3c.relationfield.schema import RelationChoice
 from zope import schema
 from zope.interface import Interface
@@ -56,6 +54,11 @@ class ISponsor(model.Schema):
 
 class ITeamInLeague(Interface):
 
+        name = schema.TextLine(
+            title=_("Squadra"),
+            required=True,
+        )
+
         played = schema.Int(
             title=_(u"Numero di partite giocate"),
             required=True,
@@ -64,11 +67,6 @@ class ITeamInLeague(Interface):
         points = schema.Int(
             title=_(u"Numero di punti"),
             required=True,
-        )
-        team = RelationChoice(
-            title=_(u"Team"),
-            required=True,
-            source=teams,
         )
 
 
@@ -134,11 +132,11 @@ class ISquadra(model.Schema):
         required=True,
     )
 
-#    league = RelationChoice(
-#        title=_(u"Campionato a cui partecipa"),
-#        source=leagues,
-#        required=True,
-#    )
+    league = RelationChoice(
+        title=_(u"Campionato a cui partecipa"),
+        source=leagues,
+        required=True,
+    )
 
     is_viola = schema.Bool(
         title=_(u"Squadra del club Viola Reggiocalabria?"),

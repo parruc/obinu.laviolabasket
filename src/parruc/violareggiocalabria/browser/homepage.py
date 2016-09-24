@@ -85,12 +85,12 @@ class HomepageView(BrowserView):
     def classifica(self):
         teams = self.context.league_hp.to_object.teams
         if teams:
-            teams.sort(key=lambda x: x.points)
+            teams.sort(key=lambda x: x.points, reverse=True)
         else:
             teams = []
         for team in teams:
             yield {"points": team.points, "played": team.played,
-                   "Title": team.team.Title}
+                   "Title": team.name}
 
     @profiled(threshold=10)
     @ram.cache(lambda *args: time() // (60 * 10))
