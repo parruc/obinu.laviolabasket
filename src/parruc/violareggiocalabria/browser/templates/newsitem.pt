@@ -16,7 +16,7 @@
           <div class="tab">News</div>
           <div class="r-box-n orange-top-border">
             <article>
-              <h3 tal:content="context/Title">La Viola-vola</h3>
+              <h3 tal:content="context/Title|nothing">La Viola-vola</h3>
               <div tal:content="structure provider:plone.abovecontenttitle"></div>
               <span class="date-n" tal:content="python: view.format_news_date(context.effective())">21 Mar</span>
               <p tal:condition="context/text" tal:content="structure context/text/output">Testo HTML</p>
@@ -47,7 +47,7 @@
         <div class="col-sm-4 col-xs-12 banners-container no-padding-left">
           <div class="banners">
             <tal:block tal:repeat="banner view/get_banners">
-              <a href="#" tal:attributes="href banner/link">
+                  <a href="#" tal:attributes="href banner/link">
                 <img src="" tal:define="scales banner/@@images" tal:replace="structure python:scales.tag('image', width=415, height=347, direction='up', css_class='img-responsive')"/>
               </a>
             </tal:block>

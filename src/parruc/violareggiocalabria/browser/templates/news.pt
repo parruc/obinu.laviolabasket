@@ -8,8 +8,8 @@
   metal:use-macro="context/main_template/macros/master">
 
   <metal:block fill-slot="content-core">
-     <metal:title fill-slot="content-title"></metal:title>
-     <metal:title fill-slot="content-description"></metal:title>
+    <metal:title fill-slot="content-title"></metal:title>
+    <metal:title fill-slot="content-description"></metal:title>
     <tal:block tal:define="news view/batched_news">
       <section id="news">
         <div class="row">
@@ -76,16 +76,17 @@
               </div>
             </div>
           </div>
-            <div class="col-sm-4 col-xs-12 banners-container no-padding-left">
-                <div class="banners">
-                  <tal:block tal:repeat="banner view/get_banners">
-                    <a href="#" tal:attributes="href banner/link">
-                      <img src="" tal:define="scales banner/@@images" tal:replace="structure python:scales.tag('image', width=415, height=347, direction='up', css_class='img-responsive')"/>
-                    </a>
-                  </tal:block>
-              </div>
+          <div class="col-sm-4 col-xs-12 banners-container no-padding-left">
+            <div class="banners">
+              <tal:block tal:repeat="banner view/get_banners">
+                <a href="#" tal:attributes="href banner/link">
+                  <img src="" tal:define="scales banner/@@images" tal:replace="structure python:scales.tag('image', width=415, height=347, direction='up', css_class='img-responsive')"/>
+                </a>
+              </tal:block>
             </div>
-        </section>
-      </tal:block>
-    </metal:block>
-  </html>
+          </div>
+        </div>
+      </section>
+    </tal:block>
+  </metal:block>
+</html>

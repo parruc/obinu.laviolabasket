@@ -18,7 +18,7 @@
           </div>
           <div class="r-box-n orange-top-border">
             <article>
-                <div class="wip" tal:content="structure context/text/output"></div>
+                <div class="wip" tal:condition="context/text" tal:content="structure context/text/output"></div>
             </article>
           </div>
           <div class="grey-boxes">
