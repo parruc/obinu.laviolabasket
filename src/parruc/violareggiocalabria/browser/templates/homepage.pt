@@ -160,7 +160,7 @@
             <div class="col-xs-8 no-padding-left">
               <div class="players-slider">
                 <div tal:repeat="player players" class="flex-slide col-4">
-                  <img src="" tal:define="scales player/@@images" tal:replace="structure python:scales.tag('image', width=199, height=177, direction='down')"/>
+                  <img src="" tal:define="scales player/@@images" tal:replace="structure python:scales.tag('image', width=199, direction='up')"/>
                   <div class="player-name">
                     <a href="" tal:attributes="href player/absolute_url" tal:content="string: ${player/name} ${player/surname}">Jan Kirchhoff</a>
                     <p tal:content="player/role">Defender</p>
