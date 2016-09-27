@@ -13,8 +13,8 @@
     <!-- Ultima partita giocata -->
     <section id="m-a-n">
       <div class="row">
-        <div class="col-xs-12 col-sm-8 no-padding-right match-container" tal:condition="context/launch" tal:define="launch nocall:context/launch/to_object|nothing">
-          <tal:block tal:condition="launch">
+        <div class="col-xs-12 col-sm-8 no-padding-right match-container" tal:define="launch nocall:context/launch/to_object|nothing">
+          <tal:block tal:condition="context/launch">
             <div class="tab" tal:content="launch/Title">Titolo lancio</div>
             <div class="match">
               <span class="img-dark">
@@ -23,7 +23,7 @@
               <div class="launch-body" tal:content="structure launch/text/output">Testo del lancio</div>
             </div>
           </tal:block>
-          <tal:block tal:condition="not:launch">
+          <tal:block tal:condition="not:context/launch">
             <div class="tab" i18n="">Partite</div>
             <div class="match" tal:define="last_played_match view/last_played_match" tal:condition="last_played_match">
               <tal:block tal:define="home nocall:last_played_match/home/to_object;

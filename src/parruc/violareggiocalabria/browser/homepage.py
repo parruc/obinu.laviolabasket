@@ -60,11 +60,11 @@ class HomepageView(BrowserView):
 
     @profiled(threshold=10)
     def latest_news(self, limit=5):
-        """ TODO: get only featured"""
         query = {"portal_type": "News Item",
                  "sort_on": "effective",
                  "sort_order": "descending",
-                 "sort_limit": limit, }
+                 "sort_limit": limit,
+                 "featured": True, }
         return api.content.find(**query)[:limit]
 
     @profiled(threshold=10)
