@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from email.Header import Header
+from email.MIMEText import MIMEText
 from parruc.violareggiocalabria import _
 from parruc.violareggiocalabria.utils import send_mail
 from plone.app.users.schema import checkEmailAddress
@@ -86,6 +88,9 @@ class ContactForm(form.Form):
             %(text)s
 
             """ % (data)
+            encoding = 'utf-8'
+            message = MIMEText(message, 'plain', encoding)
+            message['Reply-To'] = Header(data.get("email", source), encoding)
             send_mail(source, recipients, subject, message)
             messages.add(u"""La tua email è stata inviata con successo.
                          Ti risponderemo prima possibile.""",
